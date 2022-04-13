@@ -1,5 +1,11 @@
 using Falco.UI.ASP.Entities;
 using Microsoft.EntityFrameworkCore;
+using Kalendarz2.Services;
+using Kalendarz2.Interfaces.Services;
+using Backend.Interfaces.Facades;
+using Backend.Interfaces.Services;
+using Backend.Facades;
+using Backend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +13,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<CalendarDbContext>(x => x.UseSqlServer(@"Server=(LocalDB)\MSSQLLocalDB;Database=CalendarDb;Trusted_Connection=True;"));
+builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
+builder.Services.AddScoped<IAccountFcd, AccountFcd>();
+builder.Services.AddScoped<IAccountSrv, AccountSrv>();
+builder.Services.AddScoped<IEmailSenderSrv, EmailSenderSrv>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -34,6 +44,7 @@ app.UseSwaggerUI(options =>
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

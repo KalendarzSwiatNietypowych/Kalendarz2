@@ -1,4 +1,5 @@
-﻿/*using Backend.Interfaces.Facades;
+﻿using Backend.Interfaces.Facades;
+using Backend.Models.User;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers;
@@ -34,4 +35,4 @@ public class AccountController : ControllerBase
         result.Token = authorization.Split(' ')[1];
         return Ok(result);
     }
-}*/
+}
