@@ -1,4 +1,4 @@
-﻿namespace Backend.Models.User;
+﻿namespace Kalendarz2.Domain.Common;
 
 public class SendResetLinkDTO
 {

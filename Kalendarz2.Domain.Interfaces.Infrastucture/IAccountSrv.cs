@@ -1,6 +1,6 @@
-﻿using Backend.Models.User;
+﻿using Kalendarz2.Domain.Common;
 
-namespace Backend.Interfaces.Services;
+namespace Kalendarz2.Domain.Interfaces.Infrastucture;
 
 public interface IAccountSrv
 {

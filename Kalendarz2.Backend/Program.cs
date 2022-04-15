@@ -1,4 +1,4 @@
-using Falco.UI.ASP.Entities;
+using Kalendarz2.Infrastructure.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

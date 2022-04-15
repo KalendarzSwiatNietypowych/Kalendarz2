@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Interfaces.Facades\Kalendarz2.Domain.Interfaces.Facades.csproj" />
+    <ProjectReference Include="..\Kalendarz2.Domain.Common\Kalendarz2.Domain.Common.csproj" />
+  </ItemGroup>
+
 </Project>

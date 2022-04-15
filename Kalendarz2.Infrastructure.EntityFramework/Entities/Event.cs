@@ -1,4 +1,4 @@
-﻿namespace Falco.UI.ASP.Entities;
+﻿namespace Kalendarz2.Infrastructure.EntityFramework;
 
 public class Event
 {

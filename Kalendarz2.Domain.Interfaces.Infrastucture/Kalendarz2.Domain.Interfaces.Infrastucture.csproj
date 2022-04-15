@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Kalendarz2.Domain.Common\Kalendarz2.Domain.Common.csproj" />
+  </ItemGroup>
+
 </Project>

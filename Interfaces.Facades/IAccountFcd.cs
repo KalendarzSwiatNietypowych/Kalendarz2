@@ -1,6 +1,6 @@
-﻿using Backend.Models.User;
+﻿using Kalendarz2.Domain.Common;
 
-namespace Backend.Interfaces.Facades;
+namespace Kalendarz2.Domain.Interfaces.Facades;
 
 public interface IAccountFcd
 {

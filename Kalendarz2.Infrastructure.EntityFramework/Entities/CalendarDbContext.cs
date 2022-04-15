@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-namespace Falco.UI.ASP.Entities;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Json;
+
+namespace Kalendarz2.Infrastructure.EntityFramework;
 
 public class CalendarDbContext : DbContext
 {

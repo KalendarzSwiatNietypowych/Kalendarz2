@@ -1,7 +1,7 @@
-﻿using Backend.Interfaces.Facades;
-using Backend.Models.User;
+﻿using Kalendarz2.Domain.Common;
+using Kalendarz2.Domain.Interfaces.Facades;
 
-namespace Backend.Facades;
+namespace Kalendarz2.Domain.Facades;
 
 public class AccountFcd : IAccountFcd
 {

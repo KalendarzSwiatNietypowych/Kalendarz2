@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Backend.Models.User;
+namespace Kalendarz2.Domain.Common;
 
 public class RegisterDTO
 {
