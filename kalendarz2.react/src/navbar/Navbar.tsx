@@ -1,7 +1,7 @@
 import { Link, Route, Routes } from "react-router-dom";
 import { Login } from "../auth/login/Login";
 import { Register } from "../auth/register/Register";
-import { Calendar } from "../calendar/Calendar";
+import { CalendarContainer } from "../calendar/Calendar";
 import { Home } from "../home/Home";
 
 export const Navbar = () => {
@@ -17,7 +17,7 @@ export const Navbar = () => {
       <Routes>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
-        <Route path="/calendar" element={<Calendar />}></Route>
+        <Route path="/calendar" element={<CalendarContainer />}></Route>
         <Route path="/" element={<Home />}></Route>
       </Routes>
     </div>
