@@ -7,8 +7,8 @@ public class User
     public string PasswordHash { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
+    public bool isVerified { get; set; } = false;
     public int RoleId { get; set; }
-    public string Token { get; set; }
     public ICollection<Reminder> Reminders { get; set; }
     public ICollection<Participation> Participations { get; set; }
 }

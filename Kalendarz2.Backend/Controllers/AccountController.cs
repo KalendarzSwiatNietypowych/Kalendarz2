@@ -1,7 +1,8 @@
-﻿/*using Backend.Interfaces.Facades;
+﻿using Kalendarz2.Domain.Common;
+using Kalendarz2.Domain.Interfaces.Facades;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Backend.Controllers;
+namespace Kalendarz2.Backend.Controllers;
 
 
 [Route("api/[controller]")]
@@ -21,7 +22,7 @@ public class AccountController : ControllerBase
         return Ok(_accountFcd.RegisterUser(registerDTO));
     }
 
-    [HttpPost("login")]
+/*    [HttpPost("login")]
     public ActionResult LoginUser([FromBody] LoginDTO loginDTO)
     {
         return Ok(_accountFcd.LoginUser(loginDTO));
@@ -33,5 +34,5 @@ public class AccountController : ControllerBase
         var result = _accountFcd.UpdateUser(editUserDTO);
         result.Token = authorization.Split(' ')[1];
         return Ok(result);
-    }
-}*/
+    }*/
+}
