@@ -8,4 +8,5 @@ public interface IAccountSrv
     UserDTO LoginUser(LoginDTO loginDTO);
     UserDTO UpdateUser(EditUserDTO user);
     UserAuthorizeDTO GetById(int? id);
+    Task<bool> EmailSenderAsync(SendEmailDTO mail);
 }

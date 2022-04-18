@@ -1,6 +1,6 @@
 ﻿namespace Kalendarz2.Domain.Common;
 
-public class SendResetLinkDTO
+public class SendEmailDTO
 {
     public string Email { get; set; }
 }

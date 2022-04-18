@@ -1,16 +1,20 @@
+using Kalendarz2.Domain.DI;
 using Kalendarz2.Infrastructure.EntityFramework;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddDependency(builder.Configuration);
 builder.Services.AddDbContext<CalendarDbContext>(x => x.UseSqlServer(@"Server=(LocalDB)\MSSQLLocalDB;Database=CalendarDb;Trusted_Connection=True;"));
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddMvc();
 
 var app = builder.Build();
 
@@ -19,8 +23,8 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-
 }
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -34,12 +38,11 @@ app.UseSwaggerUI(options =>
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.MapControllers();
 
 app.Run();
