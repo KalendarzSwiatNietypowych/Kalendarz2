@@ -18,16 +18,16 @@ public class AccountFcd : IAccountFcd
     }
     public UserAuthorizeDTO GetById(int? id)
     {
-        throw new NotImplementedException();
+        return _accountSrv.GetById(id);
     }
 
     public UserDTO LoginUser(LoginDTO loginDTO)
     {
-        throw new NotImplementedException();
+        return _accountSrv.LoginUser(loginDTO);
     }
 
     public UserDTO UpdateUser(EditUserDTO user)
     {
-        throw new NotImplementedException();
+        return _accountSrv.UpdateUser(user);
     }
 }

@@ -22,7 +22,7 @@ public class AccountController : ControllerBase
         return Ok(_accountFcd.RegisterUser(registerDTO));
     }
 
-/*    [HttpPost("login")]
+    [HttpPost("login")]
     public ActionResult LoginUser([FromBody] LoginDTO loginDTO)
     {
         return Ok(_accountFcd.LoginUser(loginDTO));
@@ -32,7 +32,6 @@ public class AccountController : ControllerBase
     public ActionResult EditUser([FromBody] EditUserDTO editUserDTO, [FromHeader] string authorization)
     {
         var result = _accountFcd.UpdateUser(editUserDTO);
-        result.Token = authorization.Split(' ')[1];
         return Ok(result);
-    }*/
+    }
 }
