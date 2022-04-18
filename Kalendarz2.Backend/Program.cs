@@ -1,6 +1,5 @@
 using Kalendarz2.Domain.DI;
 using Kalendarz2.Infrastructure.EntityFramework;
-using Kalendarz2.Infrastructure.EntityFramework.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,12 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDependency(builder.Configuration);
 builder.Services.AddDbContext<CalendarDbContext>(x => x.UseSqlServer(@"Server=(LocalDB)\MSSQLLocalDB;Database=CalendarDb;Trusted_Connection=True;"));
-builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddMvc();
 
 var app = builder.Build();
 
