@@ -1,9 +1,9 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 import holidaysReducer from "../../holiday/slice"
-
+import authReducer from "../../auth/slice"
 const rootReducer = combineReducers({
-    // currentUser: authReducer,
+    currentUser: authReducer,
     // eventsBucket: eventsBucketReducer,
     holidays: holidaysReducer,
 });
