@@ -30,4 +30,9 @@ public class AccountFcd : IAccountFcd
     {
         return _accountSrv.UpdateUser(user);
     }
+
+    public UserDTO UserVerification(int userId)
+    {
+        return _accountSrv.UserVerification(userId);
+    }
 }

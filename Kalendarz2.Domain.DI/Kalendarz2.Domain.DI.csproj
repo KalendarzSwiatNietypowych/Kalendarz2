@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Domain.Facades\Kalendarz2.Domain.Facades.csproj" />
     <ProjectReference Include="..\Interfaces.Facades\Kalendarz2.Domain.Interfaces.Facades.csproj" />
     <ProjectReference Include="..\Kalendarz2.Infrastructure.EntityFramework\Kalendarz2.Infrastructure.EntityFramework.csproj" />
