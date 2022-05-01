@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-//import { toast } from "react-toastify";
+import { toast } from "react-toastify";
+import { ActionButton } from "../../common/components/containers/buttons/actionButton";
+import { SubmitButton } from "../../common/components/containers/buttons/submitButton";
+import { RegisterFormContainer } from "../../common/components/containers/registerFormContainer";
+import { BasicInput } from "../../common/components/inputs/basicInput";
 import { registerInitialState } from "../../common/models/user/register";
 import { useAppSelector } from "../../common/store/rootReducer";
 import { SelectUser } from "../slice";
@@ -15,13 +19,15 @@ const registerValidator = (fieldName: string, value: string) => {
       if (emailValidate) {
         return true;
       }
-      //toast.error("Please enter a valid email address");
+      console.log("eee");
+      toast.error("Please enter a valid email address");
       return false;
     case "password":
       if (value.length >= 6) {
         return true;
       }
-      // toast.error("Password must be at least 6 characters");
+      toast.error("Password must be at least 6 characters");
+      console.log("es");
       return false;
     default:
       return true;
@@ -61,8 +67,10 @@ export const Register = () => {
     dispatch(registerAction(credits));
   };
   return (
-    <div>
-      <input
+    <RegisterFormContainer>
+      <p>Register</p>
+
+      <BasicInput
         name="email"
         placeholder="Email"
         value={credits.email}
@@ -70,7 +78,7 @@ export const Register = () => {
         onChange={(e) => handleChange(e)}
       />
 
-      <input
+      <BasicInput
         name="firstName"
         placeholder="First Name"
         value={credits.firstName}
@@ -78,7 +86,7 @@ export const Register = () => {
         onChange={(e) => handleChange(e)}
       />
 
-      <input
+      <BasicInput
         name="lastName"
         placeholder="Last Name"
         value={credits.lastName}
@@ -86,7 +94,7 @@ export const Register = () => {
         onChange={(e) => handleChange(e)}
       />
 
-      <input
+      <BasicInput
         name="password"
         placeholder="Password"
         value={credits.password}
@@ -94,10 +102,11 @@ export const Register = () => {
         onChange={(e) => handleChange(e)}
         type="password"
       />
-      <button onClick={(e) => handleSubmit(e)}>Submit</button>
-      <h2>
-        Already have an account? <Link to="/login">Sign In</Link>
-      </h2>
-    </div>
+      <SubmitButton onClick={(e) => handleSubmit(e)}>Submit</SubmitButton>
+      <h2>Already have an account?</h2>
+      <ActionButton className="new-account" onClick={() => navigate("/login")}>
+        Sign In
+      </ActionButton>
+    </RegisterFormContainer>
   );
 };
