@@ -1,3 +1,4 @@
+using Kalendarz2.Domain.Common.Models.User;
 using Kalendarz2.Domain.DI;
 using Kalendarz2.Infrastructure.EntityFramework;
 using Microsoft.AspNetCore.Identity;
@@ -16,6 +17,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMvc();
 
+builder.Services.Configure<JSONWebTokensSettings>(builder.Configuration.GetSection("JSONWebTokensSettings"));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

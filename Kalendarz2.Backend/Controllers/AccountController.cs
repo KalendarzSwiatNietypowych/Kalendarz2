@@ -34,4 +34,10 @@ public class AccountController : ControllerBase
         var result = _accountFcd.UpdateUser(editUserDTO);
         return Ok(result);
     }
+
+    [HttpGet("verify/{userId}")]
+    public ActionResult UserVerification([FromRoute] int userId)
+    {
+        return Ok(_accountFcd.UserVerification(userId));
+    }
 }

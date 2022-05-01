@@ -8,4 +8,5 @@ public interface IAccountFcd
     UserDTO LoginUser(LoginDTO loginDTO);
     UserDTO UpdateUser(EditUserDTO user);
     UserAuthorizeDTO GetById(int? id);
+    UserDTO UserVerification(int userId);
 }

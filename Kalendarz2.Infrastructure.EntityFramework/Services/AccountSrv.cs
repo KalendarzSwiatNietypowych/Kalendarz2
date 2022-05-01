@@ -1,9 +1,16 @@
 ﻿using Kalendarz2.Domain.Common;
 using Kalendarz2.Domain.Common.Exceptions;
+using Kalendarz2.Domain.Common.Models.User;
 using Kalendarz2.Domain.Interfaces.Infrastucture;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Kalendarz2.Infrastructure.EntityFramework;
 
@@ -11,11 +18,13 @@ public class AccountSrv : IAccountSrv
 {
     private readonly CalendarDbContext _dbContext;
     private readonly IPasswordHasher<User> _passwordHasher;
+    private readonly JSONWebTokensSettings _jwtSettings;
 
-    public AccountSrv(CalendarDbContext dbContext, IPasswordHasher<User> passwordHasher)
+    public AccountSrv(CalendarDbContext dbContext, IPasswordHasher<User> passwordHasher, IOptions<JSONWebTokensSettings> jwtSettings)
     {
         _dbContext = dbContext;
         _passwordHasher = passwordHasher;
+        _jwtSettings = jwtSettings.Value;
 
     }
     public UserAuthorizeDTO GetById(int? id)
@@ -48,12 +57,13 @@ public class AccountSrv : IAccountSrv
             PasswordHash = user.PasswordHash
         };
 
+        JwtSecurityToken jwtSecurityToken = GenerateToken(userAuth);
         return new UserDTO
         {
             Id = user.Id,
             FirstName = user.FirstName,
             LastName = user.LastName,
-            Email = user.Email
+            Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
         };
     }
 
@@ -67,13 +77,13 @@ public class AccountSrv : IAccountSrv
             FirstName = registerDTO.FirstName,
             LastName = registerDTO.LastName,
             RoleId = registerDTO.RoleId,
-            PasswordHash = registerDTO.Password,
             isVerified = false
         };
 
         var emailToSend = new SendEmailDTO() { Email = registerDTO.Email };
-        EmailSenderAsync(emailToSend);
-        newUser.isVerified = true; //poki co do testowania
+        //EmailSenderAsync(emailToSend);
+        newUser.isVerified = true;
+        //poki co do testowania
         //nie jest wysyłany link do potwierdzania
 
         var hashedPassword = _passwordHasher.HashPassword(newUser, registerDTO.Password);
@@ -82,12 +92,22 @@ public class AccountSrv : IAccountSrv
         _dbContext.Users.Add(newUser);
         _dbContext.SaveChanges();
 
+        var userAuth = new UserAuthorizeDTO
+        {
+            Id = newUser.Id,
+            Email = newUser.Email,
+            FirstName = newUser.FirstName,
+            LastName = newUser.LastName,
+            PasswordHash = newUser.PasswordHash
+        };
+
+        JwtSecurityToken jwtSecurityToken = GenerateToken(userAuth);
         return new UserDTO()
         {
             Id = newUser.Id,
             FirstName = newUser.FirstName,
             LastName = newUser.LastName,
-            Email = newUser.Email
+            Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken)
         };
     }
 
@@ -109,19 +129,57 @@ public class AccountSrv : IAccountSrv
         };
     }
 
-    public async Task<bool> EmailSenderAsync(SendEmailDTO mail)
+    public async Task<bool> EmailSenderAsync(SendEmailDTO email)
     {
         var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
         var client = new SendGridClient(apiKey);
+        var user = _dbContext.Users.FirstOrDefault(u => u.Email == email.Email);
+
         var msg = new SendGridMessage()
         {
             From = new EmailAddress("kalendarz2@onet.pl", "Team Kalendarz 2"),
             Subject = "Verification Mail to Kalendarz2",
-            PlainTextContent = "Hey you!"
+            PlainTextContent = $"Hello {user.FirstName} {user.LastName} \n\n " +
+            $"We're really glad you registered to our webite. In order to verify your email play click in this not suspisiout link belowed:\n" +
+            $"/api/Account/verify/{user.Id}"
         };
-        msg.AddTo(new EmailAddress(mail.Email, "Drogi nowy użytkowniku"));
+        msg.AddTo(new EmailAddress(user.Email, "Dear new user"));
         var response = await client.SendEmailAsync(msg);
 
         return true;
+    }
+
+    private JwtSecurityToken GenerateToken(UserAuthorizeDTO user)
+    {
+        var claims = new List<Claim>
+        {
+            new("id", user.Id.ToString()),
+            new(ClaimTypes.Name, $"{user.FirstName} {user.LastName}")
+        };
+
+        var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
+        var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
+
+        var jwtSecurityToken = new JwtSecurityToken(
+            issuer: _jwtSettings.Issuer,
+            audience: _jwtSettings.Audience,
+            claims: claims,
+            expires: DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes),
+            signingCredentials: signingCredentials);
+        return jwtSecurityToken;
+    }
+
+    public UserDTO UserVerification(int userId)
+    {
+        var user = _dbContext.Users.FirstOrDefault(u => u.Id == userId);
+        user.isVerified = true;
+        _dbContext.SaveChanges();
+
+        return new UserDTO()
+        {
+            Id = userId,
+            FirstName = user.FirstName,
+            LastName = user.LastName
+        };
     }
 }

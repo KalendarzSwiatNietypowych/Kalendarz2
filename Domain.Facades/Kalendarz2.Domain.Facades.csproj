@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.17.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Interfaces.Facades\Kalendarz2.Domain.Interfaces.Facades.csproj" />
     <ProjectReference Include="..\Kalendarz2.Domain.Common\Kalendarz2.Domain.Common.csproj" />
     <ProjectReference Include="..\Kalendarz2.Domain.Interfaces.Infrastucture\Kalendarz2.Domain.Interfaces.Infrastucture.csproj" />
