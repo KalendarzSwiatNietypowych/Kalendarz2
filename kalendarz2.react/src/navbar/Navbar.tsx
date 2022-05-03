@@ -10,8 +10,9 @@ import { ToastContainer } from "react-toastify";
 import { useAppSelector } from "../common/store/rootReducer";
 import { SelectUser } from "../auth/slice";
 import { useEffect, useState } from "react";
+import { initialState } from "../common/models/user/user";
 export const Navbar = () => {
-  const currentUser = useAppSelector((state) => SelectUser(state));
+  let currentUser = useAppSelector((state) => SelectUser(state));
   const [isLogged, setIsLogged] = useState(false);
   useEffect(() => {
     console.log(currentUser.token);
@@ -22,6 +23,11 @@ export const Navbar = () => {
     }
   }, [currentUser.token, localStorage]);
 
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.reload();
+  };
+
   return (
     <div>
       <NavbarContainer>
@@ -30,7 +36,7 @@ export const Navbar = () => {
         <Link to="/">Events</Link>
         <Link to="/calendar">Calendar</Link>
         {!isLogged && <Link to="/login">Login</Link>}
-        {isLogged && <h4>Logout</h4>}
+        {isLogged && <a onClick={handleLogout}>Logout</a>}
       </NavbarContainer>
       <Routes>
         <Route path="/login" element={<Login />}></Route>

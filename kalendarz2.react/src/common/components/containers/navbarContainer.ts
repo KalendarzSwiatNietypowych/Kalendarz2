@@ -23,6 +23,6 @@ export const NavbarContainer = styled.div`
     }
     a:hover{
         color:#24527a; 
+        cursor: pointer;
     }
-   
 `

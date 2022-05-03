@@ -38,8 +38,6 @@ export const Home = () => {
       <h3>Today's events and holidays:</h3>
       <h2>{currentDate.toLocaleDateString()}</h2>
       {eventsList.map((event) => {
-        console.log(event.date);
-        console.log(currentDate);
         if (
           event.date.getDate() === currentDate.getDate() &&
           event.date.getMonth() === currentDate.getMonth() &&
