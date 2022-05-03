@@ -2,6 +2,7 @@ import { Link, Route, Routes } from "react-router-dom";
 import { Login } from "../auth/login/Loginn";
 import { Register } from "../auth/register/Register";
 import Calendar from "../calendar/Calendar";
+import { Event } from "../event/Event";
 import "react-toastify/dist/ReactToastify.css";
 import { Home } from "../home/Home";
 import { NavbarContainer } from "../common/components/containers/navbarContainer";
@@ -13,12 +14,13 @@ export const Navbar = () => {
   const currentUser = useAppSelector((state) => SelectUser(state));
   const [isLogged, setIsLogged] = useState(false);
   useEffect(() => {
-    if (currentUser.token !== "") {
+    console.log(currentUser.token);
+    if (localStorage.getItem("userToken") !== null) {
       setIsLogged(true);
     } else {
       setIsLogged(false);
     }
-  }, [currentUser.token]);
+  }, [currentUser.token, localStorage]);
 
   return (
     <div>
@@ -35,6 +37,7 @@ export const Navbar = () => {
         <Route path="/register" element={<Register />}></Route>
         <Route path="/calendar" element={<Calendar />}></Route>
         <Route path="/" element={<Home />}></Route>
+        <Route path="/event" element={<Event />}></Route>
       </Routes>
     </div>
   );

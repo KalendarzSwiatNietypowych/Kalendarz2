@@ -8,8 +8,11 @@ import FullCalendar, {
 } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from "@fullcalendar/interaction";
+import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
+import listPlugin from "@fullcalendar/list";
 import { INITIAL_EVENTS, createEventId } from "./event-utils";
+import { CalendarContainer } from "../common/components/containers/calendarContainer";
+import { HolidayContainer } from "../common/components/containers/holidayContainer";
 
 interface CalendarState {
   weekendsVisible: boolean;
@@ -24,21 +27,29 @@ export default class Calendar extends React.Component<{}, CalendarState> {
 
   render() {
     return (
-      <div className="demo-app">
-        {this.renderSidebar()}
-        <div className="demo-app-main">
+      <>
+        <HolidayContainer>
+          <p>Today is "Some holiday name"</p>
+        </HolidayContainer>
+        <CalendarContainer>
           <FullCalendar
-            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            plugins={[
+              dayGridPlugin,
+              timeGridPlugin,
+              interactionPlugin,
+              listPlugin,
+            ]}
             headerToolbar={{
               left: "prev,next today",
               center: "title",
-              right: "dayGridMonth,timeGridWeek,timeGridDay",
+              right: "dayGridMonth,timeGridWeek,timeGridDay,listYear",
             }}
             initialView="dayGridMonth"
             editable={true}
             selectable={true}
             selectMirror={true}
             dayMaxEvents={true}
+            dateClick={this.handleDateClick}
             weekends={this.state.weekendsVisible}
             initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
             select={this.handleDateSelect}
@@ -51,39 +62,14 @@ export default class Calendar extends React.Component<{}, CalendarState> {
             eventRemove={function(){}}
             */
           />
-        </div>
-      </div>
+        </CalendarContainer>
+      </>
     );
   }
 
-  renderSidebar() {
-    return (
-      <div className="demo-app-sidebar">
-        <div className="demo-app-sidebar-section">
-          <h2>Instructions</h2>
-          <ul>
-            <li>Select dates and you will be prompted to create a new event</li>
-            <li>Drag, drop, and resize events</li>
-            <li>Click an event to delete it</li>
-          </ul>
-        </div>
-        <div className="demo-app-sidebar-section">
-          <label>
-            <input
-              type="checkbox"
-              checked={this.state.weekendsVisible}
-              onChange={this.handleWeekendsToggle}
-            ></input>
-            toggle weekends
-          </label>
-        </div>
-        <div className="demo-app-sidebar-section">
-          <h2>All Events ({this.state.currentEvents.length})</h2>
-          <ul>{this.state.currentEvents.map(renderSidebarEvent)}</ul>
-        </div>
-      </div>
-    );
-  }
+  handleDateClick = (info: DateClickArg) => {
+    console.log(info.dateStr);
+  };
 
   handleWeekendsToggle = () => {
     this.setState({
@@ -96,7 +82,7 @@ export default class Calendar extends React.Component<{}, CalendarState> {
     let calendarApi = selectInfo.view.calendar;
 
     calendarApi.unselect(); // clear date selection
-
+    console.log();
     if (title) {
       calendarApi.addEvent({
         id: createEventId(),

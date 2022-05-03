@@ -7,12 +7,11 @@ export const BasicInput = styled.input`
         border-radius:0.5rem;
         color:black;  
         height:1.5rem;
-        margin:0.3rem;
-        padding:0.5rem; 
+        margin:0.3rem 0;
+        padding:0.5rem 0.2rem; 
         border:1px gray solid;
    }
    :focus-visible{
-       color:red;
        outline:0px;
        background: white !important; 
    }

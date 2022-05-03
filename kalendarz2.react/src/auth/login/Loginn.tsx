@@ -7,8 +7,8 @@ import { useAppSelector } from "../../common/store/rootReducer";
 import { SelectUser } from "../slice";
 import { loginAction } from "./action";
 import { BasicInput } from "../../common/components/inputs/basicInput";
-import { SubmitButton } from "../../common/components/containers/buttons/submitButton";
-import { ActionButton } from "../../common/components/containers/buttons/actionButton";
+import { SubmitButton } from "../../common/components/buttons/submitButton";
+import { ActionButton } from "../../common/components/buttons/actionButton";
 export const Login = () => {
   const dispatch = useDispatch();
   const currentUser = useAppSelector((state) => SelectUser(state));

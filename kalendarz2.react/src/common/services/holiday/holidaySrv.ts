@@ -2,8 +2,6 @@ import { applyMiddleware } from "redux";
 import getHoliday from "../../models/holiday/getholiday";
 import { api } from "../connectionsString";
 
-
-
 const controllerPath = "holiday/";
 
 export const holidaySrv = {

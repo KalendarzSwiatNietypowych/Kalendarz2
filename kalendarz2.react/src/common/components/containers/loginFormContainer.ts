@@ -14,15 +14,16 @@ export const LoginFormContainer = styled.div`
         align-items:center;
         justify-content:space-evenly;
         border:1px solid #b8cdca;
-    }
-    p{
+        p{
         font-size:1.2rem;
         font-family:Verdana, Geneva, Tahoma, sans-serif;
         margin:1rem;
-    }
-    h2{
+        }
+        h2{
         font-family:Verdana, Geneva, Tahoma, sans-serif;
         font-size:0.8rem;
         font-weight:300;
+        }
     }
+
 `
