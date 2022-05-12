@@ -12,7 +12,5 @@ public class Event
     public DateTime EndEvent { get; set; }
     public bool IsDeleted { get; set; }
     public bool IsRecurring { get; set; }
-    public int ColorR { get; set; }
-    public int ColorG { get; set; }
-    public int ColorB { get; set; }
+    public int Color { get; set; } //color stored as hex number
 }
