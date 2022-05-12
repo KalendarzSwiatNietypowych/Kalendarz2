@@ -12,7 +12,7 @@ import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
 import { INITIAL_EVENTS, createEventId } from "./event-utils";
 import { CalendarContainer } from "../common/components/containers/calendarContainer";
-import { HolidayContainer } from "../common/components/containers/holidayContainer";
+import { ImportantEvents } from "../event/ImportantEventsList";
 
 interface CalendarState {
   weekendsVisible: boolean;
@@ -28,10 +28,8 @@ export default class Calendar extends React.Component<{}, CalendarState> {
   render() {
     return (
       <>
-        <HolidayContainer>
-          <p>Today is "Some holiday name"</p>
-        </HolidayContainer>
         <CalendarContainer>
+          <ImportantEvents />
           <FullCalendar
             plugins={[
               dayGridPlugin,
@@ -40,11 +38,19 @@ export default class Calendar extends React.Component<{}, CalendarState> {
               listPlugin,
             ]}
             headerToolbar={{
-              left: "prev,next today",
-              center: "title",
-              right: "dayGridMonth,timeGridWeek,timeGridDay,listYear",
+              left: "today",
+              center: "dayGridMonth timeGridWeek timeGridDay",
+              right: "",
+            }}
+            footerToolbar={{
+              center: "title prev next",
+              left: "",
+              right: "",
             }}
             initialView="dayGridMonth"
+            height={700}
+            aspectRatio={2}
+            expandRows={true}
             editable={true}
             selectable={true}
             selectMirror={true}
