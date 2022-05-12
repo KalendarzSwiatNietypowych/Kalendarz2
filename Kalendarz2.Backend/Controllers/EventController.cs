@@ -19,7 +19,7 @@ namespace Kalendarz2.Backend.Controllers;
         }
 
         [HttpPost("addevent")]
-        public ActionResult AddEvent([FromBody] AddEventDTO addeventDTO)
+        public ActionResult AddEvent([FromBody] NewEventDTO addeventDTO)
         {
             return Ok(_eventFcd.AddEvent(addeventDTO));
         }
