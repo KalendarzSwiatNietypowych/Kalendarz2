@@ -4,7 +4,7 @@ namespace Kalendarz2.Domain.Interfaces.Facades;
 
 public interface IEventFcd
 { 
-    EventDTO AddEvent(AddEventDTO addeventDTO);
-    EventDTO ModifyEvent(ModifyEventDTO modifyeventDTO);
+    EventDTO AddEvent(NewEventDTO addeventDTO);
+    EventDTO ModifyEvent(NewEventDTO modifyeventDTO);
 
 }

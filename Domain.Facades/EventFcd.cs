@@ -12,11 +12,11 @@ public class EventFcd : IEventFcd
     {
         _eventSrv = eventSrv;
     }
-    public EventDTO AddEvent(AddEventDTO addeventDTO)
+    public EventDTO AddEvent(NewEventDTO addeventDTO)
     {
         return _eventSrv.AddEvent(addeventDTO);
     }
-    public EventDTO ModifyEvent(ModifyEventDTO modifyeventDTO)
+    public EventDTO ModifyEvent(NewEventDTO modifyeventDTO)
     {
         return _eventSrv.ModifyEvent(modifyeventDTO);
     }
