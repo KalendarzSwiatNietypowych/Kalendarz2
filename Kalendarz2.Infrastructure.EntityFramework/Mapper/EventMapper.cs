@@ -49,4 +49,19 @@ public class EventMapper
             EndEvent = newEvent.EndEvent,
         };
     }
+    public Event Map(EditEventDTO newEvent, ICollection<Participation> participantion)
+    {
+        return new Event
+        {
+            Id = newEvent.Id,
+            Title = newEvent.Title,
+            Description = newEvent.Description,
+            Location = newEvent.Location,
+            StartEvent = newEvent.StartEvent,
+            EndEvent = newEvent.EndEvent,
+            Participants = participantion,
+            IsRecurring = newEvent.IsRecurring,
+            IsDeleted = newEvent.IsDeleted
+        };
+    }
 }
