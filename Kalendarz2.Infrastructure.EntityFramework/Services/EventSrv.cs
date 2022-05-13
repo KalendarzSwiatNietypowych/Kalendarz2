@@ -22,13 +22,14 @@ public class EventSrv : IEventSrv
         var participantEmails = addEventDTO.ParticipantsEmails;
         var participantList = new List<ParticipantDTO>();
 
+        var author = _dbContext.Users.FirstOrDefault(u => u.Id == addEventDTO.AuthorId);
+        participantList.Add(_accountSrv.GetParticipantByMail(author.Email));
+
         foreach (var email in participantEmails)
         {
             var participant = _accountSrv.GetParticipantByMail(email);
             if(participant != null) participantList.Add(participant);
         }
-        var author = _dbContext.Users.FirstOrDefault(u => u.Id == addEventDTO.AuthorId);
-        participantList.Add(_accountSrv.GetParticipantByMail(author.Email));
 
         var newEvent = _eventMapper.Map(addEventDTO);
         _dbContext.Events.Add(newEvent);
@@ -50,15 +51,47 @@ public class EventSrv : IEventSrv
         _dbContext.SaveChanges();
 
         var eventDTO = _eventMapper.Map(addEventDTO, newEvent.Id, participantList);
-
         return eventDTO;
         //jeszcze raz przejrzeć
     }
+
+    public EventDTO DeleteEvent(EventOwnerDTO deleteEventDTO)
+    {
+        var eventToDelete = _dbContext.Events.FirstOrDefault(e => e.Id == deleteEventDTO.EventId);
+        eventToDelete.IsDeleted = true;
+        _dbContext.SaveChanges();
+
+        var result = _eventMapper.Map(eventToDelete);
+        return result;
+    }
+
+    public EventDTO GetEvent(EventOwnerDTO getEventDTO)
+    {
+        var getEvent = _dbContext.Events.FirstOrDefault(e => e.Id == getEventDTO.EventId);
+
+        var result = _eventMapper.Map(getEvent);
+        return result;
+    }
+
+    public List<EventDTO> GetEventsByUser(EventOwnerDTO getEventsDTO)
+    {
+        var participations = _dbContext.Participations.Where(p => p.ParticipantId == getEventsDTO.AuthorId).ToList();
+
+        var events = new List<EventDTO>();
+        foreach(var participant in participations)
+        {
+            EventDTO i = _eventMapper.Map(participant.Event);
+            events.Add(i);
+        }
+
+        return events;
+    }
+
     public EventDTO ModifyEvent(EditEventDTO modifyEventDTO)
     {
-        var participantEmails = modifyEventDTO.ParticipantsEmails;
         var eventToUpdate = _dbContext.Events.FirstOrDefault(e => e.Id == modifyEventDTO.Id);
 
+        var participantEmails = modifyEventDTO.ParticipantsEmails;
         var participationList = new List<Participation>();
         foreach (var email in participantEmails)
         {
@@ -73,17 +106,10 @@ public class EventSrv : IEventSrv
             participationList.Add(participation);
         }
 
-        var participantList = new List<ParticipantDTO>();
-        foreach (var email in participantEmails)
-        {
-            var participant = _accountSrv.GetParticipantByMail(email);
-            if (participant != null) participantList.Add(participant);
-        }
-
         eventToUpdate = _eventMapper.Map(modifyEventDTO, participationList);
         _dbContext.SaveChanges();
 
-        var result = _eventMapper.Map(eventToUpdate, participantList);
+        var result = _eventMapper.Map(eventToUpdate);
         return result;
         //zobaczyc rano
     }

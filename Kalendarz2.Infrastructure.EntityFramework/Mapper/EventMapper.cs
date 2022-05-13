@@ -49,6 +49,33 @@ public class EventMapper
             EndEvent = newEvent.EndEvent,
         };
     }
+    public EventDTO Map(Event newEvent)
+    {
+        var participation = newEvent.Participants;
+        var participantList = new List<ParticipantDTO>();
+        foreach (var participant in participation)
+        {
+            var user = participant.Participant;
+            var i = new ParticipantDTO
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName
+            };
+            participantList.Add(i);
+        }
+
+        return new EventDTO
+        {
+            Id = newEvent.Id,
+            Title = newEvent.Title,
+            Description = newEvent.Description,
+            Location = newEvent.Location,
+            Participants = participantList,
+            StartEvent = newEvent.StartEvent,
+            EndEvent = newEvent.EndEvent,
+        };
+    }
     public Event Map(EditEventDTO newEvent, ICollection<Participation> participantion)
     {
         return new Event
