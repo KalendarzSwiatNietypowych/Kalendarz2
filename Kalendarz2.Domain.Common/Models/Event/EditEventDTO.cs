@@ -5,6 +5,8 @@ namespace Kalendarz2.Domain.Common.Models.Event;
 public class EditEventDTO
 {
     [Required]
+    public int AuthorId { get; set; }
+    [Required]
     public int Id { get; set; }
     [Required]
     public string Title { get; set; }

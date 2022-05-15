@@ -1,4 +1,5 @@
 ﻿using Kalendarz2.Domain.Common;
+using Kalendarz2.Domain.Common.Helper;
 using Kalendarz2.Domain.Common.Models.Event;
 using Kalendarz2.Domain.Interfaces.Facades;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ namespace Kalendarz2.Backend.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 
 
 public class EventController : ControllerBase
