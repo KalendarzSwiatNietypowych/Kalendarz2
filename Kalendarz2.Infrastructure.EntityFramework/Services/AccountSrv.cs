@@ -1,5 +1,6 @@
 ﻿using Kalendarz2.Domain.Common;
 using Kalendarz2.Domain.Common.Exceptions;
+using Kalendarz2.Domain.Common.Models.Event;
 using Kalendarz2.Domain.Common.Models.User;
 using Kalendarz2.Domain.Interfaces.Infrastucture;
 using Microsoft.AspNetCore.Identity;
@@ -9,7 +10,6 @@ using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
 
 namespace Kalendarz2.Infrastructure.EntityFramework;
@@ -178,6 +178,18 @@ public class AccountSrv : IAccountSrv
         return new UserDTO()
         {
             Id = userId,
+            FirstName = user.FirstName,
+            LastName = user.LastName
+        };
+    }
+
+    public ParticipantDTO GetParticipantByMail(string mail)
+    {
+        var user = _dbContext.Users.FirstOrDefault(u => u.Email == mail);
+
+        return new ParticipantDTO()
+        {
+            Id = user.Id,
             FirstName = user.FirstName,
             LastName = user.LastName
         };
