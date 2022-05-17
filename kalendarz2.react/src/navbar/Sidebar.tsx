@@ -6,7 +6,11 @@ import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useNavigate } from "react-router-dom";
-export const Sidebar = () => {
+type Props = {
+  displayIcons: boolean;
+};
+
+export const Sidebar = (props: Props) => {
   const handleClick = () => {
     console.log("esf");
   };
@@ -17,11 +21,11 @@ export const Sidebar = () => {
         <CalendarMonthIcon onClick={() => navigate("/calendar")} />
       </div>
       <div className="icons">
-        <AddIcon onClick={handleClick} />
-        <NotificationAddIcon />
-        <FormatListBulletedIcon />
-        <DeleteForeverIcon />
-        <SettingsIcon />
+        {props.displayIcons && <AddIcon onClick={handleClick} />}
+        {props.displayIcons && <NotificationAddIcon />}
+        {props.displayIcons && <FormatListBulletedIcon />}
+        {props.displayIcons && <DeleteForeverIcon />}
+        {props.displayIcons && <SettingsIcon />}
       </div>
     </SidebarContainer>
   );

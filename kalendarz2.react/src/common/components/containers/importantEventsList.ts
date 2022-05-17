@@ -4,12 +4,10 @@ export const ImportantEventsList= styled.div`
     &&&{
         background-color:#3E3E3E;
         padding: 0.58rem 0rem;   
-        border-top-left-radius:3rem;
-        border-top-right-radius:3rem;
         width:80%;
         margin:0 auto;
         overflow-y:scroll;
-        height:4rem;
+        height:4.9rem;
         direction:rtl;
         li{
             text-align:left;
@@ -20,19 +18,14 @@ export const ImportantEventsList= styled.div`
         width: 0.5rem;
         }
         ::-webkit-scrollbar-track {
-        border-top-left-radius:3rem;
-        border-top-right-radius:3rem;
-        background: transparent;
-        margin:0.5rem 0;
+        background: #222;
         margin-bottom:0;
         }
         ::-webkit-scrollbar-thumb {
-        background: white; 
-        border-radius: 10px;
+        background: lightgray; 
         }
         ::-webkit-scrollbar-thumb:hover {
         background: #ddd; 
         }
-    
     }
 `

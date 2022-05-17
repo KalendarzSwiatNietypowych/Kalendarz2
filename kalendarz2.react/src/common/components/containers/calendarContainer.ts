@@ -40,6 +40,9 @@ export const CalendarContainer = styled.div`
         rgba(25, 138, 103, 1) 100%
       );
     }
+    .fc-header-toolbar{
+      margin:0;
+    }
     .fc-prev-button,
     .fc-next-button,
     .fc-today-button {
@@ -48,6 +51,9 @@ export const CalendarContainer = styled.div`
     span,
     .fc-timegrid-slot-label-cushion {
       color: white;
+    }
+    .fc-daygrid-day-top{
+      justify-content:center;
     }
     .fc-toolbar-title {
       font-family: "inter";
@@ -84,6 +90,23 @@ export const CalendarContainer = styled.div`
       font-family: "inter";
       font-size: 0.7rem;
       font-weight: 600;
+    }
+    .fc-scroller::-webkit-scrollbar {
+        width: 0.5rem !important;
+    }
+    .fc-scroller::-webkit-scrollbar-track {
+        border-top-left-radius:3rem !important;
+        border-top-right-radius:3rem !important;
+        background:#3E3E3E;
+        margin:0.5rem 0;
+        margin-bottom:0;
+    }
+    .fc-scroller::-webkit-scrollbar-thumb {
+        background: white !important; 
+        border-radius: 10px;
+     }
+     .fc-scroller::-webkit-scrollbar-thumb:hover {
+        background: #ddd !important; 
     }
   }
 `;

@@ -12,8 +12,7 @@ import { SelectUser } from "../auth/slice";
 import { useEffect, useState } from "react";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { ImportantEvents } from "../event/ImportantEventsList";
-import { Events } from "../event/Events";
+
 export const Navbar = () => {
   let currentUser = useAppSelector((state) => SelectUser(state));
   const [isLogged, setIsLogged] = useState(false);
