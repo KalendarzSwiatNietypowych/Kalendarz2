@@ -2,16 +2,21 @@ import styled from "styled-components";
 
 export const SubmitButton = styled.button`
    &&&{
-        width:80%;
-        border-radius:0.5rem; 
+        width:30%;
+        border-radius:10rem; 
         height:2rem;
         margin:0.3rem;
+        margin-bottom:1rem;
         padding:0.5rem; 
-        border:1px solid darkcyan;
-        background-color:#5dacbd; 
+        border:none;
+        color:black;
+        font-family:'inter';
+        font-weight:800;
+        background: rgb(25,138,103);
+        background: linear-gradient(180deg, rgba(25,138,103,1) 0%, rgba(43,197,152,1) 50%, rgba(25,138,103,1) 100%);
         :hover{
         cursor: pointer;
-        background-color:#6ebdce;
+        color:#666;
    }
    }
 `;

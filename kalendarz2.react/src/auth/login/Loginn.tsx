@@ -9,6 +9,28 @@ import { loginAction } from "./action";
 import { BasicInput } from "../../common/components/inputs/basicInput";
 import { SubmitButton } from "../../common/components/buttons/submitButton";
 import { ActionButton } from "../../common/components/buttons/actionButton";
+import { toast } from "react-toastify";
+
+const loginValidator = (fieldName: string, value: string) => {
+  switch (fieldName) {
+    case "email":
+      var emailValidate = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+      if (emailValidate) {
+        return true;
+      }
+      toast.error("Please enter a valid email address");
+      return false;
+    case "password":
+      if (value.length >= 6) {
+        return true;
+      }
+      toast.error("Password must be at least 6 characters");
+      return false;
+    default:
+      return true;
+  }
+};
+
 export const Login = () => {
   const dispatch = useDispatch();
   const currentUser = useAppSelector((state) => SelectUser(state));
@@ -17,7 +39,7 @@ export const Login = () => {
 
   useEffect(() => {
     if (currentUser.token !== "") {
-      navigate("../", { replace: true });
+      navigate("../calendar", { replace: true });
     }
   }, [currentUser.token, navigate]);
 
@@ -35,6 +57,12 @@ export const Login = () => {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault();
+    event.preventDefault();
+    for (let [key, value] of Object.entries(credits)) {
+      if (!loginValidator(key, value)) {
+        return;
+      }
+    }
     dispatch(loginAction(credits));
   };
 
@@ -49,7 +77,6 @@ export const Login = () => {
         required
         onChange={(e) => handleChange(e)}
       />
-
       <BasicInput
         name="password"
         placeholder="Password"

@@ -19,15 +19,25 @@ const registerValidator = (fieldName: string, value: string) => {
       if (emailValidate) {
         return true;
       }
-      console.log("eee");
       toast.error("Please enter a valid email address");
+      return false;
+    case "firstName":
+      if (value.length >= 2) {
+        return true;
+      }
+      toast.error("First name must be at least 2 characters");
+      return false;
+    case "lastName":
+      if (value.length >= 2) {
+        return true;
+      }
+      toast.error("Last name must be at least 2 characters");
       return false;
     case "password":
       if (value.length >= 6) {
         return true;
       }
       toast.error("Password must be at least 6 characters");
-      console.log("es");
       return false;
     default:
       return true;
