@@ -38,13 +38,13 @@ export default class Calendar extends React.Component<{}, CalendarState> {
               listPlugin,
             ]}
             headerToolbar={{
-              left: "today",
-              center: "dayGridMonth timeGridWeek timeGridDay",
-              right: "",
+              left: "title",
+              center: "",
+              right: "dayGridMonth timeGridWeek timeGridDay",
             }}
             footerToolbar={{
-              center: "title prev next",
-              left: "",
+              center: "prev next",
+              left: "today",
               right: "",
             }}
             initialView="dayGridMonth"
