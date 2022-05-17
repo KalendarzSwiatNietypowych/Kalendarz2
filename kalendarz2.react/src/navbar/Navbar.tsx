@@ -10,12 +10,13 @@ import { ToastContainer } from "react-toastify";
 import { useAppSelector } from "../common/store/rootReducer";
 import { SelectUser } from "../auth/slice";
 import { useEffect, useState } from "react";
-import { initialState } from "../common/models/user/user";
+import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
+
 export const Navbar = () => {
   let currentUser = useAppSelector((state) => SelectUser(state));
   const [isLogged, setIsLogged] = useState(false);
   useEffect(() => {
-    console.log(currentUser.token);
     if (localStorage.getItem("userToken") !== null) {
       setIsLogged(true);
     } else {
@@ -32,12 +33,21 @@ export const Navbar = () => {
     <div>
       <NavbarContainer>
         <ToastContainer autoClose={2000} />
-        <p>Calendar 2: 137</p>
-        <Link to="/">Events</Link>
-        <Link to="/calendar">Calendar</Link>
-        {!isLogged && <Link to="/login">Login</Link>}
-        {isLogged && <a onClick={handleLogout}>Logout</a>}
+        <p>Calendar</p>
+        {!isLogged && (
+          <Link to="/login">
+            Sign in
+            <LoginIcon />
+          </Link>
+        )}
+        {isLogged && (
+          <a onClick={handleLogout}>
+            Sign out
+            <LogoutIcon />
+          </a>
+        )}
       </NavbarContainer>
+
       <Routes>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
