@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
+using Request.Body.Peeker;
 using System.Text;
 
 namespace Kalendarz2.Domain.Common.Helper;
@@ -20,18 +21,18 @@ public class AuthorizeAttribute : Attribute, IAuthorizationFilter
             context.Result = new JsonResult(new { message = "Unauthorized" })
             { StatusCode = StatusCodes.Status401Unauthorized };
 
-        context.HttpContext.Request.EnableBuffering();
-        using var reader = new StreamReader(
-            context.HttpContext.Request.Body,
-            Encoding.UTF8,
-            false,
-            -1,
-            true);
-        var body = await reader.ReadToEndAsync();
-        context.HttpContext.Request.Body.Position = 0;
-        //var authorId = JsonConvert.DeserializeObject<CreateConversationDTO>(body).AuthorId;
-        //if (authorId != user?.Id)
-        //    context.Result = new JsonResult(new { message = "Unauthorized" })
-        //    { StatusCode = StatusCodes.Status401Unauthorized };
+        //context.HttpContext.Request.EnableBuffering();
+        //using var reader = new StreamReader(
+        //    context.HttpContext.Request.Body,
+        //    Encoding.UTF8,
+        //    false,
+        //    -1,
+        //    true);
+        var body = context.HttpContext.Request.PeekBody();
+        //context.HttpContext.Request.Body.Position = 0;
+        var authorId = JsonConvert.DeserializeObject<NewEventDTO>(body).AuthorId;
+        if (authorId != user?.Id)
+            context.Result = new JsonResult(new { message = "Unauthorized" })
+            { StatusCode = StatusCodes.Status401Unauthorized };
     }
 }

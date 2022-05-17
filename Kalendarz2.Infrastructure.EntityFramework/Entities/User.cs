@@ -8,7 +8,9 @@ public class User
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public bool isVerified { get; set; } = false;
+
     public int RoleId { get; set; }
+    public Role Role { get; set; }
     public ICollection<Reminder> Reminders { get; set; }
     public ICollection<Participation> Participations { get; set; }
 }

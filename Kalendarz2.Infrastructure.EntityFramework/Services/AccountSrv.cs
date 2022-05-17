@@ -1,6 +1,7 @@
 ﻿using Kalendarz2.Domain.Common;
 using Kalendarz2.Domain.Common.Exceptions;
 using Kalendarz2.Domain.Common.Models.User;
+using Kalendarz2.Domain.Common.Utils;
 using Kalendarz2.Domain.Interfaces.Infrastucture;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
@@ -18,13 +19,13 @@ public class AccountSrv : IAccountSrv
 {
     private readonly CalendarDbContext _dbContext;
     private readonly IPasswordHasher<User> _passwordHasher;
-    private readonly JSONWebTokensSettings _jwtSettings;
+    private readonly IJwtUtils _jwtUtils;
 
-    public AccountSrv(CalendarDbContext dbContext, IPasswordHasher<User> passwordHasher, IOptions<JSONWebTokensSettings> jwtSettings)
+    public AccountSrv(CalendarDbContext dbContext, IPasswordHasher<User> passwordHasher, IJwtUtils jwtUtils)
     {
         _dbContext = dbContext;
         _passwordHasher = passwordHasher;
-        _jwtSettings = jwtSettings.Value;
+        _jwtUtils = jwtUtils;
 
     }
     public UserAuthorizeDTO GetById(int? id)
@@ -57,13 +58,13 @@ public class AccountSrv : IAccountSrv
             PasswordHash = user.PasswordHash
         };
 
-        JwtSecurityToken jwtSecurityToken = GenerateToken(userAuth);
+        var token = _jwtUtils.GenerateJWT(userAuth);
         return new UserDTO
         {
             Id = user.Id,
             FirstName = user.FirstName,
             LastName = user.LastName,
-            Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
+            Token = token
         };
     }
 
@@ -101,13 +102,13 @@ public class AccountSrv : IAccountSrv
             PasswordHash = newUser.PasswordHash
         };
 
-        JwtSecurityToken jwtSecurityToken = GenerateToken(userAuth);
+        var token = _jwtUtils.GenerateJWT(userAuth);
         return new UserDTO()
         {
             Id = newUser.Id,
             FirstName = newUser.FirstName,
             LastName = newUser.LastName,
-            Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken)
+            Token = token
         };
     }
 
@@ -147,26 +148,6 @@ public class AccountSrv : IAccountSrv
         var response = await client.SendEmailAsync(msg);
 
         return true;
-    }
-
-    private JwtSecurityToken GenerateToken(UserAuthorizeDTO user)
-    {
-        var claims = new List<Claim>
-        {
-            new("id", user.Id.ToString()),
-            new(ClaimTypes.Name, $"{user.FirstName} {user.LastName}")
-        };
-
-        var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
-        var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
-
-        var jwtSecurityToken = new JwtSecurityToken(
-            issuer: _jwtSettings.Issuer,
-            audience: _jwtSettings.Audience,
-            claims: claims,
-            expires: DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes),
-            signingCredentials: signingCredentials);
-        return jwtSecurityToken;
     }
 
     public UserDTO UserVerification(int userId)

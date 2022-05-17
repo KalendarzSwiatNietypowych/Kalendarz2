@@ -30,4 +30,10 @@
     <ProjectReference Include="..\Kalendarz2.Infrastructure.EntityFramework\Kalendarz2.Infrastructure.EntityFramework.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Program.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
 </Project>

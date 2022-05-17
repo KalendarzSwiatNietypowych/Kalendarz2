@@ -1,7 +1,9 @@
 using Kalendarz2.Domain.Common.Models.User;
 using Kalendarz2.Domain.DI;
+using Kalendarz2.Domain.Facades.Middleware;
 using Kalendarz2.Infrastructure.EntityFramework;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +13,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDependency(builder.Configuration);
 builder.Services.AddDbContext<CalendarDbContext>(x => x.UseSqlServer(@"Server=(LocalDB)\MSSQLLocalDB;Database=CalendarDb;Trusted_Connection=True;"));
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+
+builder.Services.Configure<KestrelServerOptions>(options =>
+{
+    options.AllowSynchronousIO = true;
+});
 
 builder.Services.AddCors(options =>
 {
@@ -27,7 +34,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMvc();
 
-builder.Services.Configure<JSONWebTokensSettings>(builder.Configuration.GetSection("JSONWebTokensSettings"));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -53,6 +59,9 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
+app.UseMiddleware<JwtMiddleware>();
 
 app.MapControllerRoute(
     name: "default",
