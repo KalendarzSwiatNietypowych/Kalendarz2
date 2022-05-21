@@ -21,7 +21,7 @@ export const Sidebar = (props: Props) => {
         <CalendarMonthIcon onClick={() => navigate("/calendar")} />
       </div>
       <div className="icons">
-        {props.displayIcons && <AddIcon onClick={handleClick} />}
+        {props.displayIcons && <AddIcon onClick={() => navigate("/event")} />}
         {props.displayIcons && <NotificationAddIcon />}
         {props.displayIcons && <FormatListBulletedIcon />}
         {props.displayIcons && <DeleteForeverIcon />}
