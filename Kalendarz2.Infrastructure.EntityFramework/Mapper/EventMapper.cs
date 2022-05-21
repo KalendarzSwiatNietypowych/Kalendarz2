@@ -15,6 +15,7 @@ public class EventMapper
         return new EventDTO
         {
             Id = id,
+            AuthorId = newEvent.AuthorId,
             Title = newEvent.Title,
             Description = newEvent.Description,
             Location = newEvent.Location,
@@ -28,12 +29,14 @@ public class EventMapper
     {
         return new Event
         {
+            AuthorId = newEvent.AuthorId,
             Title = newEvent.Title,
             Description = newEvent.Description,
             Location = newEvent.Location,
             StartEvent = newEvent.StartEvent,
             EndEvent = newEvent.EndEvent,
             IsRecurring = newEvent.IsRecurring,
+            Color = newEvent.Color,
         };
     }
     public EventDTO Map(Event newEvent, ICollection<ParticipantDTO> participants)
@@ -41,12 +44,15 @@ public class EventMapper
         return new EventDTO
         {
             Id = newEvent.Id,
+            AuthorId = newEvent.AuthorId,
             Title = newEvent.Title,
             Description = newEvent.Description,
             Location = newEvent.Location,
             Participants = participants,
             StartEvent = newEvent.StartEvent,
             EndEvent = newEvent.EndEvent,
+            IsRecurring = newEvent.IsRecurring,
+            Color = newEvent.Color
         };
     }
     public EventDTO Map(Event newEvent)
@@ -68,12 +74,15 @@ public class EventMapper
         return new EventDTO
         {
             Id = newEvent.Id,
+            AuthorId = newEvent.AuthorId,
             Title = newEvent.Title,
             Description = newEvent.Description,
             Location = newEvent.Location,
             Participants = participantList,
             StartEvent = newEvent.StartEvent,
             EndEvent = newEvent.EndEvent,
+            IsRecurring = newEvent.IsRecurring,
+            Color = newEvent.Color
         };
     }
     public Event Map(EditEventDTO newEvent, ICollection<Participation> participantion)
@@ -81,6 +90,7 @@ public class EventMapper
         return new Event
         {
             Id = newEvent.Id,
+            AuthorId = newEvent.AuthorId,
             Title = newEvent.Title,
             Description = newEvent.Description,
             Location = newEvent.Location,
@@ -88,7 +98,8 @@ public class EventMapper
             EndEvent = newEvent.EndEvent,
             Participants = participantion,
             IsRecurring = newEvent.IsRecurring,
-            IsDeleted = newEvent.IsDeleted
+            IsDeleted = newEvent.IsDeleted,
+            Color = newEvent.Color
         };
     }
 }
