@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FullCalendar, {
   EventApi,
   DateSelectArg,
@@ -139,4 +139,7 @@ function renderSidebarEvent(event: EventApi) {
       <i>{event.title}</i>
     </li>
   );
+}
+function dispatch(arg0: any) {
+  throw new Error("Function not implemented.");
 }

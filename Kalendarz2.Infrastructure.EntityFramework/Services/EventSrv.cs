@@ -48,6 +48,9 @@ public class EventSrv : IEventSrv
             participationList.Add(participation);
         }
         newEvent.Participants = participationList;
+
+        var userParticipation = new Participation() { Event = newEvent, EventId = newEvent.Id, Participant =  author, ParticipantId = author.Id};
+        _dbContext.Participations.Add(userParticipation);
         _dbContext.SaveChanges();
 
         var eventDTO = _eventMapper.Map(addEventDTO, newEvent.Id, participantList);
@@ -72,14 +75,15 @@ public class EventSrv : IEventSrv
         return result;
     }
 
-    public List<EventDTO> GetEventsByUser(EventOwnerDTO getEventsDTO)
+    public List<EventDTO> GetEventsByUser(GetByUserDTO getByUserDTO)
     {
-        var participations = _dbContext.Participations.Where(p => p.ParticipantId == getEventsDTO.AuthorId).ToList();
+        var participations = _dbContext.Participations.Where(p => p.ParticipantId == getByUserDTO.AuthorId).ToList();
 
         var events = new List<EventDTO>();
         foreach(var participant in participations)
         {
-            EventDTO i = _eventMapper.Map(participant.Event);
+            var eventParticipation = _dbContext.Events.FirstOrDefault(e => e.Id == participant.EventId);
+            EventDTO i = _eventMapper.Map(eventParticipation);
             events.Add(i);
         }
 

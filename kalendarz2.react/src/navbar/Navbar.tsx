@@ -1,4 +1,4 @@
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import { Login } from "../auth/login/Loginn";
 import { Register } from "../auth/register/Register";
 import Calendar from "../calendar/Calendar";
@@ -12,8 +12,14 @@ import { SelectUser } from "../auth/slice";
 import { useEffect, useState } from "react";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import AddIcon from "@mui/icons-material/Add";
+import NotificationAddIcon from "@mui/icons-material/NotificationAdd";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 export const Navbar = () => {
+  const navigate = useNavigate();
   let currentUser = useAppSelector((state) => SelectUser(state));
   const [isLogged, setIsLogged] = useState(false);
   useEffect(() => {
@@ -26,6 +32,7 @@ export const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.clear();
+    navigate("/calendar");
     window.location.reload();
   };
 
@@ -34,16 +41,21 @@ export const Navbar = () => {
       <NavbarContainer>
         <ToastContainer autoClose={2000} />
         <p>Calendar</p>
+        <CalendarMonthIcon onClick={() => navigate("/calendar")} />
+        {isLogged && <AddIcon onClick={() => navigate("/event")} />}
+        {isLogged && <NotificationAddIcon />}
+        {isLogged && <FormatListBulletedIcon />}
+        {isLogged && <SettingsIcon />}
         {!isLogged && (
           <Link to="/login">
-            Sign in
             <LoginIcon />
+            <span>Sign in</span>
           </Link>
         )}
         {isLogged && (
           <a onClick={handleLogout}>
-            Sign out
             <LogoutIcon />
+            <span>Sign out</span>
           </a>
         )}
       </NavbarContainer>
@@ -54,6 +66,7 @@ export const Navbar = () => {
         <Route path="/calendar" element={<Calendar />}></Route>
         <Route path="/" element={<Home />}></Route>
         <Route path="/event" element={<Event />}></Route>
+        <Route path="*" element={<Calendar />} />
       </Routes>
     </div>
   );

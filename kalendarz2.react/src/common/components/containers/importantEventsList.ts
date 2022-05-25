@@ -9,10 +9,19 @@ export const ImportantEventsList= styled.div`
         overflow-y:scroll;
         height:4.9rem;
         direction:rtl;
+        ul{
+            
+        }
         li{
+            color:white;
+            width:60%;
+            margin-right:auto;
+            margin-left:0.6em;
             text-align:left;
-            width:50%;
             direction:ltr;
+            list-style-type: none;
+            margin-bottom:0.8em;
+
         }
         ::-webkit-scrollbar {
         width: 0.5rem;

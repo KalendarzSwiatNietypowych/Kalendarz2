@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 export const RegisterFormContainer = styled.div`
     &&&{
-        width:30%;
+        width:100%;
         margin:0 auto; 
         border-radius:1rem;
         height:100%;

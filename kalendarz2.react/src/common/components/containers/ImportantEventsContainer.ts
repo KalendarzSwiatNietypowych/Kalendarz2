@@ -5,7 +5,7 @@ export const ImportantEventsContainer = styled.div`
         background: rgb(25,138,103);
         background: linear-gradient(180deg, rgba(25,138,103,1) 0%, rgba(43,197,152,1) 50%, rgba(25,138,103,1) 100%);
         border-radius:2rem;
-        margin: 1rem 1rem;
+        margin: 1rem;
         position:relative;
         height:8.2rem;
         h4{
@@ -23,6 +23,9 @@ export const ImportantEventsContainer = styled.div`
             right:5vw;
             background-color:transparent;
             transform:rotate(-5deg);
+        }
+        @media (min-width: 700px){
+
         }
     }
 `
