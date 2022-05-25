@@ -6,7 +6,7 @@ export const EventsContainer = styled.div`
             background: linear-gradient(180deg, rgba(25,138,103,1) 0%, rgba(43,197,152,1) 50%, rgba(25,138,103,1) 100%);
             border-radius:2rem;
             width:17%;
-            margin: 1rem 82.3%;
+            margin: 2rem 82.3%;
             position:relative;
             height:6.0rem;
         h5{
@@ -16,7 +16,7 @@ export const EventsContainer = styled.div`
             font-weight:500;
             text-align:left;
             margin-right: 3rem;
-            padding:0.9rem 1rem;
+            padding:0.6rem 1rem;
         }
         h6{
             color: white;
@@ -26,16 +26,27 @@ export const EventsContainer = styled.div`
             text-align:left;
             direction:ltr;
         }
-        img{
-            width:1.5rem;
-            position:relative;
-            left: 38%;
-            top: 10%;
-            //bottom:5;
-            //right:5;
-            //margin: 1% 5%;
-            background-color:transparent;
-            transform:rotate(-5deg);
-        }
+        
+        
+    .icon{
+        display:flex;
+        flex-direction:column;
+        align-items:left;
+        
+    }
+    .icon > svg{
+        color:white;
+        width:15%;
+        height:15%;
+        padding: 0% 80%;
+        left: 20%;
+        top: -10;
+    } 
+    .icon > svg:hover{
+        cursor: pointer;
+        color:darkgray;
+        background-color:transparent;
+    }
+        
     }
 `
