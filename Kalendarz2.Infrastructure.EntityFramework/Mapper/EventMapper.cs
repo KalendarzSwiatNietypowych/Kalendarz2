@@ -59,16 +59,19 @@ public class EventMapper
     {
         var participation = newEvent.Participants;
         var participantList = new List<ParticipantDTO>();
-        foreach (var participant in participation)
+        if (participation != null)
         {
-            var user = participant.Participant;
-            var i = new ParticipantDTO
+            foreach (var participant in participation)
             {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName
-            };
-            participantList.Add(i);
+                var user = participant.Participant;
+                var i = new ParticipantDTO
+                {
+                    Id = user.Id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName
+                };
+                participantList.Add(i);
+            }
         }
 
         return new EventDTO
