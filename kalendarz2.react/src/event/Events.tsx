@@ -3,6 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { SelectUser } from "../auth/slice";
 import { EventsContainer } from "../common/components/containers/EventsContainer";
 import { useAppSelector } from "../common/store/rootReducer";
+import {EventsContainerMainText} from "../common/components/containers/EventsContainerMainText";
+import AddLocationAltRoundedIcon from '@mui/icons-material/AddLocationAltRounded';
+const dates=["Kolokwium zaliczeniowe", "Egzamin pisemny", "Egzamin ustny", "Mecz piłki nożnej", "xddd", "sdsdsds", "dffff"]
+const dateslist=dates.map(date=><EventsContainer><h5>{date}</h5><h6>12:00 - 14:00</h6><h6>Politechnika Rzeszowska</h6><div className="icon">
+<AddLocationAltRoundedIcon />
+</div></EventsContainer>)
 
 export const Events = () => {
   const navigate = useNavigate();
@@ -25,20 +31,12 @@ export const Events = () => {
         </h2>
       )}
       {isLogged && (
-        <ul>
-          <li>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque,
-            doloremque suscipit veniam nesciunt voluptatum aperiam dolor esse
-            nihil quidem iusto. Accusamus, velit! Nesciunt voluptates, dolor
-            vero repellendus asperiores autem recusandae.
-          </li>
-          <li>event 2</li>
-          <li>event 3</li>
-          <li>event 4</li>
-          <li>event 5</li>
-          <li>event 6</li>
-        </ul>
+    <EventsContainerMainText>
+      <h3>Wydarzenia:</h3>
+      {dateslist}
+    </EventsContainerMainText>
       )}
     </EventsContainer>
+
   );
 };

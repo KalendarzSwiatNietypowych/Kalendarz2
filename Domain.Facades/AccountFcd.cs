@@ -14,6 +14,7 @@ public class AccountFcd : IAccountFcd
     }
     public UserDTO RegisterUser(RegisterDTO registerDTO)
     {
+        registerDTO.Email.ToLower();
         return _accountSrv.RegisterUser(registerDTO);
     }
     public UserAuthorizeDTO GetById(int? id)
@@ -23,6 +24,7 @@ public class AccountFcd : IAccountFcd
 
     public UserDTO LoginUser(LoginDTO loginDTO)
     {
+        loginDTO.Email.ToLower();
         return _accountSrv.LoginUser(loginDTO);
     }
 
