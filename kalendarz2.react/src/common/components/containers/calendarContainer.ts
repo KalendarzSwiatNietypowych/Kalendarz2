@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const CalendarContainer = styled.div`
   &&& {
-    width: 70vw;
+    width: 100%;
     margin: 0 auto;
     background: rgb(55, 55, 55);
     background: linear-gradient(
@@ -10,7 +10,10 @@ export const CalendarContainer = styled.div`
       rgba(55, 55, 55, 1) 0%,
       rgba(20, 20, 20, 1) 100%
     );
-    float: left;
+    padding-top:1rem;
+    button{
+      margin:0;
+    }
     td {
       border: 0px rgba(43, 197, 152, 1) solid;
       border-collapse: collapse;
@@ -48,6 +51,14 @@ export const CalendarContainer = styled.div`
     .fc-today-button {
       margin-bottom: 1rem;
     }
+    .fc-dayGridMonth-button, .fc-timeGridWeek-button, .fc-timeGridDay-button{
+      width:5em;
+    }
+    .fc-header-toolbar > div{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+    }
     span,
     .fc-timegrid-slot-label-cushion {
       color: white;
@@ -55,9 +66,11 @@ export const CalendarContainer = styled.div`
     .fc-daygrid-day-top{
       justify-content:center;
     }
+    .fc-daygrid-event{
+      white-space:normal;
+    }
     .fc-toolbar-title {
       font-family: "inter";
-      margin-bottom: 1rem;
       color: white;
       font-weight: 200;
     }
@@ -107,6 +120,16 @@ export const CalendarContainer = styled.div`
      }
      .fc-scroller::-webkit-scrollbar-thumb:hover {
         background: #ddd !important; 
+    }
+    @media (min-width: 700px){
+      float:left;
+      width:70vw;
+      .fc-header-toolbar > div{
+      flex-direction:row;
+    }
+    }
+    tr{
+      height:3rem;
     }
   }
 `;

@@ -3,7 +3,7 @@ export default interface event {
     title: string;
     description: string;
     location:string;
-    participantsEmails:string[]|string;
+    participantsEmails:string[]|null;
     startDate: Date;
     endDate: Date;
     color:number;
@@ -11,12 +11,12 @@ export default interface event {
     
   }
 
-  export const eventInitialState: event = {
+  export const initialState: event = {
     authorId: -1,
     title: "",
     description: "",
     location:"",
-    participantsEmails:"",
+    participantsEmails:[],
     startDate:  new Date(),
     endDate: new Date(),
     color: 1,

@@ -7,7 +7,10 @@ export const ImportantEvents = () => {
       <h4>Important events:</h4>
       <ImportantEventsList>
         <ul>
-          <li>event 1</li>
+          <li>
+            Zbiórka pieniędzy dla kotków, które potrzebują pieniędzy, bo są
+            troszkę głodne
+          </li>
           <li>event 2</li>
           <li>event 3</li>
           <li>event 4</li>

@@ -40,9 +40,9 @@ public class EventController : ControllerBase
     }
 
     [HttpPost("getByUser")]
-    public ActionResult GetEventsByUser([FromBody] EventOwnerDTO getEventsDTO)
+    public ActionResult GetEventsByUser([FromBody] GetByUserDTO getByUserDTO)
     {
-        return Ok(_eventFcd.GetEventsByUser(getEventsDTO));
+        return Ok(_eventFcd.GetEventsByUser(getByUserDTO));
     }
 
     [HttpPut("delete")]

@@ -8,7 +8,7 @@ public interface IEventSrv
     EventDTO AddEvent(NewEventDTO addEventDTO);
     EventDTO ModifyEvent(EditEventDTO modifyEventDTO);
     EventDTO GetEvent(EventOwnerDTO getEventDTO);
-    List<EventDTO> GetEventsByUser(EventOwnerDTO getEventsDTO);
+    List<EventDTO> GetEventsByUser(GetByUserDTO getByUserDTO);
     EventDTO DeleteEvent(EventOwnerDTO deleteEventDTO);
 
 }

@@ -3,7 +3,7 @@ export default interface addEvent {
     title: string;
     description: string;
     location:string;
-    participantsEmails:string[]|string;
+    participantsEmails:string[]|null;
     startDate: Date;
     endDate: Date;
     color:number;

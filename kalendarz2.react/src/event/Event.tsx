@@ -2,19 +2,26 @@ import { Checkbox, FormControlLabel } from "@mui/material";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { SelectUser } from "../auth/slice";
 import { SubmitButton } from "../common/components/buttons/submitButton";
 import { AddEventForm } from "../common/components/containers/addEventForm";
 import { BasicInput } from "../common/components/inputs/basicInput";
-import { eventInitialState } from "../common/models/event/event";
+import { initialState } from "../common/models/event/event";
 import { useAppSelector } from "../common/store/rootReducer";
-import { addEventAction } from "./eventActions";
+import { addEventAction, getAllEventsAction } from "./eventActions";
 
 export const Event = () => {
+  const currentAuthorId = useAppSelector((state) => SelectUser(state)).id;
+  useEffect(() => {
+    dispatch(getAllEventsAction({ authorId: currentAuthorId }));
+  }, []);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [credits, setCredits] = useState(eventInitialState);
+  const [credits, setCredits] = useState(initialState);
+  const [checked, setChecked] = useState(false);
+
+  const handleCheckbox = () => {
+    setChecked(!checked);
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -26,11 +33,10 @@ export const Event = () => {
     }));
   };
 
-  const currentAuthorId = useAppSelector((state) => SelectUser(state)).id;
-
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     credits.authorId = currentAuthorId;
-    console.log(credits);
+    credits.participantsEmails = [];
+    credits.isRecurring = checked;
     dispatch(
       addEventAction({
         authorId: credits.authorId,
@@ -44,6 +50,7 @@ export const Event = () => {
         isRecurring: credits.isRecurring,
       })
     );
+    console.log(credits);
     console.log(moment(credits.endDate).format("yyyy-MM-DDTHH:mm"));
   };
 
@@ -95,8 +102,8 @@ export const Event = () => {
         control={
           <Checkbox
             name="isRecurring"
-            value={credits.isRecurring}
-            onChange={(e) => handleChange(e)}
+            checked={checked}
+            onChange={() => handleCheckbox()}
           />
         }
       />

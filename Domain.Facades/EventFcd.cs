@@ -28,9 +28,9 @@ public class EventFcd : IEventFcd
         return _eventSrv.GetEvent(getEventDTO);
     }
 
-    public List<EventDTO> GetEventsByUser(EventOwnerDTO getEventsDTO)
+    public List<EventDTO> GetEventsByUser(GetByUserDTO getByUserDTO)
     {
-        return _eventSrv.GetEventsByUser(getEventsDTO);
+        return _eventSrv.GetEventsByUser(getByUserDTO);
     }
 
     public EventDTO ModifyEvent(EditEventDTO modifyeventDTO)

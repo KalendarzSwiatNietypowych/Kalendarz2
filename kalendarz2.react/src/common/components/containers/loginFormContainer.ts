@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 export const LoginFormContainer = styled.div`
     &&&{
-        width:30%;
+        width:100%;
         margin:0 auto; 
         height:100%;
         margin-top:4rem;
