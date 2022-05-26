@@ -143,6 +143,7 @@ public class AccountSrv : IAccountSrv
             PlainTextContent = $"Hello {user.FirstName} {user.LastName} \n\n " +
             $"We're really glad you registered to our webite. In order to verify your email play click in this not suspisiout link belowed:\n" +
             $"/api/Account/verify/{user.Id}"
+            //zmienić ścieżkę
         };
         msg.AddTo(new EmailAddress(user.Email, "Dear new user"));
         var response = await client.SendEmailAsync(msg);
@@ -169,6 +170,50 @@ public class AccountSrv : IAccountSrv
         var user = _dbContext.Users.FirstOrDefault(u => u.Email == mail);
 
         return new ParticipantDTO()
+        {
+            Id = user.Id,
+            FirstName = user.FirstName,
+            LastName = user.LastName
+        };
+    }
+
+    public async Task<UserDTO> SendResetLinkAsync(EmailDTO resetEmail)
+    {
+        var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
+        var client = new SendGridClient(apiKey);
+        var user = _dbContext.Users.FirstOrDefault(u => u.Email == resetEmail.email);
+
+        var msg = new SendGridMessage()
+        {
+            From = new EmailAddress("kalendarz2@onet.pl", "Team Kalendarz 2"),
+            Subject = "Restar password to Kalendarz2",
+            PlainTextContent = $"Hello {user.FirstName} {user.LastName} \n\n " +
+            $"We're really sorry you forgot password to our site. Don't worry here is link to reset your password in order to use our website:\n" +
+            $"localhost:blablabla/api/Account/resetPassword/{user.Id}"
+            //zmienić ścieżkę
+        };
+        msg.AddTo(new EmailAddress(user.Email, "Dear user"));
+        var response = await client.SendEmailAsync(msg);
+
+        return new UserDTO
+        {
+            Id = user.Id,
+            FirstName = user.FirstName,
+            LastName = user.LastName
+        };
+    }
+
+    public UserDTO ResetPassword(ResetPasswordDTO resetPassword)
+    {
+        var user = _dbContext.Users.FirstOrDefault(u => u.Id == resetPassword.UserId);
+
+        var hashedPassword = _passwordHasher.HashPassword(user, resetPassword.Password);
+        user.PasswordHash = hashedPassword;
+
+        _dbContext.Update(user);
+        _dbContext.SaveChanges();
+
+        return new UserDTO
         {
             Id = user.Id,
             FirstName = user.FirstName,

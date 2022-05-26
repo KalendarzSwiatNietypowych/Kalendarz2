@@ -1,4 +1,5 @@
 ﻿using Kalendarz2.Domain.Common;
+using Kalendarz2.Domain.Common.Models.User;
 using Kalendarz2.Domain.Interfaces.Facades;
 using Kalendarz2.Domain.Interfaces.Infrastucture;
 
@@ -36,5 +37,15 @@ public class AccountFcd : IAccountFcd
     public UserDTO UserVerification(int userId)
     {
         return _accountSrv.UserVerification(userId);
+    }
+
+    public Task<UserDTO> SendResetLinkAsync(EmailDTO resetEmail)
+    {
+        return _accountSrv.SendResetLinkAsync(resetEmail);
+    }
+
+    public UserDTO ResetPassword(ResetPasswordDTO resetPassword)
+    {
+        return _accountSrv.ResetPassword(resetPassword);
     }
 }

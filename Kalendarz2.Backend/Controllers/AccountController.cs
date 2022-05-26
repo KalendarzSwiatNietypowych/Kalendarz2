@@ -1,4 +1,5 @@
 ﻿using Kalendarz2.Domain.Common;
+using Kalendarz2.Domain.Common.Models.User;
 using Kalendarz2.Domain.Interfaces.Facades;
 using Microsoft.AspNetCore.Mvc;
 
@@ -39,5 +40,18 @@ public class AccountController : ControllerBase
     public ActionResult UserVerification([FromRoute] int userId)
     {
         return Ok(_accountFcd.UserVerification(userId));
+    }
+
+    [HttpGet("resetPassword")]
+    public ActionResult SendResetLink([FromBody] EmailDTO resetEmail)
+    {
+        return Ok(_accountFcd.SendResetLinkAsync(resetEmail));
+    }
+
+    [HttpPost("resetPassword/{UserId}")]
+    public ActionResult ResetPassword([FromRoute] int UserId, [FromBody] ResetPasswordDTO resetPassword)
+    {
+        resetPassword.UserId = UserId;
+        return Ok(_accountFcd.ResetPassword(resetPassword));
     }
 }
