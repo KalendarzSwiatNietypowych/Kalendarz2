@@ -123,7 +123,7 @@ export const CalendarContainer = styled.div`
     }
     @media (min-width: 700px){
       float:left;
-      width:70vw;
+      width:70%;
       .fc-header-toolbar > div{
       flex-direction:row;
     }

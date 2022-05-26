@@ -4,8 +4,8 @@ export default interface addEvent {
     description: string;
     location:string;
     participantsEmails:string[]|null;
-    startDate: Date;
-    endDate: Date;
+    startEvent: Date;
+    endEvent: Date;
     color:number;
     isRecurring:boolean
   }

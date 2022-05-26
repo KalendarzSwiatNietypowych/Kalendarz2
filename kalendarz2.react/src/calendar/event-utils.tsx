@@ -1,21 +1,43 @@
 import { EventInput } from "@fullcalendar/react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { SelectUser } from "../auth/slice";
+import { useAppSelector } from "../common/store/rootReducer";
+import { getAllEventsAction } from "../event/eventActions";
+import { SelectAllEvents } from "../event/selectors";
 
-let eventGuid = 0;
-let todayStr = new Date().toISOString().replace(/T.*$/, ""); // YYYY-MM-DD of today
+// const dispatch = useDispatch();
+// let currentUser = useAppSelector((state) => SelectUser(state));
+// const [isLogged, setIsLogged] = useState(false);
+
+// useEffect(() => {
+//   if (localStorage.getItem("userToken") !== null) {
+//     setIsLogged(true);
+//     dispatch(getAllEventsAction({ authorId: currentUser.id }));
+//   } else {
+//     setIsLogged(false);
+//   }
+// }, [currentUser.token, localStorage]);
+
+// const events = useAppSelector((state) => SelectAllEvents(state));
+// const calendar_events = events.map((e) => {
+//   return {
+//     title: e.title,
+//     start: e.startEvent,
+//   };
+// });
+
+// console.log(calendar_events);
 
 export const INITIAL_EVENTS: EventInput[] = [
   {
-    id: createEventId(),
+    id: "1",
     title: "All-day event",
-    start: todayStr,
+    start: "T12:00:00",
   },
   {
-    id: createEventId(),
+    id: "2",
     title: "Timed event",
-    start: todayStr + "T12:00:00",
+    start: "T12:00:00",
   },
 ];
-
-export function createEventId() {
-  return String(eventGuid++);
-}

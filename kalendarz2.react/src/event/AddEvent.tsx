@@ -1,7 +1,9 @@
 import { Checkbox, FormControlLabel } from "@mui/material";
+import { wait } from "@testing-library/user-event/dist/utils";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { SelectUser } from "../auth/slice";
 import { SubmitButton } from "../common/components/buttons/submitButton";
 import { AddEventForm } from "../common/components/containers/addEventForm";
@@ -10,12 +12,11 @@ import { initialState } from "../common/models/event/event";
 import { useAppSelector } from "../common/store/rootReducer";
 import { addEventAction, getAllEventsAction } from "./eventActions";
 
-export const Event = () => {
-  const currentAuthorId = useAppSelector((state) => SelectUser(state)).id;
-  useEffect(() => {
-    dispatch(getAllEventsAction({ authorId: currentAuthorId }));
-  }, []);
+export const AddEvent = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const currentAuthorId = useAppSelector((state) => SelectUser(state)).id;
+
   const [credits, setCredits] = useState(initialState);
   const [checked, setChecked] = useState(false);
 
@@ -44,14 +45,14 @@ export const Event = () => {
         description: credits.description,
         location: credits.location,
         participantsEmails: credits.participantsEmails,
-        startDate: credits.startDate,
-        endDate: credits.endDate,
+        startEvent: credits.startEvent,
+        endEvent: credits.endEvent,
         color: credits.color,
         isRecurring: credits.isRecurring,
       })
     );
     console.log(credits);
-    console.log(moment(credits.endDate).format("yyyy-MM-DDTHH:mm"));
+    setCredits(initialState);
   };
 
   return (
@@ -75,22 +76,23 @@ export const Event = () => {
       />
 
       <BasicInput
-        name="startDate"
-        value={moment(credits.startDate).format("yyyy-MM-DDTHH:mm")}
+        name="startEvent"
+        value={moment(credits.startEvent).format("yyyy-MM-DDTHH:mm")}
         required
         onChange={(e) => handleChange(e)}
         type="datetime-local"
       />
 
       <BasicInput
-        name="endDate"
-        value={moment(credits.endDate).format("yyyy-MM-DDTHH:mm")}
+        name="endEvent"
+        value={moment(credits.endEvent).format("yyyy-MM-DDTHH:mm")}
         required
         onChange={(e) => handleChange(e)}
         type="datetime-local"
       />
 
-      <BasicInput
+      <input
+        type="color"
         name="color"
         placeholder="Color"
         value={credits.color}
@@ -116,7 +118,6 @@ export const Event = () => {
         onChange={(e) => handleChange(e)}
       />
       <SubmitButton onClick={(e) => handleSubmit(e)}>Submit</SubmitButton>
-      <h2>Do not have an account?</h2>
     </AddEventForm>
   );
 };
