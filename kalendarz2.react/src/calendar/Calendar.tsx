@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import FullCalendar, {
   EventApi,
   DateSelectArg,
@@ -10,97 +10,42 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
-import { INITIAL_EVENTS, createEventId } from "./event-utils";
+import { INITIAL_EVENTS } from "./event-utils";
 import { CalendarContainer } from "../common/components/containers/calendarContainer";
 import { ImportantEvents } from "../event/ImportantEventsList";
+import { useDispatch } from "react-redux";
+import { SelectUser } from "../auth/slice";
+import { useAppSelector } from "../common/store/rootReducer";
+import { getAllEventsAction } from "../event/eventActions";
+import { SelectAllEvents } from "../event/selectors";
 
 interface CalendarState {
   weekendsVisible: boolean;
   currentEvents: EventApi[];
 }
 
-export default class Calendar extends React.Component<{}, CalendarState> {
-  state: CalendarState = {
-    weekendsVisible: true,
-    currentEvents: [],
-  };
-
-  render() {
-    return (
-      <>
-        <CalendarContainer>
-          <ImportantEvents />
-          <FullCalendar
-            plugins={[
-              dayGridPlugin,
-              timeGridPlugin,
-              interactionPlugin,
-              listPlugin,
-            ]}
-            headerToolbar={{
-              left: "title",
-              center: "",
-              right: "dayGridMonth timeGridWeek timeGridDay",
-            }}
-            footerToolbar={{
-              center: "prev next",
-              left: "today",
-              right: "",
-            }}
-            initialView="dayGridMonth"
-            height={700}
-            aspectRatio={2}
-            expandRows={true}
-            editable={true}
-            selectable={true}
-            selectMirror={true}
-            dayMaxEvents={true}
-            dateClick={this.handleDateClick}
-            weekends={this.state.weekendsVisible}
-            initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
-            select={this.handleDateSelect}
-            eventContent={renderEventContent} // custom render function
-            eventClick={this.handleEventClick}
-            eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
-            /* you can update a remote database when these fire:
-            eventAdd={function(){}}
-            eventChange={function(){}}
-            eventRemove={function(){}}
-            */
-          />
-        </CalendarContainer>
-      </>
-    );
-  }
-
-  handleDateClick = (info: DateClickArg) => {
+export const Calendar = () => {
+  const handleDateClick = (info: DateClickArg) => {
     console.log(info.dateStr);
   };
 
-  handleWeekendsToggle = () => {
-    this.setState({
-      weekendsVisible: !this.state.weekendsVisible,
-    });
+  const handleDateSelect = (selectInfo: DateSelectArg) => {
+    // let title = prompt("Please enter a new title for your event");
+    // let calendarApi = selectInfo.view.calendar;
+    // calendarApi.unselect(); // clear date selection
+    // console.log();
+    // if (title) {
+    //   calendarApi.addEvent({
+    //     id: createEventId(),
+    //     title,
+    //     start: selectInfo.startStr,
+    //     end: selectInfo.endStr,
+    //     allDay: selectInfo.allDay,
+    //   });
+    // }
   };
 
-  handleDateSelect = (selectInfo: DateSelectArg) => {
-    let title = prompt("Please enter a new title for your event");
-    let calendarApi = selectInfo.view.calendar;
-
-    calendarApi.unselect(); // clear date selection
-    console.log();
-    if (title) {
-      calendarApi.addEvent({
-        id: createEventId(),
-        title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay,
-      });
-    }
-  };
-
-  handleEventClick = (clickInfo: EventClickArg) => {
+  const handleEventClick = (clickInfo: EventClickArg) => {
     if (
       window.confirm(
         `Are you sure you want to delete the event '${clickInfo.event.title}'`
@@ -110,36 +55,83 @@ export default class Calendar extends React.Component<{}, CalendarState> {
     }
   };
 
-  handleEvents = (events: EventApi[]) => {
-    this.setState({
-      currentEvents: events,
-    });
-  };
-}
+  function renderEventContent(eventContent: EventContentArg) {
+    return (
+      <>
+        <b>{eventContent.timeText}</b>
+        <i>{eventContent.event.title}</i>
+      </>
+    );
+  }
 
-function renderEventContent(eventContent: EventContentArg) {
+  const dispatch = useDispatch();
+  let currentUser = useAppSelector((state) => SelectUser(state));
+  const [isLogged, setIsLogged] = useState(false);
+
+  useEffect(() => {
+    if (currentUser.id != 0) {
+      setIsLogged(true);
+      dispatch(getAllEventsAction({ authorId: currentUser.id }));
+    } else {
+      setIsLogged(false);
+    }
+  }, [currentUser.token, localStorage]);
+
+  const events = useAppSelector((state) => SelectAllEvents(state));
+  const calendar_events = events.map((e) => {
+    return {
+      title: e.title,
+      start: e.startEvent,
+      end: e.endEvent,
+      color: "blue",
+    };
+  });
+
+  console.log(calendar_events);
+
   return (
     <>
-      <b>{eventContent.timeText}</b>
-      <i>{eventContent.event.title}</i>
+      <CalendarContainer>
+        <ImportantEvents />
+        <FullCalendar
+          events={calendar_events}
+          plugins={[
+            dayGridPlugin,
+            timeGridPlugin,
+            interactionPlugin,
+            listPlugin,
+          ]}
+          headerToolbar={{
+            left: "title",
+            center: "",
+            right: "dayGridMonth timeGridWeek timeGridDay",
+          }}
+          footerToolbar={{
+            center: "prev next",
+            left: "today",
+            right: "",
+          }}
+          initialView="dayGridMonth"
+          height={700}
+          aspectRatio={2}
+          expandRows={true}
+          editable={true}
+          selectable={true}
+          selectMirror={true}
+          dayMaxEvents={true}
+          dateClick={handleDateClick}
+          weekends={true}
+          select={handleDateSelect}
+          eventContent={renderEventContent} // custom render function
+          eventClick={handleEventClick}
+          // eventsSet={handleEvents} // called after events are initialized/added/changed/removed
+          /* you can update a remote database when these fire:
+            eventAdd={function(){}}
+            eventChange={function(){}}
+            eventRemove={function(){}}
+            */
+        />
+      </CalendarContainer>
     </>
   );
-}
-
-function renderSidebarEvent(event: EventApi) {
-  return (
-    <li key={event.id}>
-      <b>
-        {formatDate(event.start!, {
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-        })}
-      </b>
-      <i>{event.title}</i>
-    </li>
-  );
-}
-function dispatch(arg0: any) {
-  throw new Error("Function not implemented.");
-}
+};

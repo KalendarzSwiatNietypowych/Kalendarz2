@@ -5,7 +5,7 @@ export const NavbarContainer = styled.div`
         padding:1rem 0;
         display:flex;
         justify-content:flex-start;
-        height:4vw;
+        height:6.4vh;
         align-items:center;
         background: rgb(55,55,55);
         background: linear-gradient(90deg, rgba(55,55,55,1) 0%, rgba(20,20,20,1) 100%);
