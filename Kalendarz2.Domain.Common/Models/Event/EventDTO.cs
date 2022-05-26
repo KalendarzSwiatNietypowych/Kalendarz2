@@ -12,6 +12,6 @@ public class EventDTO
     public ICollection<ParticipantDTO> Participants { get; set; }
     public DateTime StartEvent { get; set; }
     public DateTime EndEvent { get; set; }
-    public string Color { get; set; }
+    public int Color { get; set; }
     public bool IsRecurring { get; set; }
 }

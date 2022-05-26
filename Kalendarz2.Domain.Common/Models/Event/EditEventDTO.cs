@@ -17,7 +17,7 @@ public class EditEventDTO
     public DateTime StartEvent { get; set; }
     public DateTime EndEvent { get; set; }
     [Required]
-    public string Color { get; set; }
+    public int Color { get; set; }
     public bool IsRecurring { get; set; }
     public bool IsDeleted { get; set; }
 }

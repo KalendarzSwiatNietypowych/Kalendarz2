@@ -4,8 +4,8 @@ export default interface event {
     description: string;
     location:string;
     participantsEmails:string[]|null;
-    startEvent: Date;
-    endEvent: Date;
+    startDate: Date;
+    endDate: Date;
     color:number;
     isRecurring:boolean
     
@@ -17,8 +17,8 @@ export default interface event {
     description: "",
     location:"",
     participantsEmails:[],
-    startEvent:  new Date(),
-    endEvent: new Date(),
+    startDate:  new Date(),
+    endDate: new Date(),
     color: 1,
     isRecurring:false
   };

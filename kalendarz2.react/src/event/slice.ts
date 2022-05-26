@@ -21,8 +21,8 @@ export const eventSlice = createSlice({
             description: action.payload.description,
             location:action.payload.location,
             participantsEmails:action.payload.participantsEmails,
-            startEvent: action.payload.startEvent,
-            endEvent: action.payload.endEvent,
+            startDate: action.payload.startDate,
+            endDate: action.payload.endDate,
             color:action.payload.number,
             isRecurring:action.payload.isRecurring,
           };
