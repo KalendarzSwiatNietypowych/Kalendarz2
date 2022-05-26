@@ -16,7 +16,7 @@ public class NewEventDTO
     public DateTime StartEvent { get; set; }
     public DateTime EndEvent { get; set; }
     [Required] 
-    public int Color { get; set; }
+    public string Color { get; set; }
     public bool IsRecurring { get; set; } = false;
 }
 
