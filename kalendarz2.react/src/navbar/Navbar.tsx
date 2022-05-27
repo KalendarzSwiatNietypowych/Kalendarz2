@@ -39,7 +39,7 @@ export const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.clear();
-    navigate("/calendar");
+    navigate("/");
     window.location.reload();
   };
 
@@ -48,7 +48,7 @@ export const Navbar = () => {
       <NavbarContainer>
         <ToastContainer autoClose={2000} />
         <p>Calendar</p>
-        <CalendarMonthIcon onClick={() => navigate("/calendar")} />
+        <CalendarMonthIcon onClick={() => navigate("/")} />
         {isLogged && <AddIcon onClick={() => navigate("/event")} />}
         {isLogged && <NotificationAddIcon />}
         {isLogged && <FormatListBulletedIcon />}
@@ -70,8 +70,7 @@ export const Navbar = () => {
       <Routes>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
-        <Route path="/calendar" element={<Calendar />}></Route>
-        <Route path="/" element={<Home />}></Route>
+        <Route path="/" element={<Calendar />}></Route>
         <Route path="/event" element={<AddEvent />}></Route>
         <Route path="*" element={<Calendar />} />
       </Routes>

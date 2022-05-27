@@ -83,7 +83,7 @@ export const Calendar = () => {
       title: e.title,
       start: e.startEvent,
       end: e.endEvent,
-      color: "blue",
+      color: e.color,
     };
   });
 
@@ -95,6 +95,12 @@ export const Calendar = () => {
         <ImportantEvents />
         <FullCalendar
           events={calendar_events}
+          eventTimeFormat={{
+            hour: "numeric",
+            minute: "2-digit",
+            meridiem: false,
+            hour12: false,
+          }}
           plugins={[
             dayGridPlugin,
             timeGridPlugin,

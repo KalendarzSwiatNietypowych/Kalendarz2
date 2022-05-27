@@ -6,7 +6,7 @@ export default interface event {
   participantsEmails:string[]|null;
   startEvent: Date;
   endEvent: Date;
-  color:number;
+  color:string;
   isRecurring:boolean
   
 }
@@ -19,7 +19,7 @@ export const initialState: event = {
   participantsEmails:[],
   startEvent:  new Date(),
   endEvent: new Date(),
-  color: 1,
+  color: "#0000ff",
   isRecurring:false
 };
     

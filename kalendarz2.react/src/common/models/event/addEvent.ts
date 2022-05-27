@@ -6,6 +6,6 @@ export default interface addEvent {
   participantsEmails:string[]|null;
   startEvent: Date;
   endEvent: Date;
-  color:number;
+  color:string;
   isRecurring:boolean
 }

@@ -42,10 +42,9 @@ export const Events = () => {
     <EventsContainer>
       {isLogged && events.length > 0 && <h1>Events:</h1>}
       {!isLogged && (
-        <h2>
-          <span onClick={() => navigate("/login")}>Sign in</span> to be able to
-          add events
-        </h2>
+        <h1>
+          <span onClick={() => navigate("/login")}>Sign in</span> to add events
+        </h1>
       )}
       {isLogged &&
         events.length > 0 &&

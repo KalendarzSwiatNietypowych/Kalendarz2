@@ -57,7 +57,6 @@ export const Login = () => {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault();
-    event.preventDefault();
     for (let [key, value] of Object.entries(credits)) {
       if (!loginValidator(key, value)) {
         return;
