@@ -120,6 +120,7 @@ public class AccountSrv : IAccountSrv
         userdb.FirstName = user.FirstName;
         userdb.LastName = user.LastName;
         userdb.Email = user.Email;
+        _dbContext.Users.Update(userdb);
         _dbContext.SaveChanges();
 
         return new UserDTO

@@ -106,6 +106,7 @@ public class EventSrv : IEventSrv
         }
 
         eventToUpdate = _eventMapper.Map(modifyEventDTO, participationList);
+        _dbContext.Events.Update(eventToUpdate);
         _dbContext.SaveChanges();
 
         var result = _eventMapper.Map(eventToUpdate);
