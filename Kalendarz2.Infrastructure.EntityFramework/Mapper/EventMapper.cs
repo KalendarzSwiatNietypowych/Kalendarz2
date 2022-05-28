@@ -92,8 +92,6 @@ public class EventMapper
     {
         return new Event
         {
-            Id = newEvent.Id,
-            AuthorId = newEvent.AuthorId,
             Title = newEvent.Title,
             Description = newEvent.Description,
             Location = newEvent.Location,

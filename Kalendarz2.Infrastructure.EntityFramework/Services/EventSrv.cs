@@ -2,6 +2,7 @@
 using Kalendarz2.Domain.Common.Models.Event;
 using Kalendarz2.Domain.Interfaces.Infrastucture;
 using Kalendarz2.Infrastructure.EntityFramework.Mapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace Kalendarz2.Infrastructure.EntityFramework;
 
@@ -46,11 +47,13 @@ public class EventSrv : IEventSrv
                 Participant = user,
             };
             participationList.Add(participation);
+            _dbContext.Participations.Add(participation);
         }
         newEvent.Participants = participationList;
 
         var userParticipation = new Participation() { Event = newEvent, EventId = newEvent.Id, Participant =  author, ParticipantId = author.Id};
         _dbContext.Participations.Add(userParticipation);
+
         _dbContext.SaveChanges();
 
         var eventDTO = _eventMapper.Map(addEventDTO, newEvent.Id, participantList);
@@ -108,9 +111,21 @@ public class EventSrv : IEventSrv
             };
             participationList.Add(participation);
         }
+        //if jest więcej użytkowników to dodaj ludzi
+        //else if jest mniej uczestników to usuń
 
-        eventToUpdate = _eventMapper.Map(modifyEventDTO, participationList);
-        _dbContext.Events.Update(eventToUpdate);
+        //eventToUpdate = _eventMapper.Map(modifyEventDTO, participationList);
+        eventToUpdate.Title = modifyEventDTO.Title;
+        eventToUpdate.Description = modifyEventDTO.Description;
+        eventToUpdate.Location = modifyEventDTO.Location;
+        eventToUpdate.StartEvent = modifyEventDTO.StartEvent;
+        eventToUpdate.EndEvent = modifyEventDTO.EndEvent;
+        eventToUpdate.Participants = participationList;
+        eventToUpdate.IsRecurring = modifyEventDTO.IsRecurring;
+        eventToUpdate.IsDeleted = modifyEventDTO.IsDeleted;
+        eventToUpdate.Color = modifyEventDTO.Color;
+
+        _dbContext.Update(eventToUpdate);
         _dbContext.SaveChanges();
 
         var result = _eventMapper.Map(eventToUpdate);
