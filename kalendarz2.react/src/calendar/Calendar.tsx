@@ -87,8 +87,6 @@ export const Calendar = () => {
     };
   });
 
-  console.log(calendar_events);
-
   return (
     <>
       <CalendarContainer>

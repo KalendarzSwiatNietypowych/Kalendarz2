@@ -19,6 +19,7 @@ import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useDispatch } from "react-redux";
 import { store } from "..";
+import { UpdateEvent } from "../event/UpdateEvent";
 
 export const Navbar = () => {
   const dispatch = useDispatch();
@@ -72,6 +73,7 @@ export const Navbar = () => {
         <Route path="/register" element={<Register />}></Route>
         <Route path="/" element={<Calendar />}></Route>
         <Route path="/event" element={<AddEvent />}></Route>
+        <Route path="/updateEvent" element={<UpdateEvent />}></Route>
         <Route path="*" element={<Calendar />} />
       </Routes>
     </div>

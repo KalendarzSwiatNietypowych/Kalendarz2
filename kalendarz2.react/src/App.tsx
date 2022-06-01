@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      {location.pathname == "/" && <Events />}
+      {location.pathname == "/" && <Events/>}
     </div>
   );
 }

@@ -16,6 +16,7 @@ export const eventSlice = createSlice({
       .addCase(addEventAction.fulfilled, (state, action) => {
         if (action.payload !== undefined) {
           const newEvent: event = {
+            id: action.payload.id,
             authorId: action.payload.authorId,
             title: action.payload.title,
             description: action.payload.description,

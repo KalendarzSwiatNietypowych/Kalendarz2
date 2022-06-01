@@ -1,4 +1,5 @@
 export default interface event {
+  id:number;
   authorId: number;
   title: string;
   description: string;
@@ -8,10 +9,10 @@ export default interface event {
   endEvent: Date;
   color:string;
   isRecurring:boolean
-  
 }
 
 export const initialState: event = {
+  id:-1,
   authorId: -1,
   title: "",
   description: "",

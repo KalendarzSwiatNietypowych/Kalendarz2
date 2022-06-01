@@ -1,5 +1,6 @@
 import addEvent from "../../models/event/addEvent";
 import getEvent from "../../models/event/getAllEvents";
+import updateEvent from "../../models/event/updateEvent";
 import { api } from "../connectionsString";
 
 const controllerPath = "Event/";
@@ -18,6 +19,15 @@ export const eventSrv = {
     try {
       return await api
         .post(controllerPath + "getByUser", credential)
+        .then((r) => r.data);
+    } catch (e) {
+      console.error(e);
+    }
+  },
+  async updateEvent(credential: updateEvent) {
+    try {
+      return await api
+        .put(controllerPath + "update", credential)
         .then((r) => r.data);
     } catch (e) {
       console.error(e);

@@ -81,7 +81,6 @@ export const AddEvent = () => {
         isRecurring: credits.isRecurring,
       })
     );
-    console.log(credits.color);
     setCredits(initialState);
   };
 
