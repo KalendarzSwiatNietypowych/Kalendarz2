@@ -1,6 +1,10 @@
 import styled from "styled-components"
 
-export const RegisterFormContainer = styled.div`
+interface IDarkmode {
+    darkmode:boolean
+}
+
+export const RegisterFormContainer = styled.div<IDarkmode>`
     &&&{
         width:100%;
         margin:0 auto; 
@@ -12,7 +16,7 @@ export const RegisterFormContainer = styled.div`
         flex-direction:column;
         align-items:center;
         border:none;
-        color:white;
+        color:${(props) => props.darkmode == true? "white":"black"}; 
         }
     p{
         font-size:1.2rem;

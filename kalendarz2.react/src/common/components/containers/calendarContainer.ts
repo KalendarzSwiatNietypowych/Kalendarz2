@@ -1,15 +1,16 @@
 import styled from "styled-components";
 
-export const CalendarContainer = styled.div`
+interface IDarkmode {
+  darkmode:boolean
+}
+
+export const CalendarContainer = styled.div<IDarkmode>`
   &&& {
     width: 100%;
+    overflow:hidden;
     margin: 0 auto;
-    background: rgb(55, 55, 55);
-    background: linear-gradient(
-      90deg,
-      rgba(55, 55, 55, 1) 0%,
-      rgba(20, 20, 20, 1) 100%
-    );
+    background: ${(props) => props.darkmode == true? "rgb(55,55,55)": "rgb(239,239,239)"};
+    background:${(props) => props.darkmode == true? "linear-gradient(90deg, rgba(55,55,55,1) 0%, rgba(20,20,20,1) 100%)": "linear-gradient(180deg, rgba(239,239,239,1) 0%, rgba(212,212,212,1) 100%)"}; 
     padding-top:1rem;
     button{
       margin:0;
@@ -30,11 +31,11 @@ export const CalendarContainer = styled.div`
     }
     .fc-daygrid-day-frame {
       margin-bottom: 0.6rem;
-
-      color: white;
+      color:${(props) => props.darkmode == true? "white":"black"}; 
       max-height: 5px;
     }
     .fc-button {
+      color:${(props) => props.darkmode == true? "white":"black"}; 
       background: rgb(25, 138, 103);
       background: linear-gradient(
         180deg,
@@ -61,7 +62,7 @@ export const CalendarContainer = styled.div`
     }
     span,
     .fc-timegrid-slot-label-cushion {
-      color: white;
+      color:${(props) => props.darkmode == true? "white":"black"}; 
     }
     .fc-daygrid-day-top{
       justify-content:center;
@@ -71,19 +72,19 @@ export const CalendarContainer = styled.div`
     }
     .fc-toolbar-title {
       font-family: "inter";
-      color: white;
+      color:${(props) => props.darkmode == true? "white":"black"}; 
       font-weight: 200;
     }
     .fc-col-header-cell {
       font-family: "inter";
-      color: white;
+      color:${(props) => props.darkmode == true? "white":"black"}; 
       font-weight: 200;
       padding: 1rem 0;
     }
     .fc-col-header {
       overflow: hidden;
       margin: 1rem 0;
-      background-color: #3e3e3e;
+      background-color:${(props) => props.darkmode == true? "#3e3e3e":"#AEAEAE"}; 
       border-radius: 1rem;
     }
     .fc-scrollgrid-section-header div {
@@ -99,7 +100,6 @@ export const CalendarContainer = styled.div`
       background-color: #ffe17d;
     }
     .fc-h-event i {
-      color: black;
       font-family: "inter";
       font-size: 0.7rem;
       font-weight: 600;
