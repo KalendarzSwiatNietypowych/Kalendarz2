@@ -1,6 +1,10 @@
 import styled from "styled-components"
 
-export const AddEventForm = styled.div`
+interface IDarkmode {
+    darkmode:boolean
+}
+
+export const AddEventForm = styled.div<IDarkmode>`
     &&&{
         width:100%;
         margin:0 auto; 
@@ -11,7 +15,7 @@ export const AddEventForm = styled.div`
         flex-direction:column;
         align-items:center;
         justify-content:space-evenly;
-        color:white;
+        color:${(props) => props.darkmode == true? "white":"black"}; 
         float:left;
         p{
         font-size:1.2rem;
