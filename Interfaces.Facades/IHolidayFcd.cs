@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kalendarz2.Domain.Common.Models.Holiday;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,4 +9,8 @@ namespace Kalendarz2.Domain.Interfaces.Facades;
 
 public interface IHolidayFcd
 {
+    public HolidayDTO addHoliday(HolidayDTO holiday);
+    public List<HolidayDTO> getHolidays();
+    public HolidayDTO deleteHoliday(DeleteHolidayDTO deleteHoliday);
+    public HolidayDTO updateHoliday(UpdateHolidayDTO holiday);
 }

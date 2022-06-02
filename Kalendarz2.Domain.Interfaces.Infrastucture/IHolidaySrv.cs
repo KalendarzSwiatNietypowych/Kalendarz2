@@ -9,4 +9,8 @@ namespace Kalendarz2.Domain.Interfaces.Infrastucture;
 
 public interface IHolidaySrv
 {
+    public HolidayDTO addHoliday(HolidayDTO holiday);
+    public List<HolidayDTO> getHolidays();
+    public HolidayDTO deleteHoliday(DeleteHolidayDTO deleteHoliday);
+    public HolidayDTO updateHoliday(UpdateHolidayDTO holiday);
 }
