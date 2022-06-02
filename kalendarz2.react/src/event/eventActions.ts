@@ -1,9 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
-  ADD_EVENT, GET_EVENT,
+  ADD_EVENT, GET_EVENT, UPDATE_EVENT,
 } from "../common/consts/actionTypes";
 import addEvent from "../common/models/event/addEvent";
 import getAllEvents from "../common/models/event/getAllEvents";
+import updateEvent from "../common/models/event/updateEvent";
 import { eventSrv } from "../common/services/event/eventSrv";
 
 export const addEventAction = createAsyncThunk(
@@ -21,6 +22,17 @@ export const getAllEventsAction = createAsyncThunk(
   async (credential: getAllEvents) => {
     try {
       return await eventSrv.getAllEvents(credential);
+    } catch (e: any) {
+      return e.json();
+    }
+  }
+);
+
+export const updateEventAction = createAsyncThunk(
+  UPDATE_EVENT,
+  async (credential: updateEvent) => {
+    try {
+      return await eventSrv.updateEvent(credential);
     } catch (e: any) {
       return e.json();
     }

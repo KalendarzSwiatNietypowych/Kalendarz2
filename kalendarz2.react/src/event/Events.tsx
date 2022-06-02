@@ -7,8 +7,11 @@ import { useDispatch } from "react-redux";
 import { getAllEventsAction } from "./eventActions";
 import { SelectAllEvents } from "./selectors";
 import { Event } from "../common/components/containers/Event";
+import event from "../common/models/event/event";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CircleIcon from "@mui/icons-material/Circle";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import moment from "moment";
 export const Events = () => {
   const dispatch = useDispatch();
@@ -37,7 +40,23 @@ export const Events = () => {
     };
   });
 
-  console.log(calendar_events);
+  const handleEdit = (event: event) => {
+    navigate("/updateEvent", {
+      state: {
+        id: event.id,
+        authorId: event.authorId,
+        title: event.title,
+        description: event.description,
+        location: event.location,
+        participantsEmails: event.participantsEmails,
+        startEvent: event.startEvent,
+        endEvent: event.endEvent,
+        color: event.color,
+        isRecurring: event.isRecurring,
+      },
+    });
+  };
+
   return (
     <EventsContainer darkmode={false}>
       {isLogged && events.length > 0 && <h1>Events:</h1>}
@@ -55,10 +74,15 @@ export const Events = () => {
                 <h2>{event.title}</h2>
                 <CircleIcon />
               </div>
+              <h3>{event.description}</h3>
               <h3>{moment(event.startEvent).format("DD-MM-yyyy HH:mm")}</h3>
               <div className="eventLocation">
                 <h3>{event.location != "" ? event.location : "No location"}</h3>
                 <LocationOnIcon />
+              </div>
+              <div className="eventButtons">
+                <EditIcon onClick={() => handleEdit(event)} />
+                <DeleteForeverIcon onClick={() => handleEdit(event)} />
               </div>
             </Event>
           );

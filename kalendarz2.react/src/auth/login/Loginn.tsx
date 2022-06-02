@@ -39,7 +39,7 @@ export const Login = () => {
 
   useEffect(() => {
     if (currentUser.token !== "") {
-      navigate("../calendar", { replace: true });
+      navigate("../", { replace: true });
     }
   }, [currentUser.token, navigate]);
 

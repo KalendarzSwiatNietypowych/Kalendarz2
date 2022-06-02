@@ -3,7 +3,7 @@ import { wait } from "@testing-library/user-event/dist/utils";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { SelectUser } from "../auth/slice";
 import { SubmitButton } from "../common/components/buttons/submitButton";
@@ -13,9 +13,15 @@ import { ColorInput } from "../common/components/inputs/colorInput";
 import { StyledCheckbox } from "../common/components/inputs/muiCheckbox";
 import { initialState } from "../common/models/event/event";
 import { useAppSelector } from "../common/store/rootReducer";
-import { addEventAction, getAllEventsAction } from "./eventActions";
+import event from "../common/models/event/event";
+import {
+  addEventAction,
+  getAllEventsAction,
+  updateEventAction,
+} from "./eventActions";
 
-export const AddEvent = () => {
+export const UpdateEvent = () => {
+  const location = useLocation();
   const addEventValidator = (fieldName: string, value: string) => {
     switch (fieldName) {
       case "title":
@@ -38,13 +44,26 @@ export const AddEvent = () => {
   };
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const currentAuthorId = useAppSelector((state) => SelectUser(state)).id;
 
+  const currentAuthorId = useAppSelector((state) => SelectUser(state)).id;
   const [credits, setCredits] = useState(initialState);
   const [checked, setChecked] = useState(false);
+  // const eventToEdit = location.state as event;
+  // console.log(credits);
+  // console.log(eventToEdit);
+  // console.log(eventToEdit.title);
+  // credits.title = eventToEdit.title;
+  // console.log(credits);
+
+  useEffect(() => {
+    const eventToEdit = location.state as event;
+    console.log(eventToEdit);
+    setCredits(eventToEdit);
+    setChecked(eventToEdit.isRecurring);
+  }, []);
 
   const handleCheckbox = () => {
-    setChecked((prevState) => !prevState);
+    setChecked(!checked);
   };
 
   const handleChange = (
@@ -59,9 +78,7 @@ export const AddEvent = () => {
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    credits.authorId = currentAuthorId;
     credits.participantsEmails = [];
-    credits.isRecurring = checked;
     for (let [key, value] of Object.entries(credits)) {
       if (!addEventValidator(key, value)) {
         return;
@@ -69,8 +86,9 @@ export const AddEvent = () => {
     }
     if (!dateValidator(credits.startEvent, credits.endEvent)) return;
     dispatch(
-      addEventAction({
+      updateEventAction({
         authorId: credits.authorId,
+        id: credits.id,
         title: credits.title,
         description: credits.description,
         location: credits.location,
@@ -79,13 +97,15 @@ export const AddEvent = () => {
         endEvent: credits.endEvent,
         color: credits.color,
         isRecurring: credits.isRecurring,
+        isDeleted: false,
       })
     );
+
     setCredits(initialState);
   };
 
   return (
-    <AddEventForm darkmode={false}>
+    <AddEventForm>
       <p>Add Event</p>
 
       <BasicInput
