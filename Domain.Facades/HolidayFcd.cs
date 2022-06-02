@@ -17,7 +17,7 @@ public class HolidayFcd : IHolidayFcd
     {
         _holidaySrv = holidaySrv;
     }
-    public HolidayDTO addHoliday(HolidayDTO holiday)
+    public AddHolidayDTO addHoliday(AddHolidayDTO holiday)
     {
         return _holidaySrv.addHoliday(holiday);
     }

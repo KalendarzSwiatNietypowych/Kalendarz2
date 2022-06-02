@@ -16,7 +16,7 @@ public class HolidayController : ControllerBase
     }
 
     [HttpPost("create")]
-    public ActionResult AddHoliday([FromBody] HolidayDTO holidayDTO)
+    public ActionResult AddHoliday([FromBody] AddHolidayDTO holidayDTO)
     {
         return Ok(_holidayFcd.addHoliday(holidayDTO));
     }

@@ -9,7 +9,7 @@ namespace Kalendarz2.Domain.Interfaces.Facades;
 
 public interface IHolidayFcd
 {
-    public HolidayDTO addHoliday(HolidayDTO holiday);
+    public AddHolidayDTO addHoliday(AddHolidayDTO holiday);
     public List<HolidayDTO> getHolidays();
     public HolidayDTO deleteHoliday(DeleteHolidayDTO deleteHoliday);
     public HolidayDTO updateHoliday(UpdateHolidayDTO holiday);

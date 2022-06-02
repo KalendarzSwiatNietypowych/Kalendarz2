@@ -31,6 +31,7 @@ public static class DependencyInjector
         serviceCollection.AddScoped<IHolidayFcd, HolidayFcd>();
         serviceCollection.AddScoped<IHolidaySrv, HolidaySrv>();
         serviceCollection.AddScoped<EventMapper>();
+        serviceCollection.AddScoped<HolidayMapper>();
         serviceCollection.AddScoped<IJwtUtils, JwtUtils>();
 
 
