@@ -66,7 +66,7 @@ export const Login = () => {
   };
 
   return (
-    <LoginFormContainer>
+    <LoginFormContainer darkmode={false}>
       <p>Sign In</p>
 
       <BasicInput

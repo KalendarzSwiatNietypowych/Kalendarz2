@@ -1,6 +1,10 @@
 import styled from "styled-components"
 
-export const LoginFormContainer = styled.div`
+interface IDarkmode {
+    darkmode:boolean
+}
+
+export const LoginFormContainer = styled.div<IDarkmode>`
     &&&{
         width:100%;
         margin:0 auto; 
@@ -11,7 +15,7 @@ export const LoginFormContainer = styled.div`
         flex-direction:column;
         align-items:center;
         justify-content:space-evenly;
-        color:white;
+        color:${(props) => props.darkmode == true? "white":"black"}; 
         p{
         font-size:1.2rem;
         font-family:'inter';

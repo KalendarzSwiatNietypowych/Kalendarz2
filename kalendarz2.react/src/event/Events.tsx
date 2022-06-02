@@ -39,7 +39,7 @@ export const Events = () => {
 
   console.log(calendar_events);
   return (
-    <EventsContainer>
+    <EventsContainer darkmode={false}>
       {isLogged && events.length > 0 && <h1>Events:</h1>}
       {!isLogged && (
         <h1>

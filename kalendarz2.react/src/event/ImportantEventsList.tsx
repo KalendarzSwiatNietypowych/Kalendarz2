@@ -5,7 +5,7 @@ export const ImportantEvents = () => {
   return (
     <ImportantEventsContainer>
       <h4>Important events:</h4>
-      <ImportantEventsList>
+      <ImportantEventsList darkmode={false}>
         <ul>
           <li>
             Zbiórka pieniędzy dla kotków, które potrzebują pieniędzy, bo są

@@ -45,7 +45,7 @@ export const Navbar = () => {
 
   return (
     <div>
-      <NavbarContainer>
+      <NavbarContainer darkmode={false}>
         <ToastContainer autoClose={2000} />
         <p>Calendar</p>
         <CalendarMonthIcon onClick={() => navigate("/")} />

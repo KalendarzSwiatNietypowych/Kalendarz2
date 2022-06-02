@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { createRef, useEffect, useState } from "react";
 import FullCalendar, {
   EventApi,
   DateSelectArg,
@@ -87,11 +87,9 @@ export const Calendar = () => {
     };
   });
 
-  console.log(calendar_events);
-
   return (
     <>
-      <CalendarContainer>
+      <CalendarContainer darkmode={false}>
         <ImportantEvents />
         <FullCalendar
           events={calendar_events}
@@ -115,10 +113,10 @@ export const Calendar = () => {
           footerToolbar={{
             center: "prev next",
             left: "today",
-            right: "",
+            right: "prevYear nextYear",
           }}
           initialView="dayGridMonth"
-          height={700}
+          height={"71.7vh"}
           aspectRatio={2}
           expandRows={true}
           editable={true}
@@ -130,6 +128,7 @@ export const Calendar = () => {
           select={handleDateSelect}
           eventContent={renderEventContent} // custom render function
           eventClick={handleEventClick}
+
           // eventsSet={handleEvents} // called after events are initialized/added/changed/removed
           /* you can update a remote database when these fire:
             eventAdd={function(){}}
