@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Kalendarz2.Domain.Common.Utils;
 using Kalendarz2.Infrastructure.EntityFramework.Mapper;
+using Kalendarz2.Infrastructure.EntityFramework.Services;
 
 namespace Kalendarz2.Domain.DI;
 
@@ -27,6 +28,8 @@ public static class DependencyInjector
         serviceCollection.AddScoped<IAccountSrv, AccountSrv>();
         serviceCollection.AddScoped<IEventFcd, EventFcd>();
         serviceCollection.AddScoped<IEventSrv, EventSrv>();
+        serviceCollection.AddScoped<IHolidayFcd, HolidayFcd>();
+        serviceCollection.AddScoped<IHolidaySrv, HolidaySrv>();
         serviceCollection.AddScoped<EventMapper>();
         serviceCollection.AddScoped<IJwtUtils, JwtUtils>();
 
