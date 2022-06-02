@@ -10,6 +10,8 @@ import { Event } from "../common/components/containers/Event";
 import event from "../common/models/event/event";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CircleIcon from "@mui/icons-material/Circle";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import moment from "moment";
 export const Events = () => {
   const dispatch = useDispatch();
@@ -72,11 +74,15 @@ export const Events = () => {
                 <h2>{event.title}</h2>
                 <CircleIcon />
               </div>
+              <h3>{event.description}</h3>
               <h3>{moment(event.startEvent).format("DD-MM-yyyy HH:mm")}</h3>
               <div className="eventLocation">
                 <h3>{event.location != "" ? event.location : "No location"}</h3>
-                <h3 onClick={() => handleEdit(event)}>test</h3>
                 <LocationOnIcon />
+              </div>
+              <div className="eventButtons">
+                <EditIcon onClick={() => handleEdit(event)} />
+                <DeleteForeverIcon onClick={() => handleEdit(event)} />
               </div>
             </Event>
           );

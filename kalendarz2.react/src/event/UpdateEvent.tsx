@@ -57,6 +57,7 @@ export const UpdateEvent = () => {
 
   useEffect(() => {
     const eventToEdit = location.state as event;
+    console.log(eventToEdit);
     setCredits(eventToEdit);
     setChecked(eventToEdit.isRecurring);
   }, []);
@@ -77,29 +78,28 @@ export const UpdateEvent = () => {
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    credits.authorId = currentAuthorId;
     credits.participantsEmails = [];
-    credits.isRecurring = checked;
     for (let [key, value] of Object.entries(credits)) {
       if (!addEventValidator(key, value)) {
         return;
       }
     }
     if (!dateValidator(credits.startEvent, credits.endEvent)) return;
-    // dispatch(
-    //   updateEventAction({
-    //     authorId: credits.authorId,
-    //     // id:credits.id,
-    //     title: credits.title,
-    //     description: credits.description,
-    //     location: credits.location,
-    //     participantsEmails: credits.participantsEmails,
-    //     startEvent: credits.startEvent,
-    //     endEvent: credits.endEvent,
-    //     color: credits.color,
-    //     isRecurring: credits.isRecurring,
-    //   })
-    // );
+    dispatch(
+      updateEventAction({
+        authorId: credits.authorId,
+        id: credits.id,
+        title: credits.title,
+        description: credits.description,
+        location: credits.location,
+        participantsEmails: credits.participantsEmails,
+        startEvent: credits.startEvent,
+        endEvent: credits.endEvent,
+        color: credits.color,
+        isRecurring: credits.isRecurring,
+        isDeleted: false,
+      })
+    );
 
     setCredits(initialState);
   };

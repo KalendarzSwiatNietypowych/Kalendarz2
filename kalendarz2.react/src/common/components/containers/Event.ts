@@ -50,6 +50,18 @@ export const Event = styled.div`
             align-items:center;
             
         }
+        .eventButtons{
+            display:flex;
+            align-items:center;
+            color:orange;
+            justify-content:flex-end;
+            margin-right:1em;
+            padding-bottom:0.5em;
+        }
+        .eventButtons > svg:hover{
+            cursor: pointer;
+            color:darkorange;
+        }
         @media (min-width: 900px){
             .eventTitle > svg{
                 display:block;
