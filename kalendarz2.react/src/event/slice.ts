@@ -25,6 +25,7 @@ export const eventSlice = createSlice({
             startEvent: action.payload.startEvent,
             endEvent: action.payload.endEvent,
             color:action.payload.number,
+            isDeleted:action.payload.isDeleted,
             isRecurring:action.payload.isRecurring,
           };
           const newEvents = state.events;

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { createDebuggerStatement } from "typescript";
 import { SelectUser } from "../auth/slice";
 import { SubmitButton } from "../common/components/buttons/submitButton";
 import { AddEventForm } from "../common/components/containers/addEventForm";
@@ -42,7 +43,7 @@ export const AddEvent = () => {
 
   const [credits, setCredits] = useState(initialState);
   const [checked, setChecked] = useState(false);
-
+  console.log(credits);
   const handleCheckbox = () => {
     setChecked((prevState) => !prevState);
   };
@@ -62,6 +63,7 @@ export const AddEvent = () => {
     credits.authorId = currentAuthorId;
     credits.participantsEmails = [];
     credits.isRecurring = checked;
+    credits.isDeleted = false;
     for (let [key, value] of Object.entries(credits)) {
       if (!addEventValidator(key, value)) {
         return;
@@ -79,6 +81,7 @@ export const AddEvent = () => {
         endEvent: credits.endEvent,
         color: credits.color,
         isRecurring: credits.isRecurring,
+        isDeleted: credits.isDeleted,
       })
     );
     setCredits(initialState);

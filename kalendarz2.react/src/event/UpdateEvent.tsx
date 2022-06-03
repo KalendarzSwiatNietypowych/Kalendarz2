@@ -105,7 +105,7 @@ export const UpdateEvent = () => {
   };
 
   return (
-    <AddEventForm>
+    <AddEventForm darkmode={false}>
       <p>Add Event</p>
 
       <BasicInput

@@ -4,7 +4,7 @@ import { SelectUser } from "../auth/slice";
 import { EventsContainer } from "../common/components/containers/EventsContainer";
 import { useAppSelector } from "../common/store/rootReducer";
 import { useDispatch } from "react-redux";
-import { getAllEventsAction } from "./eventActions";
+import { deleteEventAction, getAllEventsAction } from "./eventActions";
 import { SelectAllEvents } from "./selectors";
 import { Event } from "../common/components/containers/Event";
 import event from "../common/models/event/event";
@@ -13,6 +13,7 @@ import CircleIcon from "@mui/icons-material/Circle";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import moment from "moment";
+import { CreditScore } from "@mui/icons-material";
 export const Events = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,12 +34,15 @@ export const Events = () => {
   // }, []);
 
   const events = useAppSelector((state) => SelectAllEvents(state));
-  const calendar_events = events.map((e) => {
-    return {
-      title: e.title,
-      start: e.startEvent,
-    };
-  });
+  const today = new Date();
+  const futureEvents = events.filter(
+    (e) => new Date(e.endEvent).getTime() > today.getTime()
+  );
+  const nonDeletedEvents = futureEvents.filter((e) => e.isDeleted);
+  console.log(today.toJSON());
+  console.log(events);
+  console.log(futureEvents);
+  console.log(nonDeletedEvents);
 
   const handleEdit = (event: event) => {
     navigate("/updateEvent", {
@@ -52,9 +56,19 @@ export const Events = () => {
         startEvent: event.startEvent,
         endEvent: event.endEvent,
         color: event.color,
+        isDeleted: event.isDeleted,
         isRecurring: event.isRecurring,
       },
     });
+  };
+
+  const handleDelete = (event: event) => {
+    dispatch(
+      deleteEventAction({
+        authorId: event.authorId,
+        eventId: event.id,
+      })
+    );
   };
 
   return (
@@ -82,7 +96,7 @@ export const Events = () => {
               </div>
               <div className="eventButtons">
                 <EditIcon onClick={() => handleEdit(event)} />
-                <DeleteForeverIcon onClick={() => handleEdit(event)} />
+                <DeleteForeverIcon onClick={() => handleDelete(event)} />
               </div>
             </Event>
           );

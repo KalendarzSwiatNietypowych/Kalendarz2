@@ -1,4 +1,5 @@
 import addEvent from "../../models/event/addEvent";
+import deleteEvent from "../../models/event/deleteEvent";
 import getEvent from "../../models/event/getAllEvents";
 import updateEvent from "../../models/event/updateEvent";
 import { api } from "../connectionsString";
@@ -28,6 +29,15 @@ export const eventSrv = {
     try {
       return await api
         .put(controllerPath + "update", credential)
+        .then((r) => r.data);
+    } catch (e) {
+      console.error(e);
+    }
+  },
+  async deleteEvent(credential: deleteEvent) {
+    try {
+      return await api
+        .put(controllerPath + "delete", credential)
         .then((r) => r.data);
     } catch (e) {
       console.error(e);

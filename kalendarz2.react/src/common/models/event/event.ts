@@ -8,7 +8,8 @@ export default interface event {
   startEvent: Date;
   endEvent: Date;
   color:string;
-  isRecurring:boolean
+  isDeleted:boolean;
+  isRecurring:boolean;
 }
 
 export const initialState: event = {
@@ -21,6 +22,7 @@ export const initialState: event = {
   startEvent:  new Date(),
   endEvent: new Date(),
   color: "#0000ff",
+  isDeleted:false,
   isRecurring:false
 };
     
