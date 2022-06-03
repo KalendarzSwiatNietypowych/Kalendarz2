@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Kalendarz2.Domain.Common.Models.Holiday;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Json;
+using Newtonsoft.Json;
 
 namespace Kalendarz2.Infrastructure.EntityFramework;
 
@@ -70,6 +72,18 @@ public class CalendarDbContext : DbContext
             .HasOne(p => p.Event)
             .WithMany(e => e.Participants)
             .HasForeignKey(p => p.EventId);
+
+        using (StreamReader r = new StreamReader("holidaysJSON.txt"))
+        {
+            string json = r.ReadToEnd();
+            List<HolidayDTO> items = JsonConvert.DeserializeObject<List<HolidayDTO>>(json);
+            int id_num = 1;
+            foreach (var item in items)
+            {
+                modelBuilder.Entity<Holiday>().HasData(new Holiday { Id = id_num, Name = item.Name, Date = item.Date, Description = item.Description });
+                id_num++;
+            }
+        }
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -82,4 +96,5 @@ public class CalendarDbContext : DbContext
         var connectionString = configuration.GetConnectionString("DefaultConnection");
         optionsBuilder.UseSqlServer(connectionString);
     }
+
 }
