@@ -8,9 +8,9 @@ namespace Kalendarz2.Backend.Controllers;
 [ApiController]
 public class HolidayController : ControllerBase
 {
-    private readonly IHolidayFcd _holidayFcd; 
+    private readonly IHolidayFcd _holidayFcd;
 
-    HolidayController(IHolidayFcd holidayFcd)
+    public HolidayController(IHolidayFcd holidayFcd)
     {
         _holidayFcd = holidayFcd;
     }

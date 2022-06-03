@@ -48,7 +48,7 @@ public class HolidaySrv : IHolidaySrv
         foreach(var holiday in holidays)
         {
             var i = _holidayMapper.Map(holiday);
-            listHolidaysDTO.Append(i);
+            listHolidaysDTO.Add(i);
         }
         return listHolidaysDTO;
     }

@@ -23,6 +23,8 @@ public class EventMapper
             StartEvent = newEvent.StartEvent,
             EndEvent = newEvent.EndEvent,
             Color = newEvent.Color,
+            IsRecurring = newEvent.IsRecurring,
+            IsDeleted = false
         };
     }
     public Event Map(NewEventDTO newEvent)
@@ -52,7 +54,8 @@ public class EventMapper
             StartEvent = newEvent.StartEvent,
             EndEvent = newEvent.EndEvent,
             IsRecurring = newEvent.IsRecurring,
-            Color = newEvent.Color
+            Color = newEvent.Color,
+            IsDeleted = newEvent.IsDeleted
         };
     }
     public EventDTO Map(Event newEvent)
@@ -85,7 +88,8 @@ public class EventMapper
             StartEvent = newEvent.StartEvent,
             EndEvent = newEvent.EndEvent,
             IsRecurring = newEvent.IsRecurring,
-            Color = newEvent.Color
+            Color = newEvent.Color,
+            IsDeleted = newEvent.IsDeleted
         };
     }
     public Event Map(EditEventDTO newEvent, ICollection<Participation> participantion)
@@ -99,7 +103,6 @@ public class EventMapper
             EndEvent = newEvent.EndEvent,
             Participants = participantion,
             IsRecurring = newEvent.IsRecurring,
-            IsDeleted = newEvent.IsDeleted,
             Color = newEvent.Color
         };
     }

@@ -14,4 +14,5 @@ public class EventDTO
     public DateTime EndEvent { get; set; }
     public string Color { get; set; }
     public bool IsRecurring { get; set; }
+    public bool IsDeleted { get; set; }
 }

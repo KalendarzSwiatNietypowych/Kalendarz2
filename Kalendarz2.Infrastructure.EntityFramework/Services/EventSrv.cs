@@ -97,20 +97,20 @@ public class EventSrv : IEventSrv
     {
         var eventToUpdate = _dbContext.Events.FirstOrDefault(e => e.Id == modifyEventDTO.Id);
 
-        var participantEmails = modifyEventDTO.ParticipantsEmails;
-        var participationList = new List<Participation>();
-        foreach (var email in participantEmails)
-        {
-            var user = _dbContext.Users.FirstOrDefault(u => u.Email == email);
-            var participation = new Participation()
-            {
-                EventId = eventToUpdate.Id,
-                Event = eventToUpdate,
-                ParticipantId = user.Id,
-                Participant = user,
-            };
-            participationList.Add(participation);
-        }
+        //var participantEmails = modifyEventDTO.ParticipantsEmails;
+        //var participationList = new List<Participation>();
+        //foreach (var email in participantEmails)
+        //{
+        //    var user = _dbContext.Users.FirstOrDefault(u => u.Email == email);
+        //    var participation = new Participation()
+        //    {
+        //        EventId = eventToUpdate.Id,
+        //        Event = eventToUpdate,
+        //        ParticipantId = user.Id,
+        //        Participant = user,
+        //    };
+        //    participationList.Add(participation);
+        //}
         //if jest więcej użytkowników to dodaj ludzi
         //else if jest mniej uczestników to usuń
 
@@ -120,9 +120,8 @@ public class EventSrv : IEventSrv
         eventToUpdate.Location = modifyEventDTO.Location;
         eventToUpdate.StartEvent = modifyEventDTO.StartEvent;
         eventToUpdate.EndEvent = modifyEventDTO.EndEvent;
-        eventToUpdate.Participants = participationList;
+        //eventToUpdate.Participants = participationList;
         eventToUpdate.IsRecurring = modifyEventDTO.IsRecurring;
-        eventToUpdate.IsDeleted = modifyEventDTO.IsDeleted;
         eventToUpdate.Color = modifyEventDTO.Color;
 
         _dbContext.Update(eventToUpdate);
