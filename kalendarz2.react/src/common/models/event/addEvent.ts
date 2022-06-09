@@ -7,5 +7,6 @@ export default interface addEvent {
   startEvent: Date;
   endEvent: Date;
   color:string;
-  isRecurring:boolean
+  isDeleted:boolean;
+  isRecurring:boolean;
 }
