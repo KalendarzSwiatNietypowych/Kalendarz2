@@ -3,8 +3,10 @@ import styled from "styled-components"
 export const ImportantEventsContainer = styled.div`
     &&&{
         background: rgb(25,138,103);
-        background: linear-gradient(180deg, rgba(25,138,103,1) 0%, rgba(43,197,152,1) 50%, rgba(25,138,103,1) 100%);
+       
+        background:linear-gradient(90deg, #2BC598 0%, #09A376 50%, #2BC598 100%);
         border-radius:2rem;
+        border: 1px black solid;
         margin: 1rem;
         position:relative;
         height:8.2rem;

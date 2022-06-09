@@ -5,8 +5,8 @@ export const Event = styled.div`
         width:70%;
         margin:3rem auto;
         border-radius:2rem;
-        background: rgb(43,197,152);
-        background: linear-gradient(180deg, rgba(43,197,152,1) 0%, rgba(25,138,103,1) 100%);
+        background-color:#2BC598;
+        background:linear-gradient(45deg, #2BC598 0%, #09A376 100%);
 
         h2{
             color: black;
