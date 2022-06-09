@@ -3,25 +3,19 @@ import { wait } from "@testing-library/user-event/dist/utils";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { SelectUser } from "../auth/slice";
 import { SubmitButton } from "../common/components/buttons/submitButton";
 import { AddEventForm } from "../common/components/containers/addEventForm";
+import { ColorPallet } from "../common/components/containers/colorPallet";
 import { BasicInput } from "../common/components/inputs/basicInput";
 import { ColorInput } from "../common/components/inputs/colorInput";
 import { StyledCheckbox } from "../common/components/inputs/muiCheckbox";
 import { initialState } from "../common/models/event/event";
 import { useAppSelector } from "../common/store/rootReducer";
-import event from "../common/models/event/event";
-import {
-  addEventAction,
-  getAllEventsAction,
-  updateEventAction,
-} from "./eventActions";
 
-export const UpdateEvent = () => {
-  const location = useLocation();
+export const Settings = () => {
   const addEventValidator = (fieldName: string, value: string) => {
     switch (fieldName) {
       case "title":
@@ -44,26 +38,13 @@ export const UpdateEvent = () => {
   };
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const currentAuthorId = useAppSelector((state) => SelectUser(state)).id;
+
   const [credits, setCredits] = useState(initialState);
   const [checked, setChecked] = useState(false);
-  // const eventToEdit = location.state as event;
-  // console.log(credits);
-  // console.log(eventToEdit);
-  // console.log(eventToEdit.title);
-  // credits.title = eventToEdit.title;
-  // console.log(credits);
-
-  useEffect(() => {
-    const eventToEdit = location.state as event;
-    console.log(eventToEdit);
-    setCredits(eventToEdit);
-    setChecked(eventToEdit.isRecurring);
-  }, []);
 
   const handleCheckbox = () => {
-    setChecked(!checked);
+    setChecked((prevState) => !prevState);
   };
 
   const handleChange = (
@@ -78,37 +59,52 @@ export const UpdateEvent = () => {
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
+    credits.authorId = currentAuthorId;
     credits.participantsEmails = [];
+    credits.isRecurring = checked;
     for (let [key, value] of Object.entries(credits)) {
       if (!addEventValidator(key, value)) {
         return;
       }
     }
     if (!dateValidator(credits.startEvent, credits.endEvent)) return;
-    dispatch(
-      updateEventAction({
-        authorId: credits.authorId,
-        id: credits.id,
-        title: credits.title,
-        description: credits.description,
-        location: credits.location,
-        participantsEmails: credits.participantsEmails,
-        startEvent: credits.startEvent,
-        endEvent: credits.endEvent,
-        color: credits.color,
-        isRecurring: credits.isRecurring,
-        isDeleted: false,
-      })
-    );
-
+    // dispatch(
+    //   addEventAction({
+    //     authorId: credits.authorId,
+    //     title: credits.title,
+    //     description: credits.description,
+    //     location: credits.location,
+    //     participantsEmails: credits.participantsEmails,
+    //     startEvent: credits.startEvent,
+    //     endEvent: credits.endEvent,
+    //     color: credits.color,
+    //     isRecurring: credits.isRecurring,
+    //   })
+    // );
     setCredits(initialState);
+  };
+
+  const [currentColor, setCurrentColor] = useState(4);
+
+  const handleColorChange = (id: number) => {
+    setCurrentColor(id);
   };
 
   return (
     <AddEventForm darkmode={false}>
-      <p>Add Event</p>
-
-      <BasicInput
+      <p>Change your Settings</p>
+      <ColorPallet darkmode={false} currentColor = {currentColor}>
+        <h2>Choose a color of your Calendar:</h2>
+        <div className="red" onClick={() => handleColorChange(0)}></div>
+        <div className="orange" onClick={() => handleColorChange(1)}></div>
+        <div className="yellow" onClick={() => handleColorChange(2)}></div>
+        <div className="green" onClick={() => handleColorChange(3)}></div>
+        <div className="default" onClick={() => handleColorChange(4)}></div>
+        <div className="blue" onClick={() => handleColorChange(5)}></div>
+        <div className="darkblue" onClick={() => handleColorChange(6)}></div>
+        <div className="violet" onClick={() => handleColorChange(7)}></div>
+      </ColorPallet>
+      {/* <BasicInput
         name="title"
         placeholder="Title"
         value={credits.title}
@@ -165,7 +161,7 @@ export const UpdateEvent = () => {
             onChange={() => handleCheckbox()}
           />
         }
-      />
+      /> */}
 
       <SubmitButton onClick={(e) => handleSubmit(e)}>Submit</SubmitButton>
     </AddEventForm>

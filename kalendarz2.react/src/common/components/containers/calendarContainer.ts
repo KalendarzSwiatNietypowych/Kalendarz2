@@ -36,13 +36,8 @@ export const CalendarContainer = styled.div<IDarkmode>`
     }
     .fc-button {
       color:${(props) => props.darkmode == true? "white":"black"}; 
-      background: rgb(25, 138, 103);
-      background: linear-gradient(
-        180deg,
-        rgba(25, 138, 103, 1) 0%,
-        rgba(43, 197, 152, 1) 50%,
-        rgba(25, 138, 103, 1) 100%
-      );
+      background:linear-gradient(90deg, #2BC598 0%, #09A376 100%);
+      margin:0 0.2rem;
     }
     .fc-header-toolbar{
       margin:0;

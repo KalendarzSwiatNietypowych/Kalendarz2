@@ -18,7 +18,7 @@ export const AddEventForm = styled.div<IDarkmode>`
         color:${(props) => props.darkmode == true? "white":"black"}; 
         float:left;
         p{
-        font-size:1.2rem;
+        font-size:2.2rem;
         font-family:'inter';
         margin:1rem;
         padding-bottom:0.3rem;

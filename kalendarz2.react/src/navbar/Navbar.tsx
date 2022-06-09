@@ -20,6 +20,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { useDispatch } from "react-redux";
 import { store } from "..";
 import { UpdateEvent } from "../event/UpdateEvent";
+import { Settings } from "../settings/Settings";
 
 export const Navbar = () => {
   const dispatch = useDispatch();
@@ -53,7 +54,7 @@ export const Navbar = () => {
         {isLogged && <AddIcon onClick={() => navigate("/event")} />}
         {isLogged && <NotificationAddIcon />}
         {isLogged && <FormatListBulletedIcon />}
-        {isLogged && <SettingsIcon />}
+        {isLogged && <SettingsIcon onClick={() => navigate("/settings")} />}
         {!isLogged && (
           <Link to="/login">
             <LoginIcon />
@@ -73,6 +74,7 @@ export const Navbar = () => {
         <Route path="/register" element={<Register />}></Route>
         <Route path="/" element={<Calendar />}></Route>
         <Route path="/event" element={<AddEvent />}></Route>
+        <Route path="/settings" element={<Settings />}></Route>
         <Route path="/updateEvent" element={<UpdateEvent />}></Route>
         <Route path="*" element={<Calendar />} />
       </Routes>
