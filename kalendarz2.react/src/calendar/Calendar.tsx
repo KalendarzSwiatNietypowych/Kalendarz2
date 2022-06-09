@@ -17,7 +17,7 @@ import { SelectUser } from "../auth/slice";
 import { useAppSelector } from "../common/store/rootReducer";
 import { getAllEventsAction } from "../event/eventActions";
 import { SelectAllEvents } from "../event/selectors";
-import { Holiday } from "../event/Holiday";
+import { Holiday } from "../holiday/Holiday";
 
 interface CalendarState {
   weekendsVisible: boolean;

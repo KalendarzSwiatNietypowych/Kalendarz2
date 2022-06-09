@@ -31,14 +31,25 @@ export const EventsContainer = styled.div<IDarkmode>`
             text-decoration:underline;
             text-underline-offset:0.7rem;
             margin-top:0.6rem;
+            margin-bottom:0.5rem;
+        }
+        h4{
+            
+            font-weight:300;
+            font-size:1.3rem;
+            margin-bottom:1rem;
+        }
+        h2{
+            font-weight:400;
+            font-size:1.4rem;
         }
         span{
-            color:${(props) => props.darkmode == true? "#2BC598":"#198A67"}; 
+            color:${(props) => props.darkmode == true? "#0e4736":"#198A67"}; 
             
-            font-weight:200;
+            font-weight:400;
         }
         span:hover{
-            color:${(props) => props.darkmode == true? "#198A67":"#2BC598"}; 
+            color:${(props) => props.darkmode == true? "#198A67":"#0e4736"}; 
             
             cursor: pointer;
         }
