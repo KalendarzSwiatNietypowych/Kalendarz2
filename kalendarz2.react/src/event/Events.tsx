@@ -38,8 +38,8 @@ export const Events = () => {
   const futureEvents = events.filter(
     (e) => new Date(e.endEvent).getTime() > today.getTime()
   );
-  const nonDeletedEvents = futureEvents.filter((e) => e.isDeleted);
-  console.log(today.toJSON());
+  const nonDeletedEvents = futureEvents.filter((e) => !e.isDeleted);
+  console.log(today.getTime());
   console.log(events);
   console.log(futureEvents);
   console.log(nonDeletedEvents);
@@ -73,17 +73,20 @@ export const Events = () => {
 
   return (
     <EventsContainer darkmode={false}>
-      {isLogged && events.length > 0 && <h1>Events:</h1>}
+      {isLogged && nonDeletedEvents.length > 0 && <h1>Upcoming Events:</h1>}
+      {isLogged && nonDeletedEvents.length == 0 && (
+        <h1>You don't have any upcoming events</h1>
+      )}
       {!isLogged && (
         <h1>
           <span onClick={() => navigate("/login")}>Sign in</span> to add events
         </h1>
       )}
       {isLogged &&
-        events.length > 0 &&
-        events.map((event) => {
+        nonDeletedEvents.length > 0 &&
+        nonDeletedEvents.map((event) => {
           return (
-            <Event>
+            <Event bcolor={event.color}>
               <div className="eventTitle">
                 <h2>{event.title}</h2>
                 <CircleIcon />

@@ -78,7 +78,8 @@ export const Calendar = () => {
   }, [currentUser.token, localStorage]);
 
   const events = useAppSelector((state) => SelectAllEvents(state));
-  const calendar_events = events.map((e) => {
+  const nonDeletedEvents = events.filter((e) => !e.isDeleted);
+  const calendar_events = nonDeletedEvents.map((e) => {
     return {
       title: e.title,
       start: e.startEvent,

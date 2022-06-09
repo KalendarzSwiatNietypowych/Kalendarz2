@@ -93,16 +93,41 @@ export const Settings = () => {
   return (
     <AddEventForm darkmode={false}>
       <p>Change your Settings</p>
-      <ColorPallet darkmode={false} currentColor = {currentColor}>
+      <ColorPallet darkmode={false} currentColor={currentColor}>
         <h2>Choose a color of your Calendar:</h2>
-        <div className="red" onClick={() => handleColorChange(0)}></div>
-        <div className="orange" onClick={() => handleColorChange(1)}></div>
-        <div className="yellow" onClick={() => handleColorChange(2)}></div>
-        <div className="green" onClick={() => handleColorChange(3)}></div>
-        <div className="default" onClick={() => handleColorChange(4)}></div>
-        <div className="blue" onClick={() => handleColorChange(5)}></div>
-        <div className="darkblue" onClick={() => handleColorChange(6)}></div>
-        <div className="violet" onClick={() => handleColorChange(7)}></div>
+        <div className="colorContainer">
+          <div className="cherry" onClick={() => handleColorChange(6)}></div>
+          <h3>Cherry</h3>
+        </div>
+        <div className="colorContainer">
+          <div className="orange" onClick={() => handleColorChange(1)}></div>
+          <h3>Orange</h3>
+        </div>
+        <div className="colorContainer">
+          <div className="darkLemon" onClick={() => handleColorChange(5)}></div>
+          <h3>Dark Lemon</h3>
+        </div>
+        <div className="colorContainer">
+          <div className="monstera" onClick={() => handleColorChange(2)}></div>
+          <h3>Monstera</h3>
+        </div>
+        <div className="colorContainer">
+          <div className="default" onClick={() => handleColorChange(4)}></div>
+          <h3>Default</h3>
+        </div>
+        <div className="colorContainer">
+          <div className="sky" onClick={() => handleColorChange(7)}></div>
+          <h3>Sky</h3>
+        </div>
+        <div className="colorContainer">
+          <div className="raspberry" onClick={() => handleColorChange(0)}></div>
+          <h3>Raspberry</h3>
+        </div>
+
+        <div className="colorContainer">
+          <div className="lavender" onClick={() => handleColorChange(3)}></div>
+          <h3>Lavender</h3>
+        </div>
       </ColorPallet>
       {/* <BasicInput
         name="title"

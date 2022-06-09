@@ -1,12 +1,17 @@
 import styled from "styled-components"
 
-export const Event = styled.div`
+interface IEventColor {
+    bcolor:string;
+}
+
+export const Event = styled.div<IEventColor>`
     &&&{
         width:70%;
         margin:3rem auto;
         border-radius:2rem;
-        background-color:#2BC598;
-        background:linear-gradient(45deg, #2BC598 0%, #09A376 100%);
+        background-color:${(props) => props.bcolor}; 
+        //background-color:#2BC598;
+        //background:linear-gradient(45deg, #2BC598 0%, #09A376 100%);
 
         h2{
             color: black;
