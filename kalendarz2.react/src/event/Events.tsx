@@ -39,11 +39,6 @@ export const Events = () => {
     (e) => new Date(e.endEvent).getTime() > today.getTime()
   );
   const nonDeletedEvents = futureEvents.filter((e) => !e.isDeleted);
-  console.log(today.getTime());
-  console.log(events);
-  console.log(futureEvents);
-  console.log(nonDeletedEvents);
-
   const handleEdit = (event: event) => {
     navigate("/updateEvent", {
       state: {

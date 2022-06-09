@@ -12,12 +12,12 @@ import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
 import { INITIAL_EVENTS } from "./event-utils";
 import { CalendarContainer } from "../common/components/containers/calendarContainer";
-import { ImportantEvents } from "../event/ImportantEventsList";
 import { useDispatch } from "react-redux";
 import { SelectUser } from "../auth/slice";
 import { useAppSelector } from "../common/store/rootReducer";
 import { getAllEventsAction } from "../event/eventActions";
 import { SelectAllEvents } from "../event/selectors";
+import { Holiday } from "../event/Holiday";
 
 interface CalendarState {
   weekendsVisible: boolean;
@@ -91,7 +91,7 @@ export const Calendar = () => {
   return (
     <>
       <CalendarContainer darkmode={false}>
-        <ImportantEvents />
+        <Holiday />
         <FullCalendar
           events={calendar_events}
           eventTimeFormat={{
