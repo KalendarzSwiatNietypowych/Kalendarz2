@@ -13,12 +13,12 @@ import CircleIcon from "@mui/icons-material/Circle";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import moment from "moment";
-import { CreditScore } from "@mui/icons-material";
 export const Events = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let currentUser = useAppSelector((state) => SelectUser(state));
   const [isLogged, setIsLogged] = useState(false);
+  const [isUpcoming, setIsUpcoming] = useState(true);
 
   useEffect(() => {
     if (currentUser.id != 0) {
@@ -29,16 +29,24 @@ export const Events = () => {
     }
   }, [currentUser.token, localStorage]);
 
-  // useEffect(() => {
-  //   dispatch(getAllEventsAction({ authorId: currentUser.id }));
-  // }, []);
-
   const events = useAppSelector((state) => SelectAllEvents(state));
   const today = new Date();
   const futureEvents = events.filter(
     (e) => new Date(e.endEvent).getTime() > today.getTime()
   );
-  const nonDeletedEvents = futureEvents.filter((e) => !e.isDeleted);
+  const pastEvents = events.filter(
+    (e) => new Date(e.endEvent).getTime() <= today.getTime()
+  );
+  const filteredFutureEvents = futureEvents.filter((e) => !e.isDeleted);
+  const sortedFutureEvents = filteredFutureEvents.sort(function (a, b) {
+    return new Date(a.endEvent).getTime() - new Date(b.endEvent).getTime();
+  });
+  const filteredPastEvents = pastEvents.filter((e) => !e.isDeleted);
+  const sortedPastEvents = filteredPastEvents.sort(function (a, b) {
+    return new Date(a.endEvent).getTime() - new Date(b.endEvent).getTime();
+  });
+  const eventsToDisplay =
+    isUpcoming == true ? sortedFutureEvents : sortedPastEvents;
   const handleEdit = (event: event) => {
     navigate("/updateEvent", {
       state: {
@@ -68,9 +76,21 @@ export const Events = () => {
 
   return (
     <EventsContainer darkmode={false}>
-      {isLogged && nonDeletedEvents.length > 0 && <h1>Upcoming Events:</h1>}
-      {isLogged && nonDeletedEvents.length == 0 && (
-        <h1>You don't have any upcoming events</h1>
+      {isLogged && (
+        <>
+          <h1>{isUpcoming == true ? "Upcoming" : "Past"} Events:</h1>
+          <h4>
+            Show{" "}
+            <span onClick={() => setIsUpcoming((prevValue) => !prevValue)}>
+              {isUpcoming == false ? "upcoming" : "past"} events
+            </span>
+          </h4>
+        </>
+      )}
+      {isLogged && eventsToDisplay.length == 0 && (
+        <h2>
+          You don't have any {isUpcoming == true ? "upcoming" : "past"} events{" "}
+        </h2>
       )}
       {!isLogged && (
         <h1>
@@ -78,8 +98,7 @@ export const Events = () => {
         </h1>
       )}
       {isLogged &&
-        nonDeletedEvents.length > 0 &&
-        nonDeletedEvents.map((event) => {
+        eventsToDisplay.map((event) => {
           return (
             <Event bcolor={event.color}>
               <div className="eventTitle">

@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { HolidayContainer } from "../common/components/containers/holidayContainer";
 import { useAppSelector } from "../common/store/rootReducer";
-import { getHolidayAction } from "../holiday/holidayActions";
-import { SelectAllHolidays } from "../holiday/selectors";
+import { getHolidayAction } from "./holidayActions";
+import { SelectAllHolidays } from "./selectors";
 export const Holiday = () => {
   const dispatch = useDispatch();
   useEffect(() => {
