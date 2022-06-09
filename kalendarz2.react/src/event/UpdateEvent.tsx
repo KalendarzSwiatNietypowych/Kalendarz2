@@ -106,7 +106,7 @@ export const UpdateEvent = () => {
 
   return (
     <AddEventForm darkmode={false}>
-      <p>Add Event</p>
+      <p>Change Event</p>
 
       <BasicInput
         name="title"

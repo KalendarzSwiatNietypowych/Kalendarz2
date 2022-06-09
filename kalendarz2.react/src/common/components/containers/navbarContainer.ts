@@ -38,7 +38,7 @@ export const NavbarContainer = styled.div<IDarkmode>`
         font-size:0.5rem;
     }
     svg{
-        color:#2BC598;
+        //color:#2BC598;
         margin:0 0.3em;
         height:1em;
         width:1em;

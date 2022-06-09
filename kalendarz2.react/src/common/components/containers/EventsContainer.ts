@@ -22,6 +22,8 @@ export const EventsContainer = styled.div<IDarkmode>`
             list-style:none;
         }
         h1{
+            margin:0 0.2rem;
+            line-height:3rem;
             font-size:2rem;
             font-weight:400;
             color:${(props) => props.darkmode == true? "white":"black"}; 
