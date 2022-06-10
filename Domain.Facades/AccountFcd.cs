@@ -15,7 +15,7 @@ public class AccountFcd : IAccountFcd
     }
     public UserDTO RegisterUser(RegisterDTO registerDTO)
     {
-        registerDTO.Email.ToLower();
+        registerDTO.Email = registerDTO.Email.ToLower();
         return _accountSrv.RegisterUser(registerDTO);
     }
     public UserAuthorizeDTO GetById(int? id)
@@ -25,7 +25,7 @@ public class AccountFcd : IAccountFcd
 
     public UserDTO LoginUser(LoginDTO loginDTO)
     {
-        loginDTO.Email.ToLower();
+        loginDTO.Email = loginDTO.Email.ToLower();
         return _accountSrv.LoginUser(loginDTO);
     }
 
@@ -41,11 +41,22 @@ public class AccountFcd : IAccountFcd
 
     public Task<UserDTO> SendResetLinkAsync(EmailDTO resetEmail)
     {
+        resetEmail.email = resetEmail.email.ToLower();
         return _accountSrv.SendResetLinkAsync(resetEmail);
     }
 
     public UserDTO ResetPassword(ResetPasswordDTO resetPassword)
     {
         return _accountSrv.ResetPassword(resetPassword);
+    }
+
+    public UserDTO DeleteAccount(DeleteUserDTO delete)
+    {
+        return _accountSrv.DeleteAccount(delete);
+    }
+
+    public UserDTO ChangePassword(ChangePasswordDTO changePassword)
+    {
+        return _accountSrv.ChangePassword(changePassword);
     }
 }
