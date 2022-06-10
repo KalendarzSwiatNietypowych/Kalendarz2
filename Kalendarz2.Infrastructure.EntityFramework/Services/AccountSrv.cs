@@ -78,8 +78,12 @@ public class AccountSrv : IAccountSrv
             FirstName = registerDTO.FirstName,
             LastName = registerDTO.LastName,
             RoleId = registerDTO.RoleId,
-            isVerified = false
+            isVerified = false,
+            IsDarkmode = true,
+            Color = "default"
         };
+
+        _dbContext.Users.Add(newUser);
 
         var emailToSend = new SendEmailDTO() { Email = registerDTO.Email };
         EmailSenderAsync(emailToSend);
@@ -88,7 +92,6 @@ public class AccountSrv : IAccountSrv
         var hashedPassword = _passwordHasher.HashPassword(newUser, registerDTO.Password);
         newUser.PasswordHash = hashedPassword;
 
-        _dbContext.Users.Add(newUser);
         _dbContext.SaveChanges();
 
         var userAuth = new UserAuthorizeDTO
@@ -114,23 +117,27 @@ public class AccountSrv : IAccountSrv
 
     public UserDTO UpdateUser(EditUserDTO user)
     {
-        var userdb = _dbContext.Users.Where(u => u.Id == user.Id).FirstOrDefault();
-        if (userdb == null) throw new EditUserException();
+        var userdb = _dbContext.Users.Where(u => u.Id == user.UserId).FirstOrDefault();
+        var newEmailUser = _dbContext.Users.FirstOrDefault(u => u.Email == user.Email);
+        if (newEmailUser == userdb) newEmailUser = null;
+
+        if (userdb == null || newEmailUser != null) throw new EditUserException();
 
         userdb.FirstName = user.FirstName;
         userdb.LastName = user.LastName;
         userdb.Email = user.Email;
-        userdb.Color = user.Email;
+        userdb.Color = user.Color;
+        userdb.IsDarkmode = user.IsDarkmode;
         _dbContext.Users.Update(userdb);
         _dbContext.SaveChanges();
 
         return new UserDTO
         {
-            Id = user.Id,
+            Id = user.UserId,
             FirstName = user.FirstName,
             LastName = user.LastName,
-            Color = userdb.Color,
-            IsDarkmode = userdb.IsDarkmode
+            Color = user.Color,
+            IsDarkmode = user.IsDarkmode
         };
     }
 
@@ -147,8 +154,8 @@ public class AccountSrv : IAccountSrv
             PlainTextContent = $"Hello {user.FirstName} {user.LastName} \n\n " +
             $"We're really glad you registered to our webite. In order to verify your email play click in this not suspisiout link belowed:\n" +
             $"/api/Account/verify/{user.Id}"
-            //zmienić ścieżkę
         };
+        //zmienić ścieżkę
         msg.AddTo(new EmailAddress(user.Email, "Dear new user"));
         var response = await client.SendEmailAsync(msg);
 
@@ -233,7 +240,7 @@ public class AccountSrv : IAccountSrv
 
     public UserDTO DeleteAccount(DeleteUserDTO delete)
     {
-        var toDelete = _dbContext.Users.FirstOrDefault(u => u.Id == delete.Id);
+        var toDelete = _dbContext.Users.FirstOrDefault(u => u.Id == delete.UserId);
         var result = _passwordHasher.VerifyHashedPassword(toDelete, toDelete.PasswordHash, delete.Password);
         if (result == PasswordVerificationResult.Failed) throw new PasswordException();
 
@@ -248,6 +255,26 @@ public class AccountSrv : IAccountSrv
             Token = null,
             Color = "default",
             IsDarkmode = true
+        };
+    }
+
+    public UserDTO ChangePassword(ChangePasswordDTO changePassword)
+    {
+        var user = _dbContext.Users.FirstOrDefault(u => u.Id == changePassword.UserId);
+        var result = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, changePassword.OldPassword);
+        if (result == PasswordVerificationResult.Failed) throw new PasswordException();
+
+        var hashedPassword = _passwordHasher.HashPassword(user, changePassword.Password);
+        user.PasswordHash = hashedPassword;
+
+        _dbContext.SaveChanges();
+        return new UserDTO
+        {
+            Id = user.Id,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Color = user.Color,
+            IsDarkmode = user.IsDarkmode
         };
     }
 }

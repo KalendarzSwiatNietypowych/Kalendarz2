@@ -54,4 +54,9 @@ public class AccountFcd : IAccountFcd
     {
         return _accountSrv.DeleteAccount(delete);
     }
+
+    public UserDTO ChangePassword(ChangePasswordDTO changePassword)
+    {
+        return _accountSrv.ChangePassword(changePassword);
+    }
 }

@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Kalendarz2.Domain.Common.Models.User;
 
-public class DeleteUserDTO
+public class ChangePasswordDTO
 {
     [Required] public int UserId { get; set; }
+    [Required] public string OldPassword { get; set; }
     [Required] public string Password { get; set; }
 }

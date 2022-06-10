@@ -1,4 +1,5 @@
 ﻿using Kalendarz2.Domain.Common;
+using Kalendarz2.Domain.Common.Helper;
 using Kalendarz2.Domain.Common.Models.User;
 using Kalendarz2.Domain.Interfaces.Facades;
 using Microsoft.AspNetCore.Mvc;
@@ -29,17 +30,12 @@ public class AccountController : ControllerBase
         return Ok(_accountFcd.LoginUser(loginDTO));
     }
 
+    [Authorize]
     [HttpPut("edit")]
     public ActionResult EditUser([FromBody] EditUserDTO editUserDTO)
     {
         var result = _accountFcd.UpdateUser(editUserDTO);
         return Ok(result);
-    }
-
-    [HttpPut("changeColor")]
-    public ActionResult ChangeColorUser([FromBody] ChangeColorUserDTO changeColor)
-    {
-        return Ok(_accountFcd.ChangeColor(changeColor));
     }
 
     [HttpGet("verify/{userId}")]
@@ -61,9 +57,17 @@ public class AccountController : ControllerBase
         return Ok(_accountFcd.ResetPassword(resetPassword));
     }
 
+    [Authorize]
     [HttpPost("deleteUser")]
     public ActionResult DeleteUser([FromBody] DeleteUserDTO deleteUser)
     {
         return Ok(_accountFcd.DeleteAccount(deleteUser));
+    }
+
+    [Authorize]
+    [HttpPost("changePassword")]
+    public ActionResult ChangePassword([FromBody] ChangePasswordDTO passwordDTO)
+    {
+        return Ok(_accountFcd.ChangePassword(passwordDTO));
     }
 }

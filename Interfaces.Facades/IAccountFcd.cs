@@ -13,4 +13,5 @@ public interface IAccountFcd
     Task<UserDTO> SendResetLinkAsync(EmailDTO resetEmail);
     UserDTO ResetPassword(ResetPasswordDTO resetPassword);
     UserDTO DeleteAccount(DeleteUserDTO delete);
+    UserDTO ChangePassword(ChangePasswordDTO changePassword);
 }
