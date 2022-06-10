@@ -82,10 +82,8 @@ public class AccountSrv : IAccountSrv
         };
 
         var emailToSend = new SendEmailDTO() { Email = registerDTO.Email };
-        //EmailSenderAsync(emailToSend);
-        newUser.isVerified = true;
-        //poki co do testowania
-        //nie jest wysyłany link do potwierdzania
+        EmailSenderAsync(emailToSend);
+        //newUser.isVerified = true;
 
         var hashedPassword = _passwordHasher.HashPassword(newUser, registerDTO.Password);
         newUser.PasswordHash = hashedPassword;
@@ -108,7 +106,9 @@ public class AccountSrv : IAccountSrv
             Id = newUser.Id,
             FirstName = newUser.FirstName,
             LastName = newUser.LastName,
-            Token = token
+            Token = token,
+            Color = "default", //domyslny kolor 
+            IsDarkmode = true
         };
     }
 
@@ -120,6 +120,7 @@ public class AccountSrv : IAccountSrv
         userdb.FirstName = user.FirstName;
         userdb.LastName = user.LastName;
         userdb.Email = user.Email;
+        userdb.Color = user.Email;
         _dbContext.Users.Update(userdb);
         _dbContext.SaveChanges();
 
@@ -127,7 +128,9 @@ public class AccountSrv : IAccountSrv
         {
             Id = user.Id,
             FirstName = user.FirstName,
-            LastName = user.LastName
+            LastName = user.LastName,
+            Color = userdb.Color,
+            IsDarkmode = userdb.IsDarkmode
         };
     }
 
@@ -162,7 +165,9 @@ public class AccountSrv : IAccountSrv
         {
             Id = userId,
             FirstName = user.FirstName,
-            LastName = user.LastName
+            LastName = user.LastName,
+            Color = user.Color,
+            IsDarkmode = user.IsDarkmode
         };
     }
 
@@ -200,7 +205,9 @@ public class AccountSrv : IAccountSrv
         {
             Id = user.Id,
             FirstName = user.FirstName,
-            LastName = user.LastName
+            LastName = user.LastName,
+            Color = user.Color,
+            IsDarkmode = user.IsDarkmode
         };
     }
 
@@ -218,7 +225,29 @@ public class AccountSrv : IAccountSrv
         {
             Id = user.Id,
             FirstName = user.FirstName,
-            LastName = user.LastName
+            LastName = user.LastName,
+            Color = user.Color,
+            IsDarkmode = user.IsDarkmode
+        };
+    }
+
+    public UserDTO DeleteAccount(DeleteUserDTO delete)
+    {
+        var toDelete = _dbContext.Users.FirstOrDefault(u => u.Id == delete.Id);
+        var result = _passwordHasher.VerifyHashedPassword(toDelete, toDelete.PasswordHash, delete.Password);
+        if (result == PasswordVerificationResult.Failed) throw new PasswordException();
+
+        _dbContext.Users.Remove(toDelete);
+        _dbContext.SaveChanges();
+
+        return new UserDTO
+        {
+            Id = toDelete.Id,
+            FirstName = toDelete.FirstName,
+            LastName = toDelete.LastName,
+            Token = null,
+            Color = "default",
+            IsDarkmode = true
         };
     }
 }
