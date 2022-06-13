@@ -52,12 +52,11 @@ export const Navbar = () => {
         darkmode={currentUser.isDarkmode}
         color={currentUser.color}
       >
-        <ToastContainer autoClose={2000} />
+        <ToastContainer autoClose={2000} position="top-left" />
         <p>Calendar</p>
         <CalendarMonthIcon onClick={() => navigate("/")} />
         {isLogged && <AddIcon onClick={() => navigate("/event")} />}
         {isLogged && <NotificationAddIcon />}
-        {isLogged && <FormatListBulletedIcon />}
         {isLogged && <SettingsIcon onClick={() => navigate("/settings")} />}
         {!isLogged && (
           <Link to="/login">
