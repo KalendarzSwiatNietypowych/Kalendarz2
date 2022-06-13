@@ -25,7 +25,8 @@ export const RegisterFormContainer = styled.div<IColor>`
         font-family:'inter';
         margin:1rem;
         padding-bottom:0.3rem;
-        border-bottom:1px solid #00FF99;
+        border-bottom:1px solid;
+        border-color:${(props) => props.color}; 
     }
     h2{
         font-family:'inter';

@@ -66,6 +66,11 @@ export const authSlice = createSlice({
         updateSettingsAction.fulfilled,
         (state, action) => {
           if (action.payload !== undefined) {
+            localStorage.setItem("color", action.payload.color);
+            localStorage.setItem("email", action.payload.email);
+            localStorage.setItem("firstName", action.payload.firstName);
+            localStorage.setItem("lastName", action.payload.lastName);
+            localStorage.setItem("isDarkmode", action.payload.isDarkmode);
             state.color = action.payload.color;
             state.email = action.payload.email;
             state.firstName = action.payload.firstName;

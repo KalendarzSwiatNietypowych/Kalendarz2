@@ -8,7 +8,7 @@ export const EventsContainer = styled.div<IColor>`
     &&&{
         float:right;
         width:100%;
-        height:40vh;
+        height:70vh;
         background-color:${(props) => props.darkmode == true? "#3e3e3e":"lightgray"}; 
         overflow-y:auto;
         font-family:'inter';
@@ -53,7 +53,7 @@ export const EventsContainer = styled.div<IColor>`
             
             cursor: pointer;
         }
-        @media (min-width: 700px){
+        @media (min-width: 1200px){
             width:30%;
             height:90.3vh;
         }
