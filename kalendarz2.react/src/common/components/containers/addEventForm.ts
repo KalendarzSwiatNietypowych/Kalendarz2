@@ -10,6 +10,7 @@ export const AddEventForm = styled.div<IColor>`
         width:100%;
         margin:0 auto; 
         height:100%;
+        background-color:${(props) => props.darkmode == true? "#3e3e3e":"#AEAEAE"}; 
         margin-top:4rem;
         min-width:15rem;
         display:flex;

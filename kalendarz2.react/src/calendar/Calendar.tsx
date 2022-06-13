@@ -81,6 +81,19 @@ export const Calendar = () => {
   const calendarColors = useAppSelector((state) => SelectColors(state));
   const nonDeletedEvents = events.filter((e) => !e.isDeleted);
   const calendar_events = nonDeletedEvents.map((e) => {
+    if (
+      new Date(e.startEvent).getDate() == new Date(e.endEvent).getDate() &&
+      new Date(e.startEvent).getMonth() == new Date(e.endEvent).getMonth() &&
+      new Date(e.startEvent).getFullYear() == new Date(e.endEvent).getFullYear()
+    ) {
+      return {
+        title: e.title,
+        start: e.startEvent,
+        end: e.endEvent,
+        color: e.color,
+        allDay: true,
+      };
+    }
     return {
       title: e.title,
       start: e.startEvent,
