@@ -5,18 +5,23 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { updateSourceFile } from "typescript";
 import { SelectUser } from "../auth/slice";
 import { SubmitButton } from "../common/components/buttons/submitButton";
 import { AddEventForm } from "../common/components/containers/addEventForm";
+import { ChangeSettingsForm } from "../common/components/containers/changeSettingsForm";
 import { ColorPallet } from "../common/components/containers/colorPallet";
 import { BasicInput } from "../common/components/inputs/basicInput";
 import { ColorInput } from "../common/components/inputs/colorInput";
 import { StyledCheckbox } from "../common/components/inputs/muiCheckbox";
-import { initialState } from "../common/models/event/event";
+import updateSettings, {
+  initialState,
+} from "../common/models/user/updateSettings";
 import { useAppSelector } from "../common/store/rootReducer";
+import { updateSettingsAction } from "./settingsActions";
 
 export const Settings = () => {
-  const addEventValidator = (fieldName: string, value: string) => {
+  const changeSettingsValidator = (fieldName: string, value: string) => {
     switch (fieldName) {
       case "title":
         if (value) {
@@ -24,24 +29,46 @@ export const Settings = () => {
         }
         toast.error("Please enter a title for Your event");
         return false;
+      case "email":
+        var emailValidate = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+        if (emailValidate) {
+          return true;
+        }
+        toast.error("Please enter a valid email address");
+        return false;
+      case "firstName":
+        if (value.length >= 2) {
+          return true;
+        }
+        toast.error("First name must be at least 2 characters");
+        return false;
+      case "lastName":
+        if (value.length >= 2) {
+          return true;
+        }
+        toast.error("Last name must be at least 2 characters");
+        return false;
       default:
         return true;
     }
   };
 
-  const dateValidator = (startEvent: Date, endEvent: Date) => {
-    if (startEvent > endEvent) {
-      toast.error("Please enter a valid date");
-      return false;
-    }
-    return true;
-  };
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const currentAuthorId = useAppSelector((state) => SelectUser(state)).id;
-
+  const currentUser = useAppSelector((state) => SelectUser(state));
   const [credits, setCredits] = useState(initialState);
   const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    setCredits({
+      userId: currentUser.id,
+      firstName: currentUser.firstName,
+      lastName: currentUser.lastName,
+      email: currentUser.email,
+      color: currentUser.color,
+      isDarkmode: currentUser.isDarkmode,
+    });
+    setChecked(currentUser.isDarkmode);
+  }, []);
 
   const handleCheckbox = () => {
     setChecked((prevState) => !prevState);
@@ -59,136 +86,139 @@ export const Settings = () => {
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    credits.authorId = currentAuthorId;
-    credits.participantsEmails = [];
-    credits.isRecurring = checked;
+    credits.isDarkmode = checked;
+    credits.color = currentColor;
     for (let [key, value] of Object.entries(credits)) {
-      if (!addEventValidator(key, value)) {
+      if (!changeSettingsValidator(key, value)) {
         return;
       }
     }
-    if (!dateValidator(credits.startEvent, credits.endEvent)) return;
-    // dispatch(
-    //   addEventAction({
-    //     authorId: credits.authorId,
-    //     title: credits.title,
-    //     description: credits.description,
-    //     location: credits.location,
-    //     participantsEmails: credits.participantsEmails,
-    //     startEvent: credits.startEvent,
-    //     endEvent: credits.endEvent,
-    //     color: credits.color,
-    //     isRecurring: credits.isRecurring,
-    //   })
-    // );
-    setCredits(initialState);
+    dispatch(
+      updateSettingsAction({
+        userId: currentUser.id,
+        firstName: credits.firstName,
+        lastName: credits.lastName,
+        email: credits.email,
+        color: credits.color,
+        isDarkmode: credits.isDarkmode,
+      })
+    );
+    //setCredits(initialState);
   };
 
-  const [currentColor, setCurrentColor] = useState(4);
+  const [currentColor, setCurrentColor] = useState(currentUser.color);
 
-  const handleColorChange = (id: number) => {
+  const handleColorChange = (id: string) => {
     setCurrentColor(id);
   };
 
   return (
-    <AddEventForm darkmode={false}>
+    <ChangeSettingsForm
+      darkmode={currentUser.isDarkmode}
+      color={currentUser.color}
+    >
       <p>Change your Settings</p>
-      <ColorPallet darkmode={false} currentColor={currentColor}>
-        <h2>Choose a color of your Calendar:</h2>
-        <div className="colorContainer">
-          <div className="cherry" onClick={() => handleColorChange(6)}></div>
-          <h3>Cherry</h3>
-        </div>
-        <div className="colorContainer">
-          <div className="orange" onClick={() => handleColorChange(1)}></div>
-          <h3>Orange</h3>
-        </div>
-        <div className="colorContainer">
-          <div className="darkLemon" onClick={() => handleColorChange(5)}></div>
-          <h3>Dark Lemon</h3>
-        </div>
-        <div className="colorContainer">
-          <div className="monstera" onClick={() => handleColorChange(2)}></div>
-          <h3>Monstera</h3>
-        </div>
-        <div className="colorContainer">
-          <div className="default" onClick={() => handleColorChange(4)}></div>
-          <h3>Default</h3>
-        </div>
-        <div className="colorContainer">
-          <div className="sky" onClick={() => handleColorChange(7)}></div>
-          <h3>Sky</h3>
-        </div>
-        <div className="colorContainer">
-          <div className="raspberry" onClick={() => handleColorChange(0)}></div>
-          <h3>Raspberry</h3>
-        </div>
-
-        <div className="colorContainer">
-          <div className="lavender" onClick={() => handleColorChange(3)}></div>
-          <h3>Lavender</h3>
-        </div>
-      </ColorPallet>
-      {/* <BasicInput
-        name="title"
-        placeholder="Title"
-        value={credits.title}
+      <h2>Change your personal data:</h2>
+      <BasicInput
+        name="firstName"
+        placeholder="First Name"
+        value={credits.firstName}
         required
         onChange={(e) => handleChange(e)}
       />
 
       <BasicInput
-        name="description"
-        placeholder="Description"
-        value={credits.description}
+        name="lastName"
+        placeholder="Last Name"
+        value={credits.lastName}
         onChange={(e) => handleChange(e)}
       />
 
       <BasicInput
-        name="location"
-        placeholder="Location"
-        value={credits.location}
+        name="email"
+        placeholder="Email"
+        value={credits.email}
         onChange={(e) => handleChange(e)}
       />
+      <ColorPallet darkmode={false} currentColor={currentColor}>
+        <h2>Choose a color of your Calendar:</h2>
+        <div className="colorContainer">
+          <div
+            className="cherry"
+            onClick={() => handleColorChange("#bd1a1a")}
+          ></div>
+          <h3>Cherry</h3>
+        </div>
+        <div className="colorContainer">
+          <div
+            className="orange"
+            onClick={() => handleColorChange("#f79322")}
+          ></div>
+          <h3>Orange</h3>
+        </div>
+        <div className="colorContainer">
+          <div
+            className="darkLemon"
+            onClick={() => handleColorChange("#bcc543")}
+          ></div>
+          <h3>Dark Lemon</h3>
+        </div>
+        <div className="colorContainer">
+          <div
+            className="monstera"
+            onClick={() => handleColorChange("#0f6507")}
+          ></div>
+          <h3>Monstera</h3>
+        </div>
+        <div className="colorContainer">
+          <div
+            className="default"
+            onClick={() => handleColorChange("#2BC598")}
+          ></div>
+          <h3>Default</h3>
+        </div>
+        <div className="colorContainer">
+          <div
+            className="sky"
+            onClick={() => handleColorChange("#49b5c6")}
+          ></div>
+          <h3>Sky</h3>
+        </div>
+        <div className="colorContainer">
+          <div
+            className="raspberry"
+            onClick={() => handleColorChange("#ea3ac3")}
+          ></div>
+          <h3>Raspberry</h3>
+        </div>
 
-      <BasicInput
-        name="startEvent"
-        value={moment(credits.startEvent).format("yyyy-MM-DDTHH:mm")}
-        onChange={(e) => handleChange(e)}
-        type="datetime-local"
-      />
+        <div className="colorContainer">
+          <div
+            className="lavender"
+            onClick={() => handleColorChange("#ab77bd")}
+          ></div>
+          <h3>Lavender</h3>
+        </div>
+      </ColorPallet>
 
-      <BasicInput
-        name="endEvent"
-        value={moment(credits.endEvent).format("yyyy-MM-DDTHH:mm")}
-        onChange={(e) => handleChange(e)}
-        type="datetime-local"
-      />
       <FormControlLabel
-        label="Choose event color"
-        control={
-          <ColorInput
-            type="color"
-            name="color"
-            placeholder="Color"
-            value={credits.color}
-            required
-            onChange={(e) => handleChange(e)}
-          />
-        }
-      />
-      <FormControlLabel
-        label="Recurring event"
+        label="Darkmode"
         control={
           <StyledCheckbox
-            name="isRecurring"
+            name="darkmode"
             checked={checked}
             onChange={() => handleCheckbox()}
           />
         }
-      /> */}
+      />
 
-      <SubmitButton onClick={(e) => handleSubmit(e)}>Submit</SubmitButton>
-    </AddEventForm>
+      <SubmitButton
+        onClick={(e) => handleSubmit(e)}
+        darkmode={false}
+        color={currentUser.color}
+      >
+        Save Changes
+      </SubmitButton>
+    </ChangeSettingsForm>
   );
 };

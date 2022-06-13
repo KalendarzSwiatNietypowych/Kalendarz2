@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { SelectUser } from "../auth/slice";
+import { SelectColors, SelectUser } from "../auth/slice";
 import { SubmitButton } from "../common/components/buttons/submitButton";
 import { AddEventForm } from "../common/components/containers/addEventForm";
 import { BasicInput } from "../common/components/inputs/basicInput";
@@ -45,7 +45,7 @@ export const UpdateEvent = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const currentAuthorId = useAppSelector((state) => SelectUser(state)).id;
+  const calendarColors = useAppSelector((state) => SelectColors(state));
   const [credits, setCredits] = useState(initialState);
   const [checked, setChecked] = useState(false);
   // const eventToEdit = location.state as event;
@@ -57,7 +57,6 @@ export const UpdateEvent = () => {
 
   useEffect(() => {
     const eventToEdit = location.state as event;
-    console.log(eventToEdit);
     setCredits(eventToEdit);
     setChecked(eventToEdit.isRecurring);
   }, []);
@@ -105,7 +104,10 @@ export const UpdateEvent = () => {
   };
 
   return (
-    <AddEventForm darkmode={false}>
+    <AddEventForm
+      darkmode={calendarColors.isDarkmode}
+      color={calendarColors.color}
+    >
       <p>Change Event</p>
 
       <BasicInput
@@ -167,7 +169,13 @@ export const UpdateEvent = () => {
         }
       />
 
-      <SubmitButton onClick={(e) => handleSubmit(e)}>Submit</SubmitButton>
+      <SubmitButton
+        onClick={(e) => handleSubmit(e)}
+        darkmode={false}
+        color={calendarColors.color}
+      >
+        Submit
+      </SubmitButton>
     </AddEventForm>
   );
 };

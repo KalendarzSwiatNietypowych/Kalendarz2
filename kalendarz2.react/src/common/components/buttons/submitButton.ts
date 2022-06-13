@@ -1,6 +1,12 @@
 import styled from "styled-components";
 
-export const SubmitButton = styled.button`
+interface IColor {
+   darkmode:boolean
+   color:string
+ }
+ 
+
+export const SubmitButton = styled.button<IColor>`
    &&&{
         width:20em;
         border-radius:10rem; 
@@ -12,7 +18,7 @@ export const SubmitButton = styled.button`
         color:black;
         font-family:'inter';
         font-weight:800;
-        background:linear-gradient(45deg, #2BC598 0%, #09A376 100%);
+        background: ${(props) =>props.color};
         :hover{
         cursor: pointer;
         color:#666;

@@ -1,19 +1,17 @@
-export default interface user {
-    id: number;
+export default interface updateSettings {
+    userId: number;
     firstName: string;
     lastName: string;
     email:string;
-    token: string;
     color:string;
     isDarkmode:boolean
   }
   
-  export const initialState: user = {
-    id: 0,
+  export const initialState: updateSettings = {
+    userId: 0,
     firstName: "",
     email:"",
     lastName: "",
-    token: "",
     color:"#2BC598",
     isDarkmode:false
   };

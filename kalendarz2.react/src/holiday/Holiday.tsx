@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { SelectColors, SelectUser } from "../auth/slice";
 import { HolidayContainer } from "../common/components/containers/holidayContainer";
 import { useAppSelector } from "../common/store/rootReducer";
 import { getHolidayAction } from "./holidayActions";
@@ -11,6 +12,7 @@ export const Holiday = () => {
   }, []);
 
   const holidays = useAppSelector((state) => SelectAllHolidays(state));
+  const calendarColors = useAppSelector((state) => SelectColors(state));
   const todaysHoliday = holidays.find(
     (h) =>
       new Date(h.date).getDate() == new Date().getDate() &&
@@ -18,7 +20,10 @@ export const Holiday = () => {
   );
 
   return (
-    <HolidayContainer>
+    <HolidayContainer
+      darkmode={calendarColors.isDarkmode}
+      color={calendarColors.color}
+    >
       <div>
         <h1>Today's unusual holiday:</h1>
         <h2>{todaysHoliday?.name}</h2>

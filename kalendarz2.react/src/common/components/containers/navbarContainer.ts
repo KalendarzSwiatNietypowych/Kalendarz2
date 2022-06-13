@@ -1,10 +1,11 @@
 import { rgbToHex } from "@mui/material"
 import styled from "styled-components"
 
-interface IDarkmode {
+interface IColor {
     darkmode:boolean
+    color:string
 }
-export const NavbarContainer = styled.div<IDarkmode>`
+export const NavbarContainer = styled.div<IColor>`
     &&&{
         padding:1rem 0;
         display:flex;
@@ -26,7 +27,7 @@ export const NavbarContainer = styled.div<IDarkmode>`
     a{
         text-decoration:none;
         margin:0 0vw;
-        color:#2BC598;
+        color:${(props) => props.color};
         position:relative;
         box-sizing:border-box;
     }
@@ -38,17 +39,17 @@ export const NavbarContainer = styled.div<IDarkmode>`
         font-size:0.5rem;
     }
     svg{
-        //color:#2BC598;
+        color:${(props) => props.color};
         margin:0 0.3em;
         height:1em;
         width:1em;
     }
     svg:hover{
-        color:#198A67; 
+        color: ${(props) => props.darkmode == true? "white": "black"};
         cursor: pointer; 
     }
     a:hover{
-        color:#198A67; 
+        color: ${(props) => props.darkmode == true? "white": "black"};
         cursor: pointer;
     }
 
@@ -56,7 +57,7 @@ export const NavbarContainer = styled.div<IDarkmode>`
     @media (min-width: 700px){
         padding:1rem;
         svg{
-        color:#2BC598;
+        color:${(props) => props.color};
         margin:0 0.3em;
         height:2em;
         width:2em;

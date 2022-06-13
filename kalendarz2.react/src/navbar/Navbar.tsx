@@ -21,6 +21,7 @@ import { useDispatch } from "react-redux";
 import { store } from "..";
 import { UpdateEvent } from "../event/UpdateEvent";
 import { Settings } from "../settings/Settings";
+import updateSettings from "../common/models/user/updateSettings";
 
 export const Navbar = () => {
   const dispatch = useDispatch();
@@ -47,7 +48,10 @@ export const Navbar = () => {
 
   return (
     <div>
-      <NavbarContainer darkmode={false}>
+      <NavbarContainer
+        darkmode={currentUser.isDarkmode}
+        color={currentUser.color}
+      >
         <ToastContainer autoClose={2000} />
         <p>Calendar</p>
         <CalendarMonthIcon onClick={() => navigate("/")} />

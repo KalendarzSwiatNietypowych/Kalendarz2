@@ -1,15 +1,15 @@
 import styled from "styled-components"
 
-interface IDarkmode {
+interface IColor {
     darkmode:boolean
+    color:string
   }
-
-export const EventsContainer = styled.div<IDarkmode>`
+export const EventsContainer = styled.div<IColor>`
     &&&{
         float:right;
         width:100%;
         height:40vh;
-        background-color:${(props) => props.darkmode == true? "#3e3e3e":"#AEAEAE"}; 
+        background-color:${(props) => props.darkmode == true? "#3e3e3e":"lightgray"}; 
         overflow-y:auto;
         font-family:'inter';
         ul{
@@ -44,18 +44,18 @@ export const EventsContainer = styled.div<IDarkmode>`
             font-size:1.4rem;
         }
         span{
-            color:${(props) => props.darkmode == true? "#0e4736":"#198A67"}; 
+            color:${(props) => props.color}; 
             
             font-weight:400;
         }
         span:hover{
-            color:${(props) => props.darkmode == true? "#198A67":"#0e4736"}; 
+            color:${(props) => props.darkmode == true? "white":"black"}; 
             
             cursor: pointer;
         }
         @media (min-width: 700px){
             width:30%;
-            height:90vh;
+            height:90.3vh;
         }
     }
 `

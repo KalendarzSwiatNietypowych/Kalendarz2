@@ -13,7 +13,7 @@ import listPlugin from "@fullcalendar/list";
 import { INITIAL_EVENTS } from "./event-utils";
 import { CalendarContainer } from "../common/components/containers/calendarContainer";
 import { useDispatch } from "react-redux";
-import { SelectUser } from "../auth/slice";
+import { SelectColors, SelectUser } from "../auth/slice";
 import { useAppSelector } from "../common/store/rootReducer";
 import { getAllEventsAction } from "../event/eventActions";
 import { SelectAllEvents } from "../event/selectors";
@@ -78,6 +78,7 @@ export const Calendar = () => {
   }, [currentUser.token, localStorage]);
 
   const events = useAppSelector((state) => SelectAllEvents(state));
+  const calendarColors = useAppSelector((state) => SelectColors(state));
   const nonDeletedEvents = events.filter((e) => !e.isDeleted);
   const calendar_events = nonDeletedEvents.map((e) => {
     return {
@@ -90,7 +91,10 @@ export const Calendar = () => {
 
   return (
     <>
-      <CalendarContainer darkmode={false}>
+      <CalendarContainer
+        darkmode={calendarColors.isDarkmode}
+        color={calendarColors.color}
+      >
         <Holiday />
         <FullCalendar
           events={calendar_events}

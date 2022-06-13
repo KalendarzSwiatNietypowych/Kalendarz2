@@ -1,14 +1,19 @@
 import styled from "styled-components"
 
-export const HolidayContainer = styled.div`
+interface IColor {
+    darkmode:boolean
+    color:string
+}
+
+export const HolidayContainer = styled.div<IColor>`
     &&&{
-        background: rgb(25,138,103);
-        background:linear-gradient(90deg, #2BC598 0%, #09A376 50%, #2BC598 100%);
+        background: ${(props) =>props.color};
         border-radius:2rem;
         border: 1px black solid;
         margin: 1rem;
         position:relative;
-        height:8.2rem;
+        box-sizing:border-box;
+        height:13.6vh;
         div{
             display:flex;
             align-items:flex-start;

@@ -1,11 +1,12 @@
 import styled from "styled-components"
 import App from "../../../App"
 
-interface IDarkmode {
+interface IColor {
     darkmode:boolean
+    color:string
   }
 
-export const AppContainer = styled.div<IDarkmode>`
+export const AppContainer = styled.div<IColor>`
     &&&{
         text-align: center;
         font-family: 'lato';
