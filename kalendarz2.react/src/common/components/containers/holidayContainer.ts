@@ -13,7 +13,7 @@ export const HolidayContainer = styled.div<IColor>`
         margin: 1rem;
         position:relative;
         box-sizing:border-box;
-        height:13.6vh;
+        min-height:13.6vh;
         div{
             display:flex;
             align-items:flex-start;
@@ -21,7 +21,7 @@ export const HolidayContainer = styled.div<IColor>`
             
         }
         .description{
-            width:60%;
+            width:55%;
         }
         h1{
             font-family:'inter';
@@ -38,6 +38,8 @@ export const HolidayContainer = styled.div<IColor>`
             text-align:left;
             margin-left:2rem;
             padding:0.3rem 0;
+            
+        
         }
         h3{
             font-family:'inter';
@@ -48,7 +50,7 @@ export const HolidayContainer = styled.div<IColor>`
             margin-left:2rem;
         }
         img{
-            width:8rem;
+            width:6rem;
             position:absolute;
             bottom:0;
             right:5vw;
@@ -78,7 +80,7 @@ export const HolidayContainer = styled.div<IColor>`
                 font-size:1.7rem;
                 font-weight:700;
                 text-align:left;
-                margin-left:4rem;
+                margin-left:1rem;
                 padding:0.3rem 0;
             }
             h3{
@@ -88,6 +90,9 @@ export const HolidayContainer = styled.div<IColor>`
                 text-align:left;
                 padding:0.3rem 0;
                 margin-left:2rem;
+            }
+            img{
+                width:8rem;
             }
             }
     }

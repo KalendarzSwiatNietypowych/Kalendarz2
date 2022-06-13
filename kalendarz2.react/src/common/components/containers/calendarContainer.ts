@@ -45,7 +45,9 @@ export const CalendarContainer = styled.div<IColor>`
     }
     .fc-prev-button,
     .fc-next-button,
-    .fc-today-button {
+    .fc-today-button,
+    .fc-prevYear-button,
+    .fc-nextYear-button {
       margin-bottom: 1rem;
     }
     .fc-dayGridMonth-button, .fc-timeGridWeek-button, .fc-timeGridDay-button{
@@ -117,7 +119,7 @@ export const CalendarContainer = styled.div<IColor>`
      .fc-scroller::-webkit-scrollbar-thumb:hover {
         background: #ddd !important; 
     }
-    @media (min-width: 700px){
+    @media (min-width: 1200px){
       float:left;
       width:70%;
       .fc-header-toolbar > div{
