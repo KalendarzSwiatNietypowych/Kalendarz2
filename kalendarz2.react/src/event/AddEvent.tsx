@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { createDebuggerStatement } from "typescript";
-import { SelectUser } from "../auth/slice";
+import { SelectColors, SelectUser } from "../auth/slice";
 import { SubmitButton } from "../common/components/buttons/submitButton";
 import { AddEventForm } from "../common/components/containers/addEventForm";
 import { BasicInput } from "../common/components/inputs/basicInput";
@@ -40,10 +40,10 @@ export const AddEvent = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentAuthorId = useAppSelector((state) => SelectUser(state)).id;
+  const calendarColors = useAppSelector((state) => SelectColors(state));
 
   const [credits, setCredits] = useState(initialState);
   const [checked, setChecked] = useState(false);
-  console.log(credits);
   const handleCheckbox = () => {
     setChecked((prevState) => !prevState);
   };
@@ -88,7 +88,10 @@ export const AddEvent = () => {
   };
 
   return (
-    <AddEventForm darkmode={false}>
+    <AddEventForm
+      darkmode={calendarColors.isDarkmode}
+      color={calendarColors.color}
+    >
       <p>Add Event</p>
 
       <BasicInput
@@ -150,7 +153,13 @@ export const AddEvent = () => {
         }
       />
 
-      <SubmitButton onClick={(e) => handleSubmit(e)}>Submit</SubmitButton>
+      <SubmitButton
+        onClick={(e) => handleSubmit(e)}
+        darkmode={false}
+        color={calendarColors.color}
+      >
+        Submit
+      </SubmitButton>
     </AddEventForm>
   );
 };

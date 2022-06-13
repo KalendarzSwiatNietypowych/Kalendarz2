@@ -1,10 +1,11 @@
 import styled from "styled-components"
 
-interface IDarkmode {
+interface IColor {
     darkmode:boolean
+    color:string
 }
 
-export const RegisterFormContainer = styled.div<IDarkmode>`
+export const RegisterFormContainer = styled.div<IColor>`
     &&&{
         width:100%;
         margin:0 auto; 

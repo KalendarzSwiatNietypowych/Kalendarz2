@@ -75,7 +75,10 @@ export const Events = () => {
   };
 
   return (
-    <EventsContainer darkmode={false}>
+    <EventsContainer
+      darkmode={currentUser.isDarkmode}
+      color={currentUser.color}
+    >
       {isLogged && (
         <>
           <h1>{isUpcoming == true ? "Upcoming" : "Past"} Events:</h1>

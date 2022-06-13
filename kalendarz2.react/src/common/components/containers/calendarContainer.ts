@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
-interface IDarkmode {
+interface IColor {
   darkmode:boolean
+  color:string
 }
 
-export const CalendarContainer = styled.div<IDarkmode>`
+export const CalendarContainer = styled.div<IColor>`
   &&& {
     width: 100%;
     overflow:hidden;
@@ -36,7 +37,7 @@ export const CalendarContainer = styled.div<IDarkmode>`
     }
     .fc-button {
       color:${(props) => props.darkmode == true? "white":"black"}; 
-      background:linear-gradient(90deg, #2BC598 0%, #09A376 100%);
+      background: ${(props) =>props.color};
       margin:0 0.2rem;
     }
     .fc-header-toolbar{

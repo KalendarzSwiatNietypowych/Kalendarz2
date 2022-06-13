@@ -66,7 +66,7 @@ export const Login = () => {
   };
 
   return (
-    <LoginFormContainer darkmode={false}>
+    <LoginFormContainer darkmode={false} color={currentUser.color}>
       <p>Sign In</p>
 
       <BasicInput
@@ -84,7 +84,13 @@ export const Login = () => {
         onChange={(e) => handleChange(e)}
         type="password"
       />
-      <SubmitButton onClick={(e) => handleSubmit(e)}>Submit</SubmitButton>
+      <SubmitButton
+        onClick={(e) => handleSubmit(e)}
+        darkmode={false}
+        color={currentUser.color}
+      >
+        Submit
+      </SubmitButton>
       <h2>Do not have an account?</h2>
       <ActionButton
         className="new-account"

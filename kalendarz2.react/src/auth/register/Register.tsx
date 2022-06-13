@@ -77,7 +77,7 @@ export const Register = () => {
     dispatch(registerAction(credits));
   };
   return (
-    <RegisterFormContainer darkmode={false}>
+    <RegisterFormContainer darkmode={false} color={currentUser.color}>
       <p>Register</p>
 
       <BasicInput
@@ -112,7 +112,13 @@ export const Register = () => {
         onChange={(e) => handleChange(e)}
         type="password"
       />
-      <SubmitButton onClick={(e) => handleSubmit(e)}>Submit</SubmitButton>
+      <SubmitButton
+        onClick={(e) => handleSubmit(e)}
+        darkmode={false}
+        color={currentUser.color}
+      >
+        Submit
+      </SubmitButton>
       <h2>Already have an account?</h2>
       <ActionButton className="new-account" onClick={() => navigate("/login")}>
         Sign In
