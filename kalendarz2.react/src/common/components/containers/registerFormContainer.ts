@@ -11,6 +11,7 @@ export const RegisterFormContainer = styled.div<IColor>`
         margin:0 auto; 
         border-radius:1rem;
         height:100%;
+        background-color:${(props) => props.darkmode == true? "#3e3e3e":"#AEAEAE"}; 
         margin-top:4rem;
         min-width:15rem;
         display:flex;

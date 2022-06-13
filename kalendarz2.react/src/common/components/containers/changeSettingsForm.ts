@@ -8,6 +8,7 @@ export const ChangeSettingsForm = styled.div<IColor>`
     &&&{
         width:100%;
         margin:0 auto; 
+        background-color:${(props) => props.darkmode == true? "#3e3e3e":"#AEAEAE"}; 
         height:100%;
         margin-top:4rem;
         min-width:15rem;
