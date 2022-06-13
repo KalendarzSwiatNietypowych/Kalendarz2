@@ -84,6 +84,7 @@ export const AddEvent = () => {
         isDeleted: credits.isDeleted,
       })
     );
+    toast.success("Event Added");
     setCredits(initialState);
   };
 

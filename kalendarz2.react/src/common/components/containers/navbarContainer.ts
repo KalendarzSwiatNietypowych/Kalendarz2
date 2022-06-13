@@ -41,12 +41,13 @@ export const NavbarContainer = styled.div<IColor>`
     svg{
         color:${(props) => props.color};
         margin:0 0.3em;
-        height:1em;
-        width:1em;
+        height:1.5em;
+        width:1.5em;
     }
     svg:hover{
         color: ${(props) => props.darkmode == true? "white": "black"};
         cursor: pointer; 
+        transform:rotate(0.02turn);
     }
     a:hover{
         color: ${(props) => props.darkmode == true? "white": "black"};
@@ -54,13 +55,18 @@ export const NavbarContainer = styled.div<IColor>`
     }
 
 
-    @media (min-width: 700px){
+    @media (min-width: 1200px){
         padding:1rem;
         svg{
         color:${(props) => props.color};
         margin:0 0.3em;
         height:2em;
         width:2em;
+        }
+        svg:hover{
+        color: ${(props) => props.darkmode == true? "white": "black"};
+        cursor: pointer; 
+        transform:rotate(0.02turn);
         }
         a{
             font-size:0.7rem;

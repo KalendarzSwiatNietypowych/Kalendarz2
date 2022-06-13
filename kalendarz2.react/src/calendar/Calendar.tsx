@@ -126,7 +126,7 @@ export const Calendar = () => {
           headerToolbar={{
             left: "title",
             center: "",
-            right: "dayGridMonth timeGridWeek timeGridDay",
+            right: "",
           }}
           footerToolbar={{
             center: "prev next",
