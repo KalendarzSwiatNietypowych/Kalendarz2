@@ -62,9 +62,12 @@ public class AccountSrv : IAccountSrv
         return new UserDTO
         {
             Id = user.Id,
+            Email = user.Email,
             FirstName = user.FirstName,
             LastName = user.LastName,
-            Token = token
+            Token = token,
+            Color = user.Color,
+            IsDarkmode = user.IsDarkmode
         };
     }
 
@@ -103,14 +106,14 @@ public class AccountSrv : IAccountSrv
             PasswordHash = newUser.PasswordHash
         };
 
-        var token = _jwtUtils.GenerateJWT(userAuth);
         return new UserDTO()
         {
             Id = newUser.Id,
+            Email = newUser.Email,
             FirstName = newUser.FirstName,
             LastName = newUser.LastName,
-            Token = token,
-            Color = "default", //domyslny kolor 
+            Token = null,
+            Color = "#2BC598",
             IsDarkmode = true
         };
     }
@@ -134,6 +137,7 @@ public class AccountSrv : IAccountSrv
         return new UserDTO
         {
             Id = user.UserId,
+            Email = user.Email,
             FirstName = user.FirstName,
             LastName = user.LastName,
             Color = user.Color,
@@ -171,6 +175,7 @@ public class AccountSrv : IAccountSrv
         return new UserDTO()
         {
             Id = userId,
+            Email = user.Email,
             FirstName = user.FirstName,
             LastName = user.LastName,
             Color = user.Color,
@@ -211,6 +216,7 @@ public class AccountSrv : IAccountSrv
         return new UserDTO
         {
             Id = user.Id,
+            Email = user.Email,
             FirstName = user.FirstName,
             LastName = user.LastName,
             Color = user.Color,
@@ -250,11 +256,12 @@ public class AccountSrv : IAccountSrv
         return new UserDTO
         {
             Id = toDelete.Id,
+            Email = toDelete.Email,
             FirstName = toDelete.FirstName,
             LastName = toDelete.LastName,
             Token = null,
-            Color = "default",
-            IsDarkmode = true
+            Color = toDelete.Color,
+            IsDarkmode = toDelete.IsDarkmode
         };
     }
 
@@ -271,6 +278,7 @@ public class AccountSrv : IAccountSrv
         return new UserDTO
         {
             Id = user.Id,
+            Email = user.Email,
             FirstName = user.FirstName,
             LastName = user.LastName,
             Color = user.Color,
