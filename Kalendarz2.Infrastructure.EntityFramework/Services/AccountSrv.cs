@@ -121,10 +121,10 @@ public class AccountSrv : IAccountSrv
     public UserDTO UpdateUser(EditUserDTO user)
     {
         var userdb = _dbContext.Users.Where(u => u.Id == user.UserId).FirstOrDefault();
-        var newEmailUser = _dbContext.Users.FirstOrDefault(u => u.Email == user.Email);
-        if (newEmailUser == userdb) newEmailUser = null;
+        var isEmailTaken = _dbContext.Users.FirstOrDefault(u => u.Email == user.Email);
+        if (isEmailTaken == userdb) isEmailTaken = null;
 
-        if (userdb == null || newEmailUser != null) throw new EditUserException();
+        if (userdb == null || isEmailTaken != null) throw new EditUserException();
 
         userdb.FirstName = user.FirstName;
         userdb.LastName = user.LastName;
