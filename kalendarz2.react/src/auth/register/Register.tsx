@@ -77,7 +77,10 @@ export const Register = () => {
     dispatch(registerAction(credits));
   };
   return (
-    <RegisterFormContainer darkmode={false} color={currentUser.color}>
+    <RegisterFormContainer
+      darkmode={currentUser.isDarkmode}
+      color={currentUser.color}
+    >
       <p>Register</p>
 
       <BasicInput

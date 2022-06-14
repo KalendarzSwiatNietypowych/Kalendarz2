@@ -4,7 +4,7 @@ import { initialState } from "../common/models/event/events";
 import { RootState } from "../common/store/rootReducer";
 import event from "../common/models/event/event"
 import {
-  addEventAction, deleteEventAction, getAllEventsAction
+  addEventAction, deleteEventAction, getAllEventsAction, updateEventAction
 } from "./eventActions";
 
 export const eventSlice = createSlice({
@@ -38,6 +38,7 @@ export const eventSlice = createSlice({
           state.events = action.payload;
         }
       })
+
       .addCase(deleteEventAction.fulfilled, (state, action) => {
         if (action.payload !== undefined) {
           const newEvent:event = {

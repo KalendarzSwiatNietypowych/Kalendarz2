@@ -53,7 +53,7 @@ export const Navbar = () => {
         color={currentUser.color}
       >
         <ToastContainer autoClose={2000} position="top-left" />
-        <p>Calendar</p>
+        <p onClick={() => navigate("/")}>Calendar</p>
         <CalendarMonthIcon onClick={() => navigate("/")} />
         {isLogged && <AddIcon onClick={() => navigate("/event")} />}
         {isLogged && <NotificationAddIcon />}

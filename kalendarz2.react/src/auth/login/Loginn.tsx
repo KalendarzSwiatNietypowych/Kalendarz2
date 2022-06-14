@@ -66,7 +66,10 @@ export const Login = () => {
   };
 
   return (
-    <LoginFormContainer darkmode={false} color={currentUser.color}>
+    <LoginFormContainer
+      darkmode={currentUser.isDarkmode}
+      color={currentUser.color}
+    >
       <p>Sign In</p>
 
       <BasicInput

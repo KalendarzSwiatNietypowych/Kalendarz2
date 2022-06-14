@@ -24,6 +24,11 @@ export const NavbarContainer = styled.div<IColor>`
         font-weight:300;
         margin-right:auto;
     }
+    p:hover{
+        cursor: pointer;
+        color:${(props) => props.color};
+        transform:rotate(0.002turn);
+    }
     a{
         text-decoration:none;
         margin:0 0vw;
