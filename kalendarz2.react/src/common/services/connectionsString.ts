@@ -14,6 +14,12 @@ export const api = axios.create({
 
   api.interceptors.response.use(
     (response) => {
+      if(response.request?.responseURL.toString().includes("changePassword")){
+        toast.success("Password Changed")
+      }
+      if(response.request?.responseURL.toString().includes("Event/create")){
+        toast.success("Event Added")
+      }
       return response;
     },
     (error: AxiosError) => {

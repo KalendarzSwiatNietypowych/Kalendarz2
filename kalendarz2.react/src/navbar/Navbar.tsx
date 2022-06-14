@@ -22,6 +22,7 @@ import { store } from "..";
 import { UpdateEvent } from "../event/UpdateEvent";
 import { Settings } from "../settings/Settings";
 import updateSettings from "../common/models/user/updateSettings";
+import { ChangePassword } from "../auth/changePassword/ChangePassword";
 
 export const Navbar = () => {
   const dispatch = useDispatch();
@@ -76,6 +77,7 @@ export const Navbar = () => {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/" element={<Calendar />}></Route>
+        <Route path="/changePassword" element={<ChangePassword />}></Route>
         <Route path="/event" element={<AddEvent />}></Route>
         <Route path="/settings" element={<Settings />}></Route>
         <Route path="/updateEvent" element={<UpdateEvent />}></Route>
