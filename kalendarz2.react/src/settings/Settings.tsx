@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { updateSourceFile } from "typescript";
 import { SelectUser } from "../auth/slice";
+import { ActionButton } from "../common/components/buttons/actionButton";
 import { SubmitButton } from "../common/components/buttons/submitButton";
 import { AddEventForm } from "../common/components/containers/addEventForm";
 import { ChangeSettingsForm } from "../common/components/containers/changeSettingsForm";
@@ -52,7 +53,7 @@ export const Settings = () => {
         return true;
     }
   };
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentUser = useAppSelector((state) => SelectUser(state));
   const [credits, setCredits] = useState(initialState);
@@ -219,6 +220,12 @@ export const Settings = () => {
       >
         Save Changes
       </SubmitButton>
+      <ActionButton
+        className="new-account"
+        onClick={() => navigate("/changePassword")}
+      >
+        Change password
+      </ActionButton>
     </ChangeSettingsForm>
   );
 };
