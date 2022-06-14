@@ -83,7 +83,7 @@ public class AccountSrv : IAccountSrv
             RoleId = registerDTO.RoleId,
             isVerified = false,
             IsDarkmode = true,
-            Color = "default"
+            Color = "#2BC598"
         };
 
         _dbContext.Users.Add(newUser);
@@ -237,6 +237,7 @@ public class AccountSrv : IAccountSrv
         return new UserDTO
         {
             Id = user.Id,
+            Email = user.Email,
             FirstName = user.FirstName,
             LastName = user.LastName,
             Color = user.Color,
