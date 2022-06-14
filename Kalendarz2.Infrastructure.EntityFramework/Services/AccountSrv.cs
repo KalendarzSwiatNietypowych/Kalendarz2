@@ -62,9 +62,12 @@ public class AccountSrv : IAccountSrv
         return new UserDTO
         {
             Id = user.Id,
+            Email = user.Email,
             FirstName = user.FirstName,
             LastName = user.LastName,
-            Token = token
+            Token = token,
+            Color = user.Color,
+            IsDarkmode = user.IsDarkmode
         };
     }
 
@@ -80,7 +83,7 @@ public class AccountSrv : IAccountSrv
             RoleId = registerDTO.RoleId,
             isVerified = false,
             IsDarkmode = true,
-            Color = "default"
+            Color = "#2BC598"
         };
 
         _dbContext.Users.Add(newUser);
@@ -103,14 +106,14 @@ public class AccountSrv : IAccountSrv
             PasswordHash = newUser.PasswordHash
         };
 
-        var token = _jwtUtils.GenerateJWT(userAuth);
         return new UserDTO()
         {
             Id = newUser.Id,
+            Email = newUser.Email,
             FirstName = newUser.FirstName,
             LastName = newUser.LastName,
-            Token = token,
-            Color = "default", //domyslny kolor 
+            Token = null,
+            Color = "#2BC598",
             IsDarkmode = true
         };
     }
@@ -118,10 +121,10 @@ public class AccountSrv : IAccountSrv
     public UserDTO UpdateUser(EditUserDTO user)
     {
         var userdb = _dbContext.Users.Where(u => u.Id == user.UserId).FirstOrDefault();
-        var newEmailUser = _dbContext.Users.FirstOrDefault(u => u.Email == user.Email);
-        if (newEmailUser == userdb) newEmailUser = null;
+        var isEmailTaken = _dbContext.Users.FirstOrDefault(u => u.Email == user.Email);
+        if (isEmailTaken == userdb) isEmailTaken = null;
 
-        if (userdb == null || newEmailUser != null) throw new EditUserException();
+        if (userdb == null || isEmailTaken != null) throw new EditUserException();
 
         userdb.FirstName = user.FirstName;
         userdb.LastName = user.LastName;
@@ -134,6 +137,7 @@ public class AccountSrv : IAccountSrv
         return new UserDTO
         {
             Id = user.UserId,
+            Email = user.Email,
             FirstName = user.FirstName,
             LastName = user.LastName,
             Color = user.Color,
@@ -171,6 +175,7 @@ public class AccountSrv : IAccountSrv
         return new UserDTO()
         {
             Id = userId,
+            Email = user.Email,
             FirstName = user.FirstName,
             LastName = user.LastName,
             Color = user.Color,
@@ -211,6 +216,7 @@ public class AccountSrv : IAccountSrv
         return new UserDTO
         {
             Id = user.Id,
+            Email = user.Email,
             FirstName = user.FirstName,
             LastName = user.LastName,
             Color = user.Color,
@@ -231,6 +237,7 @@ public class AccountSrv : IAccountSrv
         return new UserDTO
         {
             Id = user.Id,
+            Email = user.Email,
             FirstName = user.FirstName,
             LastName = user.LastName,
             Color = user.Color,
@@ -250,11 +257,12 @@ public class AccountSrv : IAccountSrv
         return new UserDTO
         {
             Id = toDelete.Id,
+            Email = toDelete.Email,
             FirstName = toDelete.FirstName,
             LastName = toDelete.LastName,
             Token = null,
-            Color = "default",
-            IsDarkmode = true
+            Color = toDelete.Color,
+            IsDarkmode = toDelete.IsDarkmode
         };
     }
 
@@ -271,6 +279,7 @@ public class AccountSrv : IAccountSrv
         return new UserDTO
         {
             Id = user.Id,
+            Email = user.Email,
             FirstName = user.FirstName,
             LastName = user.LastName,
             Color = user.Color,
