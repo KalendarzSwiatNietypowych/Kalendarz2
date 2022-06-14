@@ -15,5 +15,5 @@ export default interface user {
     lastName: "",
     token: "",
     color:"#2BC598",
-    isDarkmode:false
+    isDarkmode:true
   };

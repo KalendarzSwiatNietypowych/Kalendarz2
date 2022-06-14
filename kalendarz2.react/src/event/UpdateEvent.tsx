@@ -99,7 +99,7 @@ export const UpdateEvent = () => {
         isDeleted: false,
       })
     );
-
+    navigate("/");
     setCredits(initialState);
   };
 
