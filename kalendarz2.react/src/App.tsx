@@ -1,12 +1,21 @@
 import { useLocation } from "react-router-dom";
+import { createGlobalStyle } from "styled-components";
 import "./App.css";
-import { SelectColors } from "./auth/slice";
+import { SelectColors, SelectUser } from "./auth/slice";
 import { AppContainer } from "./common/components/containers/appContainer";
 import { useAppSelector } from "./common/store/rootReducer";
 import { Events } from "./event/Events";
 import { Navbar } from "./navbar/Navbar";
 
 function App() {
+  let currentUser = useAppSelector((state) => SelectUser(state));
+  const GlobalStyle = createGlobalStyle`
+  body {
+    background-color: ${
+      currentUser.isDarkmode ? "#3e3e3e !important" : "#AEAEAE !important"
+    };
+  }
+`;
   const location = useLocation();
   const calendarColors = useAppSelector((state) => SelectColors(state));
   return (
@@ -15,6 +24,7 @@ function App() {
         darkmode={calendarColors.isDarkmode}
         color={calendarColors.color}
       >
+        <GlobalStyle />
         <Navbar />
         {location.pathname == "/" && <Events />}
       </AppContainer>

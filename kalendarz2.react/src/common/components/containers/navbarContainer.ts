@@ -10,7 +10,7 @@ export const NavbarContainer = styled.div<IColor>`
         padding:1rem 0;
         display:flex;
         justify-content:flex-start;
-        height:6.4vh;
+        height:12%;
         align-items:center;
         background: ${(props) => props.darkmode == true? "rgb(55,55,55)": "rgb(239,239,239)"};
         background:${(props) => props.darkmode == true? "linear-gradient(90deg, rgba(55,55,55,1) 0%, rgba(20,20,20,1) 100%)": "linear-gradient(180deg, rgba(239,239,239,1) 0%, rgba(212,212,212,1) 100%)"}; 
@@ -61,7 +61,7 @@ export const NavbarContainer = styled.div<IColor>`
 
 
     @media (min-width: 1200px){
-        padding:1rem;
+      
         svg{
         color:${(props) => props.color};
         margin:0 0.3em;

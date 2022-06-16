@@ -11,7 +11,7 @@ export const AppContainer = styled.div<IColor>`
         text-align: center;
         font-family: 'lato';
         background-color:${(props) => props.darkmode == true? "#3e3e3e":"#AEAEAE"}; 
-        height: 100vh;
+        height: 100%;
     }
 
 `
