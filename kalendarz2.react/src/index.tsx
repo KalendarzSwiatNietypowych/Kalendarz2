@@ -8,7 +8,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./common/store/rootReducer";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
-import { AppContainer } from "./common/components/containers/appContainer";
 
 export const store = configureStore({
   middleware: (getDefaultMiddleware) =>

@@ -9,7 +9,7 @@ export const EventsContainer = styled.div<IColor>`
         float:right;
         width:100%;
         height:70vh;
-        background-color:${(props) => props.darkmode == true? "#3e3e3e":"lightgray"}; 
+        background-color:${(props) => props.darkmode == true? "#3e3e3e":"#AEAEAE"}; 
         overflow-y:auto;
         font-family:'inter';
         ul{

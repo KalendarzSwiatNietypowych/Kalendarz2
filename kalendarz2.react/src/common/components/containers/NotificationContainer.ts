@@ -5,19 +5,23 @@ interface IEventColor {
     textColor:string;
 }
 
-export const Event = styled.div<IEventColor>`
+export const NotificationContainer = styled.div<IEventColor>`
     &&&{
-        width:70%;
-        margin:3rem auto;
+        width:20rem !important;
+        margin:2rem 1rem;
         border-radius:1rem;
         box-shadow:
-            3.4px 5.7px 4.9px rgba(0, 0, 0, 0.301),
-            8.1px 13.5px 21.7px rgba(0, 0, 0, 0.339),
-            21px 35px 92px rgba(0, 0, 0, 0.22)
+        5.5px 9.1px 11px rgba(0, 0, 0, 0.331),
+        21px 35px 92px rgba(0, 0, 0, 0.22)
         ;
         background-color:${(props) => props.bcolor}; 
+        min-height:18rem;
+        float:left;
+        flex-shrink:0;
+        margin-bottom:2rem;
+        min-height:8rem;
         h2{
-            color: ${(props) => props.textColor};
+            color: ${(props) => props.textColor || "white"};
             font-family:'inter';
             font-size:1rem;
             font-weight:900;
@@ -26,7 +30,7 @@ export const Event = styled.div<IEventColor>`
             padding:1rem;
         }
         h3{
-            color: ${(props) => props.textColor};
+            color: ${(props) => props.textColor || "white"};
             font-family:'inter';
             font-size:1rem;
             font-weight:400;
@@ -52,7 +56,7 @@ export const Event = styled.div<IEventColor>`
         h3 > svg{
             padding:0;
             margin-right:1rem;
-            color: ${(props) => props.textColor};
+            color:orange;
         }
         .eventLocation{
             display:flex;
@@ -61,24 +65,25 @@ export const Event = styled.div<IEventColor>`
         .eventButtons{
             display:flex;
             align-items:center;
-            color: ${(props) => props.textColor};
+            color:orange;
             justify-content:flex-end;
             margin-right:1em;
             padding-bottom:0.5em;
         }
         .eventButtons > svg{
-          
+            background-color:white;
             padding:0.3rem;
-   
-            margin-left:0rem;
-        
+            border-radius:50%;
+            margin-left:0.4rem;
+            border:1px black solid;
         }
         .eventButtons > svg:hover{
             cursor: pointer;
-            color: ${(props) => props.textColor == "white"? "#a7a7a7":"#676767"};
-            transform:scale(1.4);
-          
+            color:darkorange;
+            background-color:#ddd;
         }
-
+        @media (min-width: 1200px){
+            width:25rem;
+    }
 }
 `

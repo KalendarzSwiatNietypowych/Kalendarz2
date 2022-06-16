@@ -4,7 +4,6 @@ import { Register } from "../auth/register/Register";
 import { Calendar } from "../calendar/Calendar";
 import { AddEvent } from "../event/AddEvent";
 import "react-toastify/dist/ReactToastify.css";
-import { Home } from "../home/Home";
 import { NavbarContainer } from "../common/components/containers/navbarContainer";
 import { ToastContainer } from "react-toastify";
 import { useAppSelector } from "../common/store/rootReducer";
@@ -14,24 +13,34 @@ import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AddIcon from "@mui/icons-material/Add";
-import NotificationAddIcon from "@mui/icons-material/NotificationAdd";
-import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import NotificationImportantIcon from "@mui/icons-material/NotificationImportant";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useDispatch } from "react-redux";
 import { store } from "..";
 import { UpdateEvent } from "../event/UpdateEvent";
 import { Settings } from "../settings/Settings";
-import updateSettings from "../common/models/user/updateSettings";
 import { ChangePassword } from "../auth/changePassword/ChangePassword";
+import { Notifications } from "../event/Notifications";
 
 export const Navbar = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     store.dispatch(loadLocalStorage());
   }, []);
-
+  let eventInAnHour = 0;
   const navigate = useNavigate();
   let currentUser = useAppSelector((state) => SelectUser(state));
+  const events = useAppSelector((state) => state.event.events);
+  events.map((e) => {
+    if (
+      new Date(e.startEvent).getTime() - new Date().getTime() > 0 &&
+      new Date(e.startEvent).getTime() - new Date().getTime() < 60 * 60 * 1000
+    ) {
+      eventInAnHour = eventInAnHour + 1;
+    }
+  });
+  console.log(eventInAnHour);
   const [isLogged, setIsLogged] = useState(false);
   useEffect(() => {
     if (localStorage.getItem("userToken") !== null) {
@@ -57,7 +66,14 @@ export const Navbar = () => {
         <p onClick={() => navigate("/")}>Calendar</p>
         <CalendarMonthIcon onClick={() => navigate("/")} />
         {isLogged && <AddIcon onClick={() => navigate("/event")} />}
-        {isLogged && <NotificationAddIcon />}
+        {isLogged && eventInAnHour == 0 && (
+          <NotificationsIcon onClick={() => navigate("/notifications")} />
+        )}
+        {isLogged && eventInAnHour > 0 && (
+          <NotificationImportantIcon
+            onClick={() => navigate("/notifications")}
+          />
+        )}
         {isLogged && <SettingsIcon onClick={() => navigate("/settings")} />}
         {!isLogged && (
           <Link to="/login">
@@ -78,6 +94,7 @@ export const Navbar = () => {
         <Route path="/register" element={<Register />}></Route>
         <Route path="/" element={<Calendar />}></Route>
         <Route path="/changePassword" element={<ChangePassword />}></Route>
+        <Route path="/notifications" element={<Notifications />}></Route>
         <Route path="/event" element={<AddEvent />}></Route>
         <Route path="/settings" element={<Settings />}></Route>
         <Route path="/updateEvent" element={<UpdateEvent />}></Route>
