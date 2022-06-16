@@ -14,7 +14,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import moment from "moment";
 import { BasicInput } from "../common/components/inputs/basicInput";
-import { idText } from "typescript";
 export const Events = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -81,7 +80,9 @@ export const Events = () => {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(
       backgroundColor
     );
-
+    if (result === null) {
+      return "black";
+    }
     var r = parseInt(result![1], 16);
     var g = parseInt(result![2], 16);
     var b = parseInt(result![3], 16);

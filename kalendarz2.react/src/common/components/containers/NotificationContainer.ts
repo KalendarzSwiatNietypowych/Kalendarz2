@@ -5,7 +5,7 @@ interface IEventColor {
     textColor:string;
 }
 
-export const Notification = styled.div<IEventColor>`
+export const NotificationContainer = styled.div<IEventColor>`
     &&&{
         width:20rem !important;
         margin:2rem 1rem;

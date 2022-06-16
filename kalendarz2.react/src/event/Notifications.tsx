@@ -1,19 +1,13 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { SelectUser } from "../auth/slice";
-import { EventsContainer } from "../common/components/containers/EventsContainer";
 import { useAppSelector } from "../common/store/rootReducer";
 import { useDispatch } from "react-redux";
-import { deleteEventAction, getAllEventsAction } from "./eventActions";
+import { getAllEventsAction } from "./eventActions";
 import { SelectAllEvents } from "./selectors";
-import EventIcon from "@mui/icons-material/Event";
-import moment from "moment";
 import { NotificationsContainer } from "../common/components/containers/notificationsContainer";
-import { Notification } from "../common/components/containers/Notification";
-
+import { Notification } from "./Notification";
 export const Notifications = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   let currentUser = useAppSelector((state) => SelectUser(state));
 
   const isBeforeNow = (date: Date) => {
@@ -28,7 +22,7 @@ export const Notifications = () => {
       dispatch(getAllEventsAction({ authorId: currentUser.id }));
     } else {
     }
-  }, [currentUser.token, localStorage]);
+  }, []);
 
   const events = useAppSelector((state) => SelectAllEvents(state));
   const today = new Date();
@@ -39,66 +33,24 @@ export const Notifications = () => {
       new Date(e.startEvent).getFullYear() == today.getFullYear() &&
       !isBeforeNow(e.startEvent)
   );
+  const filteredTodaysEvents = todaysEvents.filter((e) => !e.isDeleted);
+
   const tomorrowsEvents = events.filter(
     (e) =>
       new Date(e.startEvent).getDate() == today.getDate() + 1 &&
       new Date(e.startEvent).getMonth() == today.getMonth() &&
       new Date(e.startEvent).getFullYear() == today.getFullYear()
   );
+  const filteredTomorrowsEvents = tomorrowsEvents.filter((e) => !e.isDeleted);
 
-  const sortedtodaysEvents = todaysEvents.sort(function (a, b) {
+  const sortedtodaysEvents = filteredTodaysEvents.sort(function (a, b) {
     return new Date(a.endEvent).getTime() - new Date(b.endEvent).getTime();
   });
 
-  const sortedtomorrowsEvents = tomorrowsEvents.sort(function (a, b) {
+  const sortedtomorrowsEvents = filteredTomorrowsEvents.sort(function (a, b) {
     return new Date(a.endEvent).getTime() - new Date(b.endEvent).getTime();
   });
 
-  const calculateColor = (backgroundColor: string) => {
-    if (backgroundColor != null) {
-      var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(
-        backgroundColor
-      );
-      if (result![1] == null) return "black";
-      var r = parseInt(result![1], 16);
-      var g = parseInt(result![2], 16);
-      var b = parseInt(result![3], 16);
-      var luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-
-      if (luminance > 0.5) {
-        return "black";
-      } else {
-        return "white";
-      }
-    }
-  };
-
-  const handleDate = (startEvent: Date) => {
-    var now = new Date().getTime();
-
-    var distance = new Date(startEvent).getTime() - now;
-
-    var hours = Math.floor(
-      (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-    );
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    if (hours == 0) {
-      if (minutes == 0) {
-        return <h3 className="bold">Starts in:{seconds}s</h3>;
-      }
-      return (
-        <h3 className="bold">
-          Starts in: {minutes}m {seconds}s
-        </h3>
-      );
-    }
-    return (
-      <h3>
-        Starts in: {hours}h {minutes}m {seconds}s
-      </h3>
-    );
-  };
   return (
     <NotificationsContainer
       darkmode={currentUser.isDarkmode}
@@ -116,19 +68,9 @@ export const Notifications = () => {
             return (
               <Notification
                 bcolor={event.color}
-                textColor={calculateColor(event.color)!}
-              >
-                <div className="eventTitle">
-                  <h2>{event.title}</h2>
-                  <EventIcon />
-                </div>
-                <h3>{event.description}</h3>
-                {handleDate(event.startEvent)}
-
-                <h3>
-                  Ends: {moment(event.endEvent).format("DD-MM-yyyy HH:mm")}
-                </h3>
-              </Notification>
+                event={event}
+                today={true}
+              ></Notification>
             );
           })}
         </div>
@@ -144,18 +86,9 @@ export const Notifications = () => {
             return (
               <Notification
                 bcolor={event.color}
-                textColor={calculateColor(event.color)!}
-              >
-                <div className="eventTitle">
-                  <h2>{event.title}</h2>
-                  <EventIcon />
-                </div>
-                <h3>{event.description}</h3>
-                <h3>Starts: {moment(event.startEvent).format("HH:mm")}</h3>
-                <h3>
-                  Ends: {moment(event.endEvent).format("DD-MM-yyyy HH:mm")}
-                </h3>
-              </Notification>
+                event={event}
+                today={false}
+              ></Notification>
             );
           })}
         </div>
