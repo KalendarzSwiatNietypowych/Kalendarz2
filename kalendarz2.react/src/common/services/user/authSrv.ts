@@ -34,4 +34,13 @@ export const authSrv = {
         console.error(e);
       }
     },
+    async verifyEmail(credentail: number){
+      try{
+        return await api
+        .get(controllerPath + `verify/${credentail}`)
+        .then((r) => r.data);
+      } catch (e) {
+        console.error(e);
+      }
+    },
 };

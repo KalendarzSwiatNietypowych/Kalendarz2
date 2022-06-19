@@ -101,7 +101,7 @@ export const Navbar = () => {
         <Route path="/settings" element={<Settings />}></Route>
         <Route path="/updateEvent" element={<UpdateEvent />}></Route>
         <Route path="/sendEmailVerification" element={<SendVerificationEmail />}></Route>
-        <Route path="/verify/:id" element={<VerifiedEmail />}></Route>
+        <Route path="/verify/:userId" element={<VerifiedEmail />}></Route>
         <Route path="*" element={<Calendar />} />
       </Routes>
     </div>
