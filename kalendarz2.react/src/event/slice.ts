@@ -6,6 +6,8 @@ import event from "../common/models/event/event"
 import {
   addEventAction, deleteEventAction, getAllEventsAction, updateEventAction
 } from "./eventActions";
+import deleteEvent from "../common/models/event/deleteEvent";
+import updateEvent from "../common/models/event/updateEvent";
 
 export const eventSlice = createSlice({
   name: "event",
@@ -27,6 +29,7 @@ export const eventSlice = createSlice({
             color:action.payload.number,
             isDeleted:action.payload.isDeleted,
             isRecurring:action.payload.isRecurring,
+            isEditable:true,
           };
           const newEvents = state.events;
           newEvents.push(newEvent);
@@ -36,12 +39,13 @@ export const eventSlice = createSlice({
       .addCase(getAllEventsAction.fulfilled, (state, action) => {
         if (action.payload !== undefined) {
           state.events = action.payload;
+          state.events.map(e => e.isEditable = true)
         }
       })
 
       .addCase(deleteEventAction.fulfilled, (state, action) => {
         if (action.payload !== undefined) {
-          const newEvent:event = {
+          const newEvent:updateEvent = {
             id: action.payload.id,
             authorId: action.payload.authorId,
             title: action.payload.title,
@@ -61,6 +65,7 @@ export const eventSlice = createSlice({
           })
         }
       })
+
   },
 });
 

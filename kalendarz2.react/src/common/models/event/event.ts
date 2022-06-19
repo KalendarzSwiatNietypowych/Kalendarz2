@@ -10,6 +10,7 @@ export default interface event {
   color:string;
   isDeleted:boolean;
   isRecurring:boolean;
+  isEditable:boolean;
 }
 
 export const initialState: event = {
@@ -23,6 +24,7 @@ export const initialState: event = {
   endEvent: new Date(),
   color: "#0000ff",
   isDeleted:false,
-  isRecurring:false
+  isRecurring:false,
+  isEditable:true
 };
     

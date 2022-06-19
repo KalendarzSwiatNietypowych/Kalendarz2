@@ -95,7 +95,7 @@ export const UpdateEvent = () => {
         startEvent: credits.startEvent,
         endEvent: credits.endEvent,
         color: credits.color,
-        isRecurring: credits.isRecurring,
+        isRecurring: checked,
         isDeleted: false,
       })
     );
@@ -158,16 +158,21 @@ export const UpdateEvent = () => {
           />
         }
       />
-      <FormControlLabel
-        label="Recurring event"
-        control={
-          <StyledCheckbox
-            name="isRecurring"
-            checked={checked}
-            onChange={() => handleCheckbox()}
-          />
-        }
-      />
+      <div className="recurringDiv">
+        <FormControlLabel
+          label="Recurring event"
+          control={
+            <StyledCheckbox
+              name="isRecurring"
+              checked={checked}
+              onChange={() => handleCheckbox()}
+            />
+          }
+        />
+      </div>
+      <h5 className="recurring">
+        Event will also happen at the same time next year.
+      </h5>
 
       <SubmitButton
         onClick={(e) => handleSubmit(e)}
