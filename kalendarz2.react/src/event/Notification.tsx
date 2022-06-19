@@ -3,6 +3,7 @@ import EventIcon from "@mui/icons-material/Event";
 import moment from "moment";
 import { NotificationContainer } from "../common/components/containers/NotificationContainer";
 import event from "../common/models/event/event";
+
 type Props = {
   bcolor: string;
   event: event;
@@ -17,12 +18,12 @@ export const Notification = (props: Props) => {
   }, []);
   const handleDate = (startEvent: Date) => {
     var now = new Date().getTime();
-
     var distance = new Date(startEvent).getTime() - now;
 
     var hours = Math.floor(
       (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
     );
+
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
     if (hours <= 0) {
@@ -79,7 +80,6 @@ export const Notification = (props: Props) => {
       </div>
       <h3>{props.event.description}</h3>
       {startsIn}
-
       <h3>Ends: {moment(props.event.endEvent).format("DD-MM-yyyy HH:mm")}</h3>
     </NotificationContainer>
   );

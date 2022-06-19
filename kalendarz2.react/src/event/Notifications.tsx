@@ -42,7 +42,6 @@ export const Notifications = () => {
   );
   const recurringEvents = events.map((e) => {
     if (e.isRecurring) {
-      console.log(e);
       const nextStartYear = new Date(e.startEvent).getFullYear();
       const nextEndYear = new Date(e.endEvent).getFullYear();
       const newStartDate = new Date(e.startEvent);

@@ -1,11 +1,9 @@
-import { Checkbox, FormControlLabel } from "@mui/material";
-import { wait } from "@testing-library/user-event/dist/utils";
+import { FormControlLabel } from "@mui/material";
 import moment from "moment";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { createDebuggerStatement } from "typescript";
 import { SelectColors, SelectUser } from "../auth/slice";
 import { SubmitButton } from "../common/components/buttons/submitButton";
 import { AddEventForm } from "../common/components/containers/addEventForm";
@@ -14,7 +12,8 @@ import { ColorInput } from "../common/components/inputs/colorInput";
 import { StyledCheckbox } from "../common/components/inputs/muiCheckbox";
 import { initialState } from "../common/models/event/event";
 import { useAppSelector } from "../common/store/rootReducer";
-import { addEventAction, getAllEventsAction } from "./eventActions";
+import { addEventAction } from "./eventActions";
+import HelpIcon from "@mui/icons-material/Help";
 
 export const AddEvent = () => {
   const addEventValidator = (fieldName: string, value: string) => {
@@ -38,9 +37,8 @@ export const AddEvent = () => {
     return true;
   };
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const currentAuthorId = useAppSelector((state) => SelectUser(state)).id;
 
+  const currentAuthorId = useAppSelector((state) => SelectUser(state)).id;
   const calendarColors = useAppSelector((state) => SelectColors(state));
 
   const [credits, setCredits] = useState(initialState);
@@ -155,10 +153,13 @@ export const AddEvent = () => {
             />
           }
         />
+        <div className="iconDiv">
+          <HelpIcon fontSize="small" className="helpIcon" />
+          <h5 className="recurring">
+            Event will also happen at the same time next year.
+          </h5>
+        </div>
       </div>
-      <h5 className="recurring">
-        Event will also happen at the same time next year.
-      </h5>
 
       <SubmitButton
         onClick={(e) => handleSubmit(e)}

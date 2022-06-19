@@ -1,23 +1,16 @@
-import { Checkbox, FormControlLabel } from "@mui/material";
-import { wait } from "@testing-library/user-event/dist/utils";
-import moment from "moment";
+import { FormControlLabel } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { updateSourceFile } from "typescript";
 import { SelectUser } from "../auth/slice";
 import { ActionButton } from "../common/components/buttons/actionButton";
 import { SubmitButton } from "../common/components/buttons/submitButton";
-import { AddEventForm } from "../common/components/containers/addEventForm";
 import { ChangeSettingsForm } from "../common/components/containers/changeSettingsForm";
 import { ColorPallet } from "../common/components/containers/colorPallet";
 import { BasicInput } from "../common/components/inputs/basicInput";
-import { ColorInput } from "../common/components/inputs/colorInput";
 import { StyledCheckbox } from "../common/components/inputs/muiCheckbox";
-import updateSettings, {
-  initialState,
-} from "../common/models/user/updateSettings";
+import { initialState } from "../common/models/user/updateSettings";
 import { useAppSelector } from "../common/store/rootReducer";
 import { updateSettingsAction } from "./settingsActions";
 
@@ -104,7 +97,6 @@ export const Settings = () => {
         isDarkmode: credits.isDarkmode,
       })
     );
-    //setCredits(initialState);
   };
 
   const [currentColor, setCurrentColor] = useState(currentUser.color);

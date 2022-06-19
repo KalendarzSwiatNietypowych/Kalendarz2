@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { LoginFormContainer } from "../../common/components/containers/loginFormContainer";
 import { useAppSelector } from "../../common/store/rootReducer";
 import { SelectUser } from "../slice";
 import { changePasswordAction } from "./action";
@@ -33,6 +32,12 @@ export const ChangePassword = () => {
           if (value != confirmPassword) {
             toast.error(
               "New password must be the same as confirm new password"
+            );
+            return false;
+          }
+          if (value == credits.oldPassword) {
+            toast.error(
+              "New password has to be diffrenet than Your old passoword"
             );
             return false;
           }

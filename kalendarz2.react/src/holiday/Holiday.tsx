@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { SelectColors, SelectUser } from "../auth/slice";
+import { SelectColors } from "../auth/slice";
 import { HolidayContainer } from "../common/components/containers/holidayContainer";
 import { useAppSelector } from "../common/store/rootReducer";
 import { getHolidayAction } from "./holidayActions";

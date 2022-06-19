@@ -14,6 +14,4 @@ export const ActionButton = styled.button`
         background-color:#eeeeee;
    }
    }
-
-   
 `;

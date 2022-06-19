@@ -15,6 +15,5 @@ export const ColorInput = styled.input`
    }
    :hover{
        cursor: pointer;
-   }
-   
+   } 
 `
