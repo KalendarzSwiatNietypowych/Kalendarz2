@@ -97,30 +97,11 @@ public class EventSrv : IEventSrv
     {
         var eventToUpdate = _dbContext.Events.FirstOrDefault(e => e.Id == modifyEventDTO.Id);
 
-        //var participantEmails = modifyEventDTO.ParticipantsEmails;
-        //var participationList = new List<Participation>();
-        //foreach (var email in participantEmails)
-        //{
-        //    var user = _dbContext.Users.FirstOrDefault(u => u.Email == email);
-        //    var participation = new Participation()
-        //    {
-        //        EventId = eventToUpdate.Id,
-        //        Event = eventToUpdate,
-        //        ParticipantId = user.Id,
-        //        Participant = user,
-        //    };
-        //    participationList.Add(participation);
-        //}
-        //if jest więcej użytkowników to dodaj ludzi
-        //else if jest mniej uczestników to usuń
-
-        //eventToUpdate = _eventMapper.Map(modifyEventDTO, participationList);
         eventToUpdate.Title = modifyEventDTO.Title;
         eventToUpdate.Description = modifyEventDTO.Description;
         eventToUpdate.Location = modifyEventDTO.Location;
         eventToUpdate.StartEvent = modifyEventDTO.StartEvent;
         eventToUpdate.EndEvent = modifyEventDTO.EndEvent;
-        //eventToUpdate.Participants = participationList;
         eventToUpdate.IsRecurring = modifyEventDTO.IsRecurring;
         eventToUpdate.Color = modifyEventDTO.Color;
 
