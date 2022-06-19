@@ -15,5 +15,4 @@ export const StyledCheckbox = styled(Checkbox)`
    :hover{
        cursor: pointer;
    }
-   
 `;

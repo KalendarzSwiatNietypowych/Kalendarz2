@@ -4,6 +4,7 @@ interface IColor {
     darkmode:boolean
     color:string
   }
+  
 export const EventsContainer = styled.div<IColor>`
     &&&{
         float:right;

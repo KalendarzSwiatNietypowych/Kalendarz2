@@ -4,7 +4,6 @@ interface IColor {
    darkmode:boolean
    color:string
  }
- 
 
 export const SubmitButton = styled.button<IColor>`
    &&&{

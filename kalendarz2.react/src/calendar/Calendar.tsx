@@ -1,8 +1,8 @@
-import React, { createRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
+import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
 import { CalendarContainer } from "../common/components/containers/calendarContainer";
 import { useDispatch } from "react-redux";

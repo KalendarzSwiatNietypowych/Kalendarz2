@@ -1,11 +1,10 @@
-import { Checkbox, FormControlLabel } from "@mui/material";
-import { wait } from "@testing-library/user-event/dist/utils";
+import { FormControlLabel } from "@mui/material";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { SelectColors, SelectUser } from "../auth/slice";
+import { SelectColors } from "../auth/slice";
 import { SubmitButton } from "../common/components/buttons/submitButton";
 import { AddEventForm } from "../common/components/containers/addEventForm";
 import { BasicInput } from "../common/components/inputs/basicInput";
@@ -14,11 +13,7 @@ import { StyledCheckbox } from "../common/components/inputs/muiCheckbox";
 import { initialState } from "../common/models/event/event";
 import { useAppSelector } from "../common/store/rootReducer";
 import event from "../common/models/event/event";
-import {
-  addEventAction,
-  getAllEventsAction,
-  updateEventAction,
-} from "./eventActions";
+import { updateEventAction } from "./eventActions";
 
 export const UpdateEvent = () => {
   const location = useLocation();
@@ -48,12 +43,6 @@ export const UpdateEvent = () => {
   const calendarColors = useAppSelector((state) => SelectColors(state));
   const [credits, setCredits] = useState(initialState);
   const [checked, setChecked] = useState(false);
-  // const eventToEdit = location.state as event;
-  // console.log(credits);
-  // console.log(eventToEdit);
-  // console.log(eventToEdit.title);
-  // credits.title = eventToEdit.title;
-  // console.log(credits);
 
   useEffect(() => {
     const eventToEdit = location.state as event;

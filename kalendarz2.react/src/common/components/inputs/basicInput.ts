@@ -16,5 +16,4 @@ export const BasicInput = styled.input`
        outline:0px;
        background: white !important; 
    }
-   
 `;

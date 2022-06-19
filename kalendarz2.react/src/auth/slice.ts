@@ -4,7 +4,6 @@ import { registerAction } from "./register/action";
 import { RootState } from "../common/store/rootReducer";
 import { loginAction } from "./login/action";
 import { updateSettingsAction } from "../settings/settingsActions";
-import { act } from "react-dom/test-utils";
 
 export const authSlice = createSlice({
   name: "auth",
