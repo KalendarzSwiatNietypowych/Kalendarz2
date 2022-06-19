@@ -28,7 +28,7 @@ export const authSlice = createSlice({
         loginAction.fulfilled,
         (state: user, action: PayloadAction<user, string>) => {
           if (action.payload !== undefined) {
-            //localStorage.setItem("userToken", action.payload.token);
+            localStorage.setItem("userToken", action.payload.token);
             localStorage.setItem("id", action.payload.id.toString());
             localStorage.setItem("firstName", action.payload.firstName);
             localStorage.setItem("lastName", action.payload.lastName);
@@ -38,7 +38,7 @@ export const authSlice = createSlice({
             state.id = action.payload.id;
             state.firstName = action.payload.firstName;
             state.lastName = action.payload.lastName;
-            //state.token = action.payload.token;
+            state.token = action.payload.token;
             state.email = action.payload.email;
             state.color = action.payload.color;
             state.isDarkmode = action.payload.isDarkmode;

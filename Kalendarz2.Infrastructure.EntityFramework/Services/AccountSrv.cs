@@ -99,7 +99,6 @@ public class AccountSrv : IAccountSrv
 
         var emailToSend = new SendEmailDTO() { user = newUserDTO, Email = registerDTO.Email };
         EmailSenderAsync(emailToSend);
-        //newUser.isVerified = true;
 
         var hashedPassword = _passwordHasher.HashPassword(newUser, registerDTO.Password);
         newUser.PasswordHash = hashedPassword;
@@ -164,7 +163,7 @@ public class AccountSrv : IAccountSrv
             From = new EmailAddress("kalendarz2@onet.pl", "Team Kalendarz 2"),
             Subject = "Verification Mail to Kalendarz2",
             PlainTextContent = $"Hello {email.user.FirstName} {email.user.LastName} \n\n " +
-            $"We're really glad you registered to our webite. In order to verify your email play click in this not suspisiout link belowed:\n" +
+            $"We're really glad you registered to our webite. In order to verify your email play click in this not suspicious link belowed:\n\n" +
             $"/api/Account/verify/{email.user.Id}"
         };
         //zmienić ścieżkę

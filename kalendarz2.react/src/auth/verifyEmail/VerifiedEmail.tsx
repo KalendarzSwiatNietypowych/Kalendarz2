@@ -9,7 +9,6 @@ export const VerifiedEmail = () => {
   const isDarkmode = useAppSelector((state) => SelectUser(state)).isDarkmode;
   const userId = Number(useParams().userId);
   const dispatch = useDispatch();
-  console.log(userId);
   dispatch(verifyEmailAction(userId));
   
   return (

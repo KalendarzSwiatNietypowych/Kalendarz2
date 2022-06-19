@@ -52,7 +52,6 @@ export const Register = () => {
 
   useEffect(() => {
     if (currentUser.id !== 0) {
-      //navigate("../", { replace: true });
       navigate("../sendEmailVerification", { replace: true });    
     }
   }, [currentUser.id, navigate]);
