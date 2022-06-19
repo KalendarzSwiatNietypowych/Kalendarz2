@@ -66,19 +66,14 @@ export const Event = styled.div<IEventColor>`
             margin-right:1em;
             padding-bottom:0.5em;
         }
-        .eventButtons > svg{
-          
+        .eventButtons > svg{    
             padding:0.3rem;
-   
-            margin-left:0rem;
-        
+            margin-left:0rem;     
         }
         .eventButtons > svg:hover{
             cursor: pointer;
             color: ${(props) => props.textColor == "white"? "#a7a7a7":"#676767"};
-            transform:scale(1.4);
-          
+            transform:scale(1.4);     
         }
-
 }
 `

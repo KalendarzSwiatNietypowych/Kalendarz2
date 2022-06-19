@@ -22,10 +22,7 @@ import { UpdateEvent } from "../event/UpdateEvent";
 import { Settings } from "../settings/Settings";
 import { ChangePassword } from "../auth/changePassword/ChangePassword";
 import { Notifications } from "../event/Notifications";
-import {SendVerificationEmail} from "../auth/verifyEmail/SendVerificationEmail";
-import { VerifiedEmail } from "../auth/verifyEmail/VerifiedEmail";
 import logo from "../common/components/img/logo.png";
-
 export const Navbar = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -41,6 +38,17 @@ export const Navbar = () => {
       new Date(e.startEvent).getTime() - new Date().getTime() < 60 * 60 * 1000
     ) {
       eventInAnHour = eventInAnHour + 1;
+    }
+    if (e.isRecurring) {
+      const nextStartYear = new Date(e.startEvent).getFullYear();
+      const newStartDate = new Date(e.startEvent);
+      newStartDate.setFullYear(nextStartYear + 1);
+      if (
+        new Date(newStartDate).getTime() - new Date().getTime() > 0 &&
+        new Date(newStartDate).getTime() - new Date().getTime() < 60 * 60 * 1000
+      ) {
+        eventInAnHour = eventInAnHour + 1;
+      }
     }
   });
   const [isLogged, setIsLogged] = useState(false);
@@ -104,8 +112,6 @@ export const Navbar = () => {
         <Route path="/event" element={<AddEvent />}></Route>
         <Route path="/settings" element={<Settings />}></Route>
         <Route path="/updateEvent" element={<UpdateEvent />}></Route>
-        <Route path="/sendEmailVerification" element={<SendVerificationEmail />}></Route>
-        <Route path="/verify/:userId" element={<VerifiedEmail />}></Route>
         <Route path="*" element={<Calendar />} />
       </Routes>
     </div>

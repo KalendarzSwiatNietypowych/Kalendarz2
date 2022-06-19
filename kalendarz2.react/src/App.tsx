@@ -1,6 +1,5 @@
 import { useLocation } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
-import "./App.css";
 import { SelectColors, SelectUser } from "./auth/slice";
 import { AppContainer } from "./common/components/containers/appContainer";
 import { useAppSelector } from "./common/store/rootReducer";

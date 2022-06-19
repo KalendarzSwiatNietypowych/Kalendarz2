@@ -1,4 +1,3 @@
-import { rgbToHex } from "@mui/material"
 import styled from "styled-components"
 
 interface IColor {
@@ -69,7 +68,6 @@ export const NavbarContainer = styled.div<IColor>`
         color: ${(props) => props.darkmode == true? "white": "black"};
         cursor: pointer;
     }
-
 
     @media (min-width: 1200px){
       

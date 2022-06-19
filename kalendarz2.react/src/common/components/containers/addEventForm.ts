@@ -32,6 +32,15 @@ export const AddEventForm = styled.div<IColor>`
         font-size:1rem;
         font-weight:300;
         }
+        .recurringDiv{
+            display:flex;
+            align-items:center;
+            justify-content:flex-start;
+        }
+        label{
+            margin:0;
+            margin-left:0.3rem;
+        }
         .recurring{
             display:none;
             font-family:'inter';
@@ -42,9 +51,20 @@ export const AddEventForm = styled.div<IColor>`
             border:1px black solid;
             border-radius:1rem;
             padding:0.4rem;
+            width: 9rem;
+            height:auto;
+            position:absolute;
+            top:-1.2rem;
+            left:2rem;
+          
         }
-        .recurring:hover, .recurringDiv:hover + .recurring{
+        .iconDiv{
+            position:relative;
+            cursor: pointer;
+        }
+        .helpIcon:hover, .helpIcon:hover + .recurring{
             display:inline;
+        
         }
     }
 

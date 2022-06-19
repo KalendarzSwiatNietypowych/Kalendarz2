@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import App from "../../../App"
 
 interface IColor {
     darkmode:boolean;

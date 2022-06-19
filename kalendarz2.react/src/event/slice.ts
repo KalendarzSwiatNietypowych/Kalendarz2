@@ -1,12 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { connection } from "../common/hubs/conversationHub";
 import { initialState } from "../common/models/event/events";
-import { RootState } from "../common/store/rootReducer";
 import event from "../common/models/event/event"
 import {
-  addEventAction, deleteEventAction, getAllEventsAction, updateEventAction
-} from "./eventActions";
-import deleteEvent from "../common/models/event/deleteEvent";
+  addEventAction, deleteEventAction, getAllEventsAction} from "./eventActions";
 import updateEvent from "../common/models/event/updateEvent";
 
 export const eventSlice = createSlice({

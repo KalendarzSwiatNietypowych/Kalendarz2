@@ -4,11 +4,11 @@ interface IColor {
     darkmode:boolean
     color:string
   }
+
 export const NotificationsContainer = styled.div<IColor>`
     &&&{
         float:right;
         width:100%;
-       
         background-color:${(props) => props.darkmode == true? "#3e3e3e":"lightgray"}; 
         overflow-y:auto;
         font-family:'inter';
@@ -53,7 +53,7 @@ export const NotificationsContainer = styled.div<IColor>`
             ::-webkit-scrollbar-thumb:hover {
             background: lightgray;
             }
-                  }
+            }
         ul{
             display:flex;
             align-items:center;
@@ -72,7 +72,6 @@ export const NotificationsContainer = styled.div<IColor>`
             letter-spacing:0.3rem;
             text-decoration:underline;
             text-underline-offset:0.7rem;
-    
         }
         h4{
             font-weight:300;
@@ -83,21 +82,17 @@ export const NotificationsContainer = styled.div<IColor>`
             margin:0rem 0;
             font-weight:400;
             font-size:1.4rem;
-           
         }
         span{
             color:${(props) => props.color}; 
-            
             font-weight:400;
         }
         span:hover{
             color:${(props) => props.darkmode == true? "white":"black"}; 
-            
             cursor: pointer;
         }
         @media (min-width: 1200px){
-            width:100%;
-          
+            width:100%; 
         }
     }
 `
