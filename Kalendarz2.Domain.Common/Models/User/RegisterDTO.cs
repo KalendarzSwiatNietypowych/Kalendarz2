@@ -11,6 +11,4 @@ public class RegisterDTO
     [Required] public string LastName { get; set; }
 
     [Required][MinLength(6)] public string Password { get; set; }
-
-    public int RoleId { get; set; } = 1;
 }
