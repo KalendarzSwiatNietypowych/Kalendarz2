@@ -7,7 +7,7 @@ export const SendVerificationEmail = () => {
   return (
     <InfoContainer darkmode={isDarkmode}>
       <p>Hi, check your email in order to</p>
-      <p>authenticate your account!</p>
+      <p>verify your account!</p>
     </InfoContainer>
   );
 };

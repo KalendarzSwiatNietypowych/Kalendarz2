@@ -213,7 +213,7 @@ public class AccountSrv : IAccountSrv
             From = new EmailAddress("kalendarz2@onet.pl", "Team Kalendarz 2"),
             Subject = "Restar password to Kalendarz2",
             PlainTextContent = $"Hello {user.FirstName} {user.LastName} \n\n " +
-            $"We're really sorry you forgot password to our site. Don't worry here is link to reset your password in order to use our website:\n" +
+            $"We're really sorry you forgot password to our site. Don't worry here is link to reset your password in order to use our website:\n\n" +
             $"localhost:blablabla/api/Account/resetPassword/{user.Id}"
             //zmienić ścieżkę
         };
