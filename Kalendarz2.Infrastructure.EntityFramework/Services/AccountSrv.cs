@@ -80,17 +80,25 @@ public class AccountSrv : IAccountSrv
             Email = registerDTO.Email,
             FirstName = registerDTO.FirstName,
             LastName = registerDTO.LastName,
-            RoleId = registerDTO.RoleId,
+            PasswordHash = "",
             isVerified = false,
             IsDarkmode = true,
             Color = "#2BC598"
         };
 
         _dbContext.Users.Add(newUser);
+        _dbContext.SaveChanges();
 
-        var emailToSend = new SendEmailDTO() { Email = registerDTO.Email };
+        var newUserDTO = new UserDTO
+        {
+            Id = _dbContext.Users.FirstOrDefault(u => u.Email == registerDTO.Email).Id,
+            FirstName = newUser.FirstName,
+            LastName = newUser.LastName,
+            Email = newUser.Email
+        };
+
+        var emailToSend = new SendEmailDTO() { user = newUserDTO, Email = registerDTO.Email };
         EmailSenderAsync(emailToSend);
-        //newUser.isVerified = true;
 
         var hashedPassword = _passwordHasher.HashPassword(newUser, registerDTO.Password);
         newUser.PasswordHash = hashedPassword;
@@ -149,18 +157,17 @@ public class AccountSrv : IAccountSrv
     {
         var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
         var client = new SendGridClient(apiKey);
-        var user = _dbContext.Users.FirstOrDefault(u => u.Email == email.Email);
 
         var msg = new SendGridMessage()
         {
             From = new EmailAddress("kalendarz2@onet.pl", "Team Kalendarz 2"),
             Subject = "Verification Mail to Kalendarz2",
-            PlainTextContent = $"Hello {user.FirstName} {user.LastName} \n\n " +
-            $"We're really glad you registered to our webite. In order to verify your email play click in this not suspisiout link belowed:\n" +
-            $"/api/Account/verify/{user.Id}"
+            PlainTextContent = $"Hello {email.user.FirstName} {email.user.LastName} \n\n " +
+            $"We're really glad you registered to our webite. In order to verify your email play click in this not suspicious link belowed:\n\n" +
+            $"/api/Account/verify/{email.user.Id}"
         };
         //zmienić ścieżkę
-        msg.AddTo(new EmailAddress(user.Email, "Dear new user"));
+        msg.AddTo(new EmailAddress(email.user.Email, "Dear new user"));
         var response = await client.SendEmailAsync(msg);
 
         return true;

@@ -22,7 +22,10 @@ import { UpdateEvent } from "../event/UpdateEvent";
 import { Settings } from "../settings/Settings";
 import { ChangePassword } from "../auth/changePassword/ChangePassword";
 import { Notifications } from "../event/Notifications";
+import {SendVerificationEmail} from "../auth/verifyEmail/SendVerificationEmail";
+import { VerifiedEmail } from "../auth/verifyEmail/VerifiedEmail";
 import logo from "../common/components/img/logo.png";
+
 export const Navbar = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -101,6 +104,8 @@ export const Navbar = () => {
         <Route path="/event" element={<AddEvent />}></Route>
         <Route path="/settings" element={<Settings />}></Route>
         <Route path="/updateEvent" element={<UpdateEvent />}></Route>
+        <Route path="/sendEmailVerification" element={<SendVerificationEmail />}></Route>
+        <Route path="/verify/:userId" element={<VerifiedEmail />}></Route>
         <Route path="*" element={<Calendar />} />
       </Routes>
     </div>

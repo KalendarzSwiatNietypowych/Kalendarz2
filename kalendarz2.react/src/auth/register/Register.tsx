@@ -51,10 +51,10 @@ export const Register = () => {
   const [credits, setCredits] = useState(registerInitialState);
 
   useEffect(() => {
-    if (currentUser.token !== "") {
-      navigate("../", { replace: true });
+    if (currentUser.id !== 0) {
+      navigate("../sendEmailVerification", { replace: true });    
     }
-  }, [currentUser.token, navigate]);
+  }, [currentUser.id, navigate]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
