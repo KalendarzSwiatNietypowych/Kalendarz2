@@ -47,6 +47,7 @@ public class AccountSrv : IAccountSrv
     {
         var user = _dbContext.Users.FirstOrDefault(u => u.Email == loginDTO.Email);
         if (user == null) throw new LoginException();
+        if (user.isVerified == false) throw new UserNotVerifiedException();
         var result = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, loginDTO.Password);
         if (result == PasswordVerificationResult.Failed) throw new LoginException();
         var userAuth = new UserAuthorizeDTO

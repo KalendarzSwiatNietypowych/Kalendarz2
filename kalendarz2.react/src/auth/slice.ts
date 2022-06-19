@@ -49,16 +49,13 @@ export const authSlice = createSlice({
         registerAction.fulfilled,
         (state: user, action: PayloadAction<user>) => {
            if (action.payload !== undefined) {
-             localStorage.setItem("userToken", action.payload.token);
-             localStorage.setItem("id", action.payload.id.toString());
-             localStorage.setItem("firstName", action.payload.firstName);
-             localStorage.setItem("lastName", action.payload.lastName);
-             localStorage.setItem("email", action.payload.email);
              state.id = action.payload.id;
              state.firstName = action.payload.firstName;
              state.lastName = action.payload.lastName;
              state.token = action.payload.token;
              state.email = action.payload.email;
+             state.isDarkmode = action.payload.isDarkmode;
+             state.color = action.payload.color;
           }
         }
       )
@@ -79,6 +76,7 @@ export const authSlice = createSlice({
           }
         }
       )
+
   },
 });
 

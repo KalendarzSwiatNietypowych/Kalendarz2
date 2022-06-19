@@ -20,6 +20,9 @@ export const api = axios.create({
       if(response.request?.responseURL.toString().includes("Event/create")){
         toast.success("Event Added")
       }
+      if(response.request?.responseURL.toString().includes("register")){
+        toast.success("Account created. Check your email to verify it!");
+      }
       return response;
     },
     (error: AxiosError) => {

@@ -64,7 +64,7 @@ export const Navbar = () => {
         darkmode={currentUser.isDarkmode}
         color={currentUser.color}
       >
-        <ToastContainer autoClose={2000} position="top-left" />
+        <ToastContainer autoClose={4000} position="top-left" />
 
         <p onClick={() => navigate("/")}>
           <img src={logo} />
