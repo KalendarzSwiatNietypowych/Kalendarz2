@@ -21,14 +21,12 @@ public class AccountController : ControllerBase
     [HttpPost("register")]
     public ActionResult RegisterUser([FromBody] RegisterDTO registerDTO)
     {
-        registerDTO.Email.ToLower();
         return Ok(_accountFcd.RegisterUser(registerDTO));
     }
 
     [HttpPost("login")]
     public ActionResult LoginUser([FromBody] LoginDTO loginDTO)
     {
-        loginDTO.Email.ToLower();
         return Ok(_accountFcd.LoginUser(loginDTO));
     }
 
