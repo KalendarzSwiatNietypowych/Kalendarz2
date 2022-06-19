@@ -33,7 +33,6 @@ export const Notifications = () => {
       new Date(e.startEvent).getFullYear() == today.getFullYear() &&
       !isBeforeNow(e.startEvent)
   );
-  const filteredTodaysEvents = todaysEvents.filter((e) => !e.isDeleted);
 
   const tomorrowsEvents = events.filter(
     (e) =>
@@ -41,6 +40,58 @@ export const Notifications = () => {
       new Date(e.startEvent).getMonth() == today.getMonth() &&
       new Date(e.startEvent).getFullYear() == today.getFullYear()
   );
+  const recurringEvents = events.map((e) => {
+    if (e.isRecurring) {
+      console.log(e);
+      const nextStartYear = new Date(e.startEvent).getFullYear();
+      const nextEndYear = new Date(e.endEvent).getFullYear();
+      const newStartDate = new Date(e.startEvent);
+      const newEndDate = new Date(e.endEvent);
+      newStartDate.setFullYear(nextStartYear + 1);
+      newEndDate.setFullYear(nextEndYear + 1);
+      if (
+        newStartDate.getDate() == today.getDate() &&
+        newStartDate.getMonth() == today.getMonth() &&
+        newStartDate.getFullYear() == today.getFullYear() &&
+        !isBeforeNow(newStartDate)
+      ) {
+        todaysEvents.push({
+          id: e.id,
+          authorId: e.authorId,
+          title: e.title,
+          description: e.description,
+          location: e.location,
+          participantsEmails: e.participantsEmails,
+          startEvent: newStartDate,
+          endEvent: newEndDate,
+          color: e.color,
+          isDeleted: e.isDeleted,
+          isRecurring: false,
+          isEditable: false,
+        });
+      } else if (
+        newStartDate.getDate() == today.getDate() + 1 &&
+        newStartDate.getMonth() == today.getMonth() &&
+        newStartDate.getFullYear() == today.getFullYear()
+      ) {
+        tomorrowsEvents.push({
+          id: e.id,
+          authorId: e.authorId,
+          title: e.title,
+          description: e.description,
+          location: e.location,
+          participantsEmails: e.participantsEmails,
+          startEvent: newStartDate,
+          endEvent: newEndDate,
+          color: e.color,
+          isDeleted: e.isDeleted,
+          isRecurring: false,
+          isEditable: false,
+        });
+      }
+    }
+  });
+  const filteredTodaysEvents = todaysEvents.filter((e) => !e.isDeleted);
   const filteredTomorrowsEvents = tomorrowsEvents.filter((e) => !e.isDeleted);
 
   const sortedtodaysEvents = filteredTodaysEvents.sort(function (a, b) {

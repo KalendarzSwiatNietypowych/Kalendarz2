@@ -50,6 +50,23 @@ export const Calendar = () => {
       color: e.color,
     };
   });
+  const recurringEvents = nonDeletedEvents.map((e) => {
+    if (e.isRecurring) {
+      const nextStartYear = new Date(e.startEvent).getFullYear();
+      const nextEndYear = new Date(e.endEvent).getFullYear();
+      const newStartDate = new Date(e.startEvent);
+      const newEndDate = new Date(e.endEvent);
+      newStartDate.setFullYear(nextStartYear + 1);
+      newEndDate.setFullYear(nextEndYear + 1);
+      calendar_events.push({
+        title: e.title,
+        start: newStartDate,
+        end: newEndDate,
+        color: e.color,
+        allDay: true,
+      });
+    }
+  });
 
   return (
     <>

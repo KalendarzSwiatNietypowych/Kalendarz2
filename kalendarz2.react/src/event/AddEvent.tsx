@@ -40,6 +40,7 @@ export const AddEvent = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentAuthorId = useAppSelector((state) => SelectUser(state)).id;
+
   const calendarColors = useAppSelector((state) => SelectColors(state));
 
   const [credits, setCredits] = useState(initialState);
@@ -85,6 +86,7 @@ export const AddEvent = () => {
       })
     );
     setCredits(initialState);
+    setChecked(false);
   };
 
   return (
@@ -142,16 +144,21 @@ export const AddEvent = () => {
           />
         }
       />
-      <FormControlLabel
-        label="Recurring event"
-        control={
-          <StyledCheckbox
-            name="isRecurring"
-            checked={checked}
-            onChange={() => handleCheckbox()}
-          />
-        }
-      />
+      <div className="recurringDiv">
+        <FormControlLabel
+          label="Recurring event"
+          control={
+            <StyledCheckbox
+              name="isRecurring"
+              checked={checked}
+              onChange={() => handleCheckbox()}
+            />
+          }
+        />
+      </div>
+      <h5 className="recurring">
+        Event will also happen at the same time next year.
+      </h5>
 
       <SubmitButton
         onClick={(e) => handleSubmit(e)}

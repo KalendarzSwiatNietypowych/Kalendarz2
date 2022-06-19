@@ -32,6 +32,20 @@ export const AddEventForm = styled.div<IColor>`
         font-size:1rem;
         font-weight:300;
         }
+        .recurring{
+            display:none;
+            font-family:'inter';
+            font-weight:400;
+            background-color:${(props) => props.darkmode == true? "lightgray":"lightgray"}; 
+            color:black;
+            font-size:0.9rem;
+            border:1px black solid;
+            border-radius:1rem;
+            padding:0.4rem;
+        }
+        .recurring:hover, .recurringDiv:hover + .recurring{
+            display:inline;
+        }
     }
 
 `

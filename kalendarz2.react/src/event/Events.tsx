@@ -36,9 +36,51 @@ export const Events = () => {
   const futureEvents = events.filter(
     (e) => new Date(e.endEvent).getTime() > today.getTime()
   );
+
   const pastEvents = events.filter(
     (e) => new Date(e.endEvent).getTime() <= today.getTime()
   );
+  const recurringEvents = events.map((e) => {
+    if (e.isRecurring) {
+      const nextStartYear = new Date(e.startEvent).getFullYear();
+      const nextEndYear = new Date(e.endEvent).getFullYear();
+      const newStartDate = new Date(e.startEvent);
+      const newEndDate = new Date(e.endEvent);
+      newStartDate.setFullYear(nextStartYear + 1);
+      newEndDate.setFullYear(nextEndYear + 1);
+      if (newEndDate.getTime() <= today.getTime()) {
+        pastEvents.push({
+          id: e.id,
+          authorId: e.authorId,
+          title: e.title,
+          description: e.description,
+          location: e.location,
+          participantsEmails: e.participantsEmails,
+          startEvent: newStartDate,
+          endEvent: newEndDate,
+          color: e.color,
+          isDeleted: e.isDeleted,
+          isRecurring: false,
+          isEditable: false,
+        });
+      } else {
+        futureEvents.push({
+          id: e.id,
+          authorId: e.authorId,
+          title: e.title,
+          description: e.description,
+          location: e.location,
+          participantsEmails: e.participantsEmails,
+          startEvent: newStartDate,
+          endEvent: newEndDate,
+          color: e.color,
+          isDeleted: e.isDeleted,
+          isRecurring: false,
+          isEditable: false,
+        });
+      }
+    }
+  });
   const filteredFutureEvents = futureEvents.filter((e) => !e.isDeleted);
   const sortedFutureEvents = filteredFutureEvents.sort(function (a, b) {
     return new Date(a.endEvent).getTime() - new Date(b.endEvent).getTime();
@@ -49,6 +91,7 @@ export const Events = () => {
   });
   const eventsToDisplay =
     isUpcoming == true ? sortedFutureEvents : sortedPastEvents;
+
   const handleEdit = (event: event) => {
     navigate("/updateEvent", {
       state: {
@@ -160,10 +203,12 @@ export const Events = () => {
                     <LocationOnIcon />
                   </h3>
                 </div>
-                <div className="eventButtons">
-                  <EditIcon onClick={() => handleEdit(event)} />
-                  <DeleteForeverIcon onClick={() => handleDelete(event)} />
-                </div>
+                {event.isEditable && (
+                  <div className="eventButtons">
+                    <EditIcon onClick={() => handleEdit(event)} />
+                    <DeleteForeverIcon onClick={() => handleDelete(event)} />
+                  </div>
+                )}
               </Event>
             );
           })}

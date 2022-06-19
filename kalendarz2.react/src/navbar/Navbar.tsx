@@ -22,7 +22,7 @@ import { UpdateEvent } from "../event/UpdateEvent";
 import { Settings } from "../settings/Settings";
 import { ChangePassword } from "../auth/changePassword/ChangePassword";
 import { Notifications } from "../event/Notifications";
-
+import logo from "../common/components/img/logo.png";
 export const Navbar = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -40,7 +40,6 @@ export const Navbar = () => {
       eventInAnHour = eventInAnHour + 1;
     }
   });
-  console.log(eventInAnHour);
   const [isLogged, setIsLogged] = useState(false);
   useEffect(() => {
     if (localStorage.getItem("userToken") !== null) {
@@ -63,7 +62,11 @@ export const Navbar = () => {
         color={currentUser.color}
       >
         <ToastContainer autoClose={2000} position="top-left" />
-        <p onClick={() => navigate("/")}>Calendar</p>
+
+        <p onClick={() => navigate("/")}>
+          <img src={logo} />
+          Calendar
+        </p>
         <CalendarMonthIcon onClick={() => navigate("/")} />
         {isLogged && <AddIcon onClick={() => navigate("/event")} />}
         {isLogged && eventInAnHour == 0 && (
