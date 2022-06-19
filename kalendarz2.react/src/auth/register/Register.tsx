@@ -73,9 +73,10 @@ export const Register = () => {
         return;
       }
     }
-    setCredits(registerInitialState);
     dispatch(registerAction(credits));
+    setCredits(registerInitialState);
   };
+
   return (
     <RegisterFormContainer
       darkmode={currentUser.isDarkmode}
@@ -124,7 +125,7 @@ export const Register = () => {
       </SubmitButton>
       <h2>Already have an account?</h2>
       <ActionButton className="new-account" onClick={() => navigate("/login")}>
-        Sign In
+        Sign in
       </ActionButton>
     </RegisterFormContainer>
   );
