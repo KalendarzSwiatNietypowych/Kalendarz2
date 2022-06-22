@@ -18,7 +18,7 @@ export const Calendar = () => {
   const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
-    if (currentUser.id != 0) {
+    if (currentUser.id != 0  && currentUser.token != "") {
       setIsLogged(true);
       dispatch(getAllEventsAction({ authorId: currentUser.id }));
     } else {
@@ -41,6 +41,7 @@ export const Calendar = () => {
         end: e.endEvent,
         color: e.color,
         allDay: true,
+        
       };
     }
     return {

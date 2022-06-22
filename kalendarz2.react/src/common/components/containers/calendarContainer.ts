@@ -85,6 +85,15 @@ export const CalendarContainer = styled.div<IColor>`
       background-color:${(props) => props.darkmode == true? "#3e3e3e":"#AEAEAE"}; 
       border-radius: 1rem;
     }
+    .fc-theme-standard .fc-popover{
+      border: 2px solid ${(props) => props.darkmode == true? "#292828":"#AEAEAE"} !important;
+    }
+    .fc-theme-standard .fc-popover-header{
+      background-color:${(props) => props.darkmode == true? "#292828":"#AEAEAE"} !important; 
+    }
+    .fc .fc-more-popover .fc-popover-body{
+      background-color:${(props) => props.darkmode == true? "#3e3e3e":"#cccccc"} !important; 
+    }
     .fc-scrollgrid-section-header div {
       overflow: hidden !important;
     }
@@ -118,6 +127,13 @@ export const CalendarContainer = styled.div<IColor>`
      }
      .fc-scroller::-webkit-scrollbar-thumb:hover {
         background: #ddd !important; 
+    }
+    .fc-daygrid-more-link{
+        background-color: ${(props) =>props.color} !important;
+        border-radius: 0.25rem !important;
+        width: 100% !important;
+        height: 18.8px !important;
+        display:flex !important;
     }
     @media (min-width: 1200px){
       float:left;

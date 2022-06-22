@@ -23,7 +23,7 @@ export const Events = () => {
   const [query, setQuery] = useState("");
 
   useEffect(() => {
-    if (currentUser.id != 0) {
+    if (currentUser.id != 0 && currentUser.token != "") {
       setIsLogged(true);
       dispatch(getAllEventsAction({ authorId: currentUser.id }));
     } else {

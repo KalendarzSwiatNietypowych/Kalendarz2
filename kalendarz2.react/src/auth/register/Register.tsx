@@ -50,12 +50,6 @@ export const Register = () => {
   const navigate = useNavigate();
   const [credits, setCredits] = useState(registerInitialState);
 
-  useEffect(() => {
-    if (currentUser.id !== 0) {
-      navigate("../sendEmailVerification", { replace: true });    
-    }
-  }, [currentUser.id, navigate]);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setCredits((prevState) => ({

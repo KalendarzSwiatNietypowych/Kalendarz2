@@ -165,7 +165,7 @@ public class AccountSrv : IAccountSrv
             Subject = "Verification Mail to Kalendarz2",
             PlainTextContent = $"Hello {email.user.FirstName} {email.user.LastName} \n\n " +
             $"We're really glad you registered to our webite. In order to verify your email play click in this not suspicious link belowed:\n\n" +
-            $"https://kalendarz2.azurewebsites.net/verify/{email.user.Id}"
+            $"http://localhost:3000/verify/{email.user.Id}"
         };
         msg.AddTo(new EmailAddress(email.user.Email, "Dear new user"));
         var response = await client.SendEmailAsync(msg);

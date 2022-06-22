@@ -45,20 +45,6 @@ export const authSlice = createSlice({
         }
       )
       .addCase(
-        registerAction.fulfilled,
-        (state: user, action: PayloadAction<user>) => {
-           if (action.payload !== undefined) {
-             state.id = action.payload.id;
-             state.firstName = action.payload.firstName;
-             state.lastName = action.payload.lastName;
-             state.token = action.payload.token;
-             state.email = action.payload.email;
-             state.isDarkmode = action.payload.isDarkmode;
-             state.color = action.payload.color;
-          }
-        }
-      )
-      .addCase(
         updateSettingsAction.fulfilled,
         (state, action) => {
           if (action.payload !== undefined) {
